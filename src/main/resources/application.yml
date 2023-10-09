@@ -1,0 +1,8 @@
+configuration:
+  swagger:
+    app: 'Job Search Platform'
+    description: 'A simple job search platform built with Spring Boot'
+    developer: 'Melisa Geca'
+    email: 'melisa.geca@stu.ibu.edu.ba'
+  mailsender:
+    default: 'sendgrid'
