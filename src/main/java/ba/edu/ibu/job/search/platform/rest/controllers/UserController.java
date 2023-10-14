@@ -19,7 +19,6 @@ public class UserController {
         this.userService=userService;
     }
 
-
     @GetMapping("/send-to-all")
     public String sendEmailToAllUsers(@RequestParam String message){
         return userService.sendEmailToAllUsers(message);
