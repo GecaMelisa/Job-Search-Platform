@@ -6,3 +6,10 @@ configuration:
     email: 'melisa.geca@stu.ibu.edu.ba'
   mailsender:
     default: 'sendgrid'
+
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://melisageca:MelisaGeca55@job.oqxsoau.mongodb.net/?retryWrites=true&w=majority
+      database: job

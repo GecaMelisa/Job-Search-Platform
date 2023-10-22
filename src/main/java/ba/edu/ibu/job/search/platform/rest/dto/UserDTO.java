@@ -1,22 +1,21 @@
-package ba.edu.ibu.job.search.platform.core.model;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
+package ba.edu.ibu.job.search.platform.rest.dto;
+import ba.edu.ibu.job.search.platform.core.model.User;
+import ba.edu.ibu.job.search.platform.core.model.enums.UserType;
 import java.util.Date;
-
-@Document
-public class Company {
-
-    @Id
+public class UserDTO {
     private String id;
     private String name;
-    private String address;
-    private int phone;
+    private UserType userType;
     private String email;
-    private int income;
     private Date creationDate;
 
+    public UserDTO(User user){
+        this.id = user.getId();
+        this.name = user.getFirstName() + " " + user.getLastName();
+        this.userType=user.getUserType();
+        this.email = user.getEmail();
+        this.creationDate = user.getCreationDate();
+    }
     public String getId() {
         return id;
     }
@@ -33,34 +32,20 @@ public class Company {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
+    public UserType getUserType() {
+        return userType;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public int getPhone() {
-        return phone;
-    }
-
-    public void setPhone(int phone) {
-        this.phone = phone;
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
-    }
-    public int getIncome() {
-        return income;
-    }
-
-    public void setIncome(int income) {
-        this.income = income;
     }
 
     public Date getCreationDate() {
@@ -70,4 +55,5 @@ public class Company {
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
+
 }
