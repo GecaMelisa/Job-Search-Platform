@@ -2,27 +2,25 @@ package ba.edu.ibu.job.search.platform.core.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import ba.edu.ibu.job.search.platform.core.model.enums.JobType;
 
 import java.util.Date;
+import java.util.List;
 
 @Document
 public class Job {
 
     @Id
     private String id;
-    private String title;
-    private String company;
+    private Company companyId;
+    private String position;
     private String description;
     private String location;
-    private String type;
+    private JobType jobType;
     private int salary;
-    private String requirements;
-    private String contactEmail;
-    private Date postedDate;
-    private Date deadline;
-
-    public Job() {
-    }
+    private List <Job> requirements; // list
+    private String postedDate; // better to go to Job
+    private String deadline; // go to Jo
 
     public String getId() {
         return id;
@@ -32,20 +30,21 @@ public class Job {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public Company getCompanyId() {
+        return companyId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCompanyId(Company companyId) {
+        this.companyId = companyId;
     }
 
-    public String getCompany() {
-        return company;
+
+    public String getPosition() {
+        return position;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setPosition(String title) {
+        this.position = position;
     }
 
     public String getDescription() {
@@ -64,12 +63,13 @@ public class Job {
         this.location = location;
     }
 
-    public String getType() {
-        return type;
+
+    public JobType getJobType() {
+        return jobType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setJobType(JobType jobType) {
+        this.jobType = jobType;
     }
 
     public int getSalary() {
@@ -80,35 +80,27 @@ public class Job {
         this.salary = salary;
     }
 
-    public String getRequirements() {
+    public List<Job> getRequirements() {
         return requirements;
     }
 
-    public void setRequirements(String requirements) {
+    public void setRequirements(List<Job> requirements) {
         this.requirements = requirements;
     }
 
-    public String getContactEmail() {
-        return contactEmail;
-    }
-
-    public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail;
-    }
-
-    public Date getPostedDate() {
+    public String getPostedDate() {
         return postedDate;
     }
 
-    public void setPostedDate(Date postedDate) {
+    public void setPostedDate(String postedDate) {
         this.postedDate = postedDate;
     }
 
-    public Date getDeadline() {
+    public String getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Date deadline) {
+    public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
 }

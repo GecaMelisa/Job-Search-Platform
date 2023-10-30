@@ -4,18 +4,29 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.List;
 
 @Document
 public class Company {
 
     @Id
     private String id;
-    private String name;
+    private String jobId;
+    private String companyName;
     private String address;
     private int phone;
     private String email;
-    private int income;
-    private Date creationDate;
+    private List<Job> jobs;
+
+    private List<User> Employees;
+
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
+    }
 
     public String getId() {
         return id;
@@ -25,12 +36,20 @@ public class Company {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getJobId() {
+        return jobId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getAddress() {
@@ -55,19 +74,12 @@ public class Company {
     public void setEmail(String email) {
         this.email = email;
     }
-    public int getIncome() {
-        return income;
+
+    public List<User> getEmployees() {
+        return Employees;
     }
 
-    public void setIncome(int income) {
-        this.income = income;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setEmployees(List<User> employees) {
+        Employees = employees;
     }
 }

@@ -1,29 +1,34 @@
 package ba.edu.ibu.job.search.platform.rest.dto;
+import ba.edu.ibu.job.search.platform.core.model.Company;
 import ba.edu.ibu.job.search.platform.core.model.Job;
+import ba.edu.ibu.job.search.platform.core.model.enums.JobType;
+import org.springframework.data.annotation.Id;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class JobDTO {
+    @Id
     private String id;
-    private String title;
-    private String company;
+    private Company companyId;
+    private String position;
     private String description;
     private String location;
-    private String type;
-    private String requirements;
-    private String contactEmail;
-    private Date postedDate;
-    private Date deadline;
-
+    private JobType jobType;
+    private int salary;
+    private List<Job> requirements;
+    private String postedDate;
+    private String deadline;
     public JobDTO(Job job){
         this.id = job.getId();
-        this.title = job.getTitle();
-        this.company=job.getCompany();
+        this.companyId=job.getCompanyId();
+        this.position = job.getPosition();
         this.description = job.getDescription();
         this.location = job.getLocation();
-        this.type = job.getType();
-        this.requirements=job.getRequirements();
-        this.contactEmail=job.getContactEmail();
+        this.jobType = job.getJobType();
+        this.salary=job.getSalary();
+        this.requirements = new ArrayList<>(job.getRequirements());
         this.postedDate=job.getPostedDate();
         this.deadline=job.getDeadline();
     }
@@ -36,21 +41,22 @@ public class JobDTO {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public Company getCompanyId() {
+        return companyId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCompanyId(Company companyId) {
+        this.companyId = companyId;
     }
 
-    public String getCompany() {
-        return company;
+    public String getPosition() {
+        return position;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setPosition(String position) {
+        this.position = position;
     }
+
 
     public String getDescription() {
         return description;
@@ -68,43 +74,43 @@ public class JobDTO {
         this.location = location;
     }
 
-    public String getType() {
-        return type;
+    public JobType getJobType() {
+        return jobType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setJobType(JobType jobType) {
+        this.jobType = jobType;
     }
 
-    public String getRequirements() {
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    public List<Job> getRequirements() {
         return requirements;
     }
 
-    public void setRequirements(String requirements) {
+    public void setRequirements(List<Job> requirements) {
         this.requirements = requirements;
     }
 
-    public String getContactEmail() {
-        return contactEmail;
-    }
-
-    public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail;
-    }
-
-    public Date getPostedDate() {
+    public String getPostedDate() {
         return postedDate;
     }
 
-    public void setPostedDate(Date postedDate) {
+    public void setPostedDate(String postedDate) {
         this.postedDate = postedDate;
     }
 
-    public Date getDeadline() {
+    public String getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Date deadline) {
+    public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
 }

@@ -35,6 +35,14 @@ public class JobController {
     }
 
     /**
+     * Get a job by position
+     */
+    @RequestMapping(method = RequestMethod.GET, path = "/{position}")
+    public ResponseEntity<JobDTO> getJobByPosition(@PathVariable String position) {
+        return ResponseEntity.ok(jobService.getJobById(position));
+    }
+
+    /**
      * Add a job
      */
     @RequestMapping(method = RequestMethod.POST, path = "/register")
@@ -59,12 +67,6 @@ public class JobController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    /**
-     * Find a job by title
-     */
-    @RequestMapping(method = RequestMethod.GET, path = "/filter")
-    public ResponseEntity<JobDTO> findByTitle(@RequestParam String title) {
-        return ResponseEntity.ok(jobService.findByTitle(title));
-    }
+
 }
 

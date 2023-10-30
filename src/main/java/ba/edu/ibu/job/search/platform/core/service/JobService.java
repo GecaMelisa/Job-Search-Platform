@@ -51,12 +51,12 @@ public class JobService {
     }
 
     /**
-     * Get a job by title
+     * Get a job by position
      */
-    public JobDTO getJobByTitle(String title) {
-        Optional<Job> job = jobRepository.findByTitle(title);
+    public JobDTO getJobByPosition(String position) {
+        Optional<Job> job = jobRepository.findByPosition(position);
         if (job.isEmpty()) {
-            throw new ResourceNotFoundException("The job with the given title does not exist.");
+            throw new ResourceNotFoundException("The job with the given position does not exist.");
         }
         return new JobDTO(job.get());
     }
@@ -89,9 +89,4 @@ public class JobService {
         job.ifPresent(jobRepository::delete);
     }
 
-    /**Filter jobs by title */
-    public JobDTO findByTitle(String title) {
-        Optional<Job> job = jobRepository.findByTitle(title);
-        return job.map(JobDTO::new).orElse(null);
-    }
 }

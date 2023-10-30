@@ -14,7 +14,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
 
-    //Aggregation - primjena mongoDB agregacioni pipline za dohvat podataka iz baze
+    /**Aggregation - primjena mongoDB agregacioni pipline za dohvat podataka iz baze*/
     @Aggregation(pipeline = """
         { $match: { _id: { $exists: true } } } //match za filtriranje dokumenata
     """)

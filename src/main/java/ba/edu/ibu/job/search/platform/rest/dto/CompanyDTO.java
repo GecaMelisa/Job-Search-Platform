@@ -5,14 +5,14 @@ import ba.edu.ibu.job.search.platform.core.model.Company;
 
 public class CompanyDTO {
         private String id;
-        private String name;
+        private String companyName;
         private String address;
         private int phone;
         private String email;
 
         public CompanyDTO(Company company){
             this.id = company.getId();
-            this.name=company.getName();
+            this.companyName=company.getCompanyName();
             this.address=company.getAddress();
             this.phone=company.getPhone();
             this.email = company.getEmail();
@@ -25,12 +25,12 @@ public class CompanyDTO {
             this.id = id;
         }
 
-        public String getName() {
-            return name;
+        public String getCompanyName() {
+            return companyName;
         }
 
-        public void setName(String name) {
-            this.name = name;
+        public void setCompanyName(String companyName) {
+            this.companyName = companyName;
         }
 
         public String getAddress() {

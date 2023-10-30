@@ -5,7 +5,7 @@ import ba.edu.ibu.job.search.platform.core.model.Company;
 import java.util.Date;
 
 public class CompanyRequestDTO {
-    private String name;
+    private String companyName;
     private String address;
     private int phone;
     private String email;
@@ -19,7 +19,7 @@ public class CompanyRequestDTO {
 
     /**Constructor which takes in the Model object as parameter*/
     public CompanyRequestDTO(Company company) {
-        this.name = company.getName();
+        this.companyName = company.getCompanyName();
         this.address = company.getAddress();
         this.phone = company.getPhone();
         this.email = company.getEmail();
@@ -28,19 +28,19 @@ public class CompanyRequestDTO {
     /**Converting from a DTO to a model with method toEntity which creates an empty Model object and assigns the data from the DTO to the model*/
     public Company toEntity() {
         Company company = new Company();
-        company.setName(name);
+        company.setCompanyName(companyName);
         company.setAddress(address);
         company.setPhone(phone);
         company.setEmail(email);
         return company;
     }
 
-    public String getName() {
-        return name;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getAddress() {
