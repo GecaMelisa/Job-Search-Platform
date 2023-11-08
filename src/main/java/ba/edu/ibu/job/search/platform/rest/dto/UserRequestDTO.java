@@ -10,14 +10,13 @@ public class UserRequestDTO {
     private String firstName;
     private String lastName;
     private String dateOfBirth;
-    private int phoneNumber;
+    private String phoneNumber;
     private String email;
     private String address;
     private String education;
     private String workExperience;
     private String username;
     private String password;
-    private String creationDate;
 
     /**Converting from a model to a DTO
 
@@ -37,7 +36,6 @@ public class UserRequestDTO {
         this.workExperience=user.getWorkExperience();
         this.username = user.getUsername();
         this.password = user.getPassword();
-        this.creationDate=user.getCreationDate();
     }
 
     /**Converting from a DTO to a model with method toEntity which creates an empty Model object and assigns the data from the DTO to the model*/
@@ -54,7 +52,6 @@ public class UserRequestDTO {
         user.setWorkExperience(workExperience);
         user.setUsername(username);
         user.setPassword(password);
-        user.setCreationDate(creationDate);
 
         return user;
     }
@@ -107,11 +104,11 @@ public class UserRequestDTO {
         this.address = address;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -148,11 +145,5 @@ public class UserRequestDTO {
         this.password = password;
     }
 
-    public String getCreationDate() {
-        return creationDate;
-    }
 
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
-    }
 }

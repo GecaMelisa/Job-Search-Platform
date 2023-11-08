@@ -2,153 +2,51 @@ package ba.edu.ibu.job.search.platform.rest.dto;
 
 import ba.edu.ibu.job.search.platform.core.model.Application;
 import ba.edu.ibu.job.search.platform.core.model.User;
+import ba.edu.ibu.job.search.platform.core.model.enums.StatusRequest;
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
+
 public class SubmitAppDTO {
-        @Id
-        private String id;
-        private String userId;
-        private String jobId;
-        private String firstName;
-        private String lastName;
-        private String dateOfBirth;
-        private int phoneNumber;
-        private String email;
-        private String address;
-        private String education;
-        private String workExperience;
-        private String username;
-        private String password;
+
+        private UserDTO user;
+        private JobDTO job;
         private String cv;
         private String applicationDate;
+        private StatusRequest statusRequest;
+        private List<Application> submittedApplications;
 
 
-        public SubmitAppDTO(Application application, User user) {
-            this.id=application.getId();
-            this.userId=application.getUserId();
-            this.jobId=application.getJobId();
-            this.firstName=user.getFirstName();
-            this.lastName=user.getLastName();
-            this.dateOfBirth=user.getDateOfBirth();
-            this.phoneNumber=user.getPhoneNumber();
-            this.email=user.getEmail();
-            this.address=user.getAddress();
-            this.education=user.getEducation();
-            this.workExperience=user.getWorkExperience();
-            this.username=user.getUsername();
-            this.password=user.getPassword();
+        public SubmitAppDTO(Application application) {
+            this.user=new UserDTO(application.getUser());
+            this.job=new JobDTO(application.getJob());
+
+            this.cv=application.getCv();
             this.applicationDate=application.getApplicationDate();
-
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
-
-        public String getJobId() {
-            return jobId;
-        }
-
-        public void setJobId(String jobId) {
-            this.jobId = jobId;
+            this.statusRequest=application.getStatusRequest();
+            this.submittedApplications=application.getSubmittedApplications;
         }
 
 
-        public String getFirstName() {
-            return firstName;
+        public UserDTO getUser() {
+            return user;
         }
 
-        public void setFirstName(String firstName) {
-            this.firstName = firstName;
+        public void setUser(UserDTO user) {
+            this.user = user;
         }
 
-        public String getLastName() {
-            return lastName;
+        public JobDTO getJob() {
+            return job;
         }
 
-        public void setLastName(String lastName) {
-            this.lastName = lastName;
-        }
-
-        public String getDateOfBirth() {
-            return dateOfBirth;
-        }
-
-        public void setDateOfBirth(String dateOfBirth) {
-            this.dateOfBirth = dateOfBirth;
-        }
-
-        public int getPhoneNumber() {
-            return phoneNumber;
-        }
-
-        public void setPhoneNumber(int phoneNumber) {
-            this.phoneNumber = phoneNumber;
-        }
-
-        public String getEmail() {
-            return email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
-        public String getAddress() {
-            return address;
-        }
-
-        public void setAddress(String address) {
-            this.address = address;
-        }
-
-        public String getEducation() {
-            return education;
-        }
-
-        public void setEducation(String education) {
-            this.education = education;
-        }
-
-        public String getWorkExperience() {
-            return workExperience;
-        }
-
-        public void setWorkExperience(String workExperience) {
-            this.workExperience = workExperience;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        public void setUsername(String username) {
-            this.username = username;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
+        public void setJob(JobDTO job) {
+            this.job = job;
         }
 
         public String getCv() {
-            return cv;
-        }
+                return cv;
+            }
 
         public void setCv(String cv) {
             this.cv = cv;
@@ -160,6 +58,22 @@ public class SubmitAppDTO {
 
         public void setApplicationDate(String applicationDate) {
             this.applicationDate = applicationDate;
+        }
+
+        public StatusRequest getStatusRequest() {
+            return statusRequest;
+        }
+
+        public void setStatusRequest(StatusRequest statusRequest) {
+            this.statusRequest = statusRequest;
+        }
+
+        public List<Application> getSubmittedApplications() {
+            return submittedApplications;
+        }
+
+        public void setSubmittedApplications(List<Application> submittedApplications) {
+            this.submittedApplications = submittedApplications;
         }
 }
 

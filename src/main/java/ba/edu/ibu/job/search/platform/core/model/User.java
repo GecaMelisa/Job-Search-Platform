@@ -4,13 +4,16 @@ import org.springframework.data.annotation.Id;
 import ba.edu.ibu.job.search.platform.core.model.enums.UserType;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 
 @Document
-public class User {
+public class User  {
     @Id
     private String id;
     private UserType userType;
@@ -18,7 +21,7 @@ public class User {
     private String lastName;
     private String dateOfBirth;
     private String email;
-    private int phoneNumber;
+    private String  phoneNumber;
     private String address;
     private String education;
     private String workExperience;
@@ -27,9 +30,7 @@ public class User {
     private String creationDate;
     private List<Application> applications;
 
-    public User() {
-        this.applications = new ArrayList<>();
-    }
+
 
     public String getId() {
         return id;
@@ -71,7 +72,7 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public int getPhoneNumber() {
+    public String  getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -83,7 +84,7 @@ public class User {
         this.address = address;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -114,8 +115,10 @@ public class User {
     public String getUsername(){
         return username;
     }
-    public void setUsername(String username) {
-        this.username = username;
+
+
+    public void setUsername(String username){
+        this.username=username;
     }
 
     public String getPassword() {
@@ -125,6 +128,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
 
     public String getCreationDate(){
         return creationDate;
@@ -141,6 +145,7 @@ public class User {
     public void setApplications(List<Application> applications) {
         this.applications = applications;
     }
+
 
 
 

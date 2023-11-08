@@ -1,10 +1,11 @@
 package ba.edu.ibu.job.search.platform.core.model;
 
+import ba.edu.ibu.job.search.platform.core.model.enums.JobStatus;
+import ba.edu.ibu.job.search.platform.rest.dto.SubmitAppDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import ba.edu.ibu.job.search.platform.core.model.enums.JobType;
 
-import java.util.Date;
 import java.util.List;
 
 @Document
@@ -12,15 +13,17 @@ public class Job {
 
     @Id
     private String id;
-    private Company companyId;
+    private Company company;
     private String position;
     private String description;
     private String location;
     private JobType jobType;
     private int salary;
-    private List <Job> requirements; // list
-    private String postedDate; // better to go to Job
-    private String deadline; // go to Jo
+    private List <String> requirements;
+    private String postedDate;
+    private String deadline;
+    private JobStatus jobStatus; //da znamo je li oglas jos uvijek aktivan ili nije
+    private List<SubmitAppDTO> submittedApplications;
 
     public String getId() {
         return id;
@@ -30,12 +33,12 @@ public class Job {
         this.id = id;
     }
 
-    public Company getCompanyId() {
-        return companyId;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCompanyId(Company companyId) {
-        this.companyId = companyId;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
 
@@ -80,11 +83,11 @@ public class Job {
         this.salary = salary;
     }
 
-    public List<Job> getRequirements() {
+    public List<String> getRequirements() {
         return requirements;
     }
 
-    public void setRequirements(List<Job> requirements) {
+    public void setRequirements(List<String> requirements) {
         this.requirements = requirements;
     }
 
@@ -102,6 +105,14 @@ public class Job {
 
     public void setDeadline(String deadline) {
         this.deadline = deadline;
+    }
+
+    public List<SubmitAppDTO> getSubmittedApplications() {
+        return submittedApplications;
+    }
+
+    public void setSubmittedApplications(List<SubmitAppDTO> submittedApplications) {
+        this.submittedApplications = submittedApplications;
     }
 }
 

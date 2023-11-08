@@ -38,12 +38,39 @@ public class CompanyController {
     }
 
     /**
-     * Add a company
+     * Add a company - only companyOwner
      */
     @RequestMapping(method = RequestMethod.POST, path = "/register")
     public ResponseEntity<CompanyDTO> register(@RequestBody CompanyRequestDTO company) {
         return ResponseEntity.ok(companyService.addCompany(company));
     }
+
+    /** Get all unapporved companies - only admin */
+
+    @RequestMapping(method = RequestMethod.GET, path = "/unapprovedCompanies")
+    public ResponseEntity<List<CompanyDTO>> getUnapprovedCompanies() {
+        List<CompanyDTO> unapprovedCompanies = companyService.getUnapprovedCompanies();
+        return ResponseEntity.ok(unapprovedCompanies);
+    }
+
+
+    /**
+     * Approve a company by ADMIN
+     */
+    @RequestMapping(method = RequestMethod.PUT, path = "/approve/{companyId}")
+    public ResponseEntity<String> approveCompany(@PathVariable String companyId) {
+        companyService.approveCompany(companyId);
+        return ResponseEntity.ok("Company approved successfully");
+    }
+
+    /** Get all approved companies - only admin */
+
+    @RequestMapping(method = RequestMethod.GET, path = "/approvedCompanies")
+    public ResponseEntity<List<CompanyDTO>> getApprovedCompanies() {
+        List<CompanyDTO> approvedCompanies = companyService.getApprovedCompanies();
+        return ResponseEntity.ok(approvedCompanies);
+    }
+
 
     /**
      * Update a company by ID
@@ -54,13 +81,14 @@ public class CompanyController {
     }
 
     /**
-     * Delete a company
+     * Delete a company by ID
      */
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
-    public ResponseEntity<Void> deleteCompany(@PathVariable String id) {
-        companyService.deleteCompany(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<String> deleteCompany(@PathVariable("id") String companyId) {
+        companyService.deleteCompany(companyId);
+        return ResponseEntity.ok("Company deleted successfully");
     }
+
 
     /**
      * Filter companies by email

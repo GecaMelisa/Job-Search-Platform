@@ -18,17 +18,19 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class JobService {
 
-    private final JobRepository jobRepository;
+    private JobRepository jobRepository;
+    private CompanyService companyService;
 
     /**
      * Dependency injection.
      */
-    public JobService(JobRepository jobRepository) {
+    public JobService(JobRepository jobRepository, CompanyService companyService) {
         this.jobRepository = jobRepository;
+        this.companyService = companyService;
     }
 
     /**
-     * Get all jobs
+     * Get all jobs - svi
      */
     public List<JobDTO> getJobs() {
         List<Job> jobs = jobRepository.findAll();
@@ -51,6 +53,29 @@ public class JobService {
     }
 
     /**
+     * Get a job by id
+     */
+    public Job getJobById2(String id) {
+        Optional<Job> job = jobRepository.findById(id);
+        if (job.isEmpty()) {
+            throw new ResourceNotFoundException("The job with the given ID does not exist.");
+        }
+        return job.get();
+    }
+
+    /**
+     * need this for assigning application to job
+     */
+    public Job getSubmittedApplications(String id) {
+        Optional<Job> job = jobRepository.findById(id);
+        if (job.isEmpty()) {
+            throw new ResourceNotFoundException("The job owner with the given ID does not exist.");
+        }
+        return job.get();
+    }
+
+
+    /**
      * Get a job by position
      */
     public JobDTO getJobByPosition(String position) {
@@ -62,15 +87,22 @@ public class JobService {
     }
 
     /**
-     * Add a job
+     * Add a job - only companyOwner
      */
     public JobDTO addJob(JobRequestDTO payload) {
-        Job job = jobRepository.save(payload.toEntity());
+        String companyId = payload.getCompanyId();
+
+        Company company = companyService.getCompanyById2(companyId);
+        Job job = payload.toEntity();
+        job.setCompany(company);
+        //jobRepository.save(payload.toEntity());
+        jobRepository.save(job);
+
         return new JobDTO(job);
     }
 
     /**
-     * Update a job by id
+     * Update a job by id - companyOwner only
      */
     public JobDTO updateJob(String id, JobRequestDTO payload) {
         Optional<Job> job = jobRepository.findById(id);
@@ -83,7 +115,9 @@ public class JobService {
         return new JobDTO(updatedJob);
     }
 
-    /**Delete a job*/
+    /**
+     * Delete a job - company owner onyl
+     */
     public void deleteJob(String id) {
         Optional<Job> job = jobRepository.findById(id);
         job.ifPresent(jobRepository::delete);

@@ -18,5 +18,6 @@ public interface CompanyRepository extends MongoRepository<Company, String> {
 
     Optional<Company> findFirstByEmailLike(String emailPattern);
 
+    List<Company> findByApprovedByAdmin(boolean b);
 }
 

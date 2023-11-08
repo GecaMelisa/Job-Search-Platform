@@ -2,6 +2,7 @@ package ba.edu.ibu.job.search.platform.rest.dto;
 import ba.edu.ibu.job.search.platform.core.model.Company;
 import ba.edu.ibu.job.search.platform.core.model.Job;
 import ba.edu.ibu.job.search.platform.core.model.enums.JobType;
+import ba.edu.ibu.job.search.platform.core.model.enums.StatusRequest;
 import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
@@ -9,20 +10,26 @@ import java.util.Date;
 import java.util.List;
 
 public class JobDTO {
-    @Id
-    private String id;
-    private Company companyId;
+
+    private String jobId;
+    private List<SubmitAppDTO> submittedApplications;
+    private Company company;
     private String position;
     private String description;
     private String location;
     private JobType jobType;
     private int salary;
-    private List<Job> requirements;
+    private List<String> requirements;
     private String postedDate;
     private String deadline;
+    private StatusRequest statusRequest;
+
     public JobDTO(Job job){
-        this.id = job.getId();
-        this.companyId=job.getCompanyId();
+
+       // this.company=new CompanyDTO(job.getCompany());
+        this.company=job.getCompany();
+
+        this.jobId=job.getId();
         this.position = job.getPosition();
         this.description = job.getDescription();
         this.location = job.getLocation();
@@ -33,20 +40,21 @@ public class JobDTO {
         this.deadline=job.getDeadline();
     }
 
-    public String getId() {
-        return id;
+
+    public Company getCompany () {
+        return  company;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
-    public Company getCompanyId() {
-        return companyId;
+    public List<SubmitAppDTO> getSubmittedApplications() {
+        return submittedApplications;
     }
 
-    public void setCompanyId(Company companyId) {
-        this.companyId = companyId;
+    public void setSubmittedApplications(List<SubmitAppDTO> submittedApplications) {
+        this.submittedApplications = submittedApplications;
     }
 
     public String getPosition() {
@@ -90,11 +98,11 @@ public class JobDTO {
         this.salary = salary;
     }
 
-    public List<Job> getRequirements() {
+    public List<String> getRequirements() {
         return requirements;
     }
 
-    public void setRequirements(List<Job> requirements) {
+    public void setRequirements(List<String> requirements) {
         this.requirements = requirements;
     }
 
@@ -112,5 +120,21 @@ public class JobDTO {
 
     public void setDeadline(String deadline) {
         this.deadline = deadline;
+    }
+
+    public String getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
+    }
+
+    public StatusRequest getStatusRequest() {
+        return statusRequest;
+    }
+
+    public void setStatusRequest(StatusRequest statusRequest) {
+        this.statusRequest = statusRequest;
     }
 }

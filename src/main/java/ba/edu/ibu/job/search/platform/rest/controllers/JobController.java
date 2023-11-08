@@ -62,9 +62,9 @@ public class JobController {
      * Delete a job
      */
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
-    public ResponseEntity<Void> deleteJob(@PathVariable String id) {
-        jobService.deleteJob(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<String> deleteJob(@PathVariable("id") String jobId) {
+        jobService.deleteJob(jobId);
+        return ResponseEntity.ok("Job deleted successfully");
     }
 
 

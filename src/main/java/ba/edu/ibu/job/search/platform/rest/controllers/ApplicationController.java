@@ -1,5 +1,6 @@
 package ba.edu.ibu.job.search.platform.rest.controllers;
 
+import ba.edu.ibu.job.search.platform.core.model.Application;
 import ba.edu.ibu.job.search.platform.core.model.User;
 import ba.edu.ibu.job.search.platform.core.service.JobService;
 import ba.edu.ibu.job.search.platform.rest.dto.*;
@@ -22,12 +23,14 @@ public class ApplicationController {
     private  JobService jobService;
     private final ApplicationService applicationService;
 
-    public ApplicationController(ApplicationService applicationService) {
+    public ApplicationController(ApplicationService applicationService, UserService userService, JobService jobService) {
         this.applicationService = applicationService;
+        this.userService=userService;
+        this.jobService=jobService;
     }
 
     /**
-     * Get all applications
+     * Get all Applications
      */
     @RequestMapping(method = RequestMethod.GET, path = "/")
     public ResponseEntity<List<SubmitAppDTO>> getApplications() {
@@ -51,7 +54,8 @@ public class ApplicationController {
     }
 
     /**
-     * Create an application*/
+     * Create an application - ekvivalentno kreiranju posla - nepotrebno ovdje
+     *
 
     @RequestMapping(method = RequestMethod.POST, path = "/postApp")
     public ResponseEntity<PostApplicationDTO> register(@RequestBody PostApplicationRequestDTO application) {
@@ -64,31 +68,25 @@ public class ApplicationController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 
     }
+    */
 
     /** Submit Application*/
 
     @RequestMapping(method = RequestMethod.POST, path = "/submitApp")
-    public ResponseEntity<SubmitAppDTO> submitApplication(@RequestBody SubmitAppRequestDTO application, User currentUser) {
-        // Dohvat ID-a korisnika iz trenutnog korisnika
-        String userId = currentUser.getId();
-
-        // Povezivanje korisnika s aplikacijom
-        application.setUserId(userId);
-
-        // Spremanje aplikacije u bazu
-        SubmitAppDTO savedApplication = applicationService.submitApplication(application, currentUser);
-        return new ResponseEntity<>(savedApplication, HttpStatus.CREATED);
+    public ResponseEntity<SubmitAppDTO> submitApplication(@RequestBody SubmitAppRequestDTO application) {
+        return ResponseEntity.ok(applicationService.submitApplication(application));
     }
 
 
 
     /**
      * Update an application by ID
-     */
+
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
     public ResponseEntity<PostApplicationDTO> updateApplication(@PathVariable String id, @RequestBody PostApplicationRequestDTO application) {
         return ResponseEntity.ok(applicationService.updateApplication(id, application));
     }
+    */
 
     /**
      * Delete an application

@@ -1,5 +1,6 @@
 package ba.edu.ibu.job.search.platform.core.model;
 
+import ba.edu.ibu.job.search.platform.core.model.enums.StatusRequest;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,17 +9,17 @@ import java.util.List;
 
 @Document
 public class Company {
-
     @Id
     private String id;
-    private String jobId;
+    private  CompanyOwner companyOwner; // ??????
     private String companyName;
     private String address;
-    private int phone;
+    private String phone;
     private String email;
     private List<Job> jobs;
-
     private List<User> Employees;
+    private boolean approvedByAdmin;
+    private StatusRequest statusRequest;
 
     public List<Job> getJobs() {
         return jobs;
@@ -36,12 +37,12 @@ public class Company {
         this.id = id;
     }
 
-    public String getJobId() {
-        return jobId;
+    public CompanyOwner getCompanyOwner() {
+        return companyOwner;
     }
 
-    public void setJobId(String jobId) {
-        this.jobId = jobId;
+    public void setCompanyOwner(CompanyOwner companyOwner) {
+        this.companyOwner = companyOwner;
     }
 
     public String getCompanyName() {
@@ -60,11 +61,11 @@ public class Company {
         this.address = address;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -81,5 +82,21 @@ public class Company {
 
     public void setEmployees(List<User> employees) {
         Employees = employees;
+    }
+
+    public boolean isApprovedByAdmin() {
+        return approvedByAdmin;
+    }
+
+    public void setApprovedByAdmin(boolean approvedByAdmin) {
+        this.approvedByAdmin = approvedByAdmin;
+    }
+
+    public StatusRequest getStatusRequest() {
+        return statusRequest;
+    }
+
+    public void setStatusRequest(StatusRequest statusRequest) {
+        this.statusRequest = statusRequest;
     }
 }

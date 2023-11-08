@@ -1,31 +1,25 @@
 package ba.edu.ibu.job.search.platform.rest.dto;
 
 import ba.edu.ibu.job.search.platform.core.model.Application;
+import ba.edu.ibu.job.search.platform.core.model.Job;
 import ba.edu.ibu.job.search.platform.core.model.User;
-import org.springframework.data.annotation.Id;
-
-import java.util.Date;
 
 public class SubmitAppRequestDTO {
-    @Id
-    private String id;
+
     private String userId;
     private String jobId;
     private String firstName;
     private String lastName;
-    private String dateOfBirth;
-    private int phoneNumber;
     private String email;
+    private String phoneNumber;
     private String address;
     private String education;
     private String workExperience;
     private String cv;
-    private String applicationDate;
 
 
     /**
      * Converting from a model to a DTO
-     * <p>
      * Empty constructor
      */
     public SubmitAppRequestDTO() {
@@ -34,20 +28,17 @@ public class SubmitAppRequestDTO {
     /**
      * Constructor which takes in the Model object as parameter
      */
-    public SubmitAppRequestDTO(Application application, User user) {
-        this.id = application.getId();
-        this.userId=application.getUserId();
-        this.jobId=application.getJobId();
-        this.firstName = user.getFirstName();
-        this.lastName = user.getLastName();
-        this.dateOfBirth = user.getDateOfBirth();
-        this.phoneNumber = user.getPhoneNumber();
-        this.email = user.getEmail();
-        this.address = user.getAddress();
-        this.education = user.getEducation();
-        this.workExperience = user.getWorkExperience();
+    public SubmitAppRequestDTO(Application application, String userId, String jobId, String companyOwnerId) {
+        this.userId=userId;
+        this.jobId=jobId;
+        this.firstName=getFirstName();
+        this.lastName = getLastName();
+        this.email = getEmail();
+        this.phoneNumber = getPhoneNumber();
+        this.address = getAddress();
+        this.education = getEducation();
+        this.workExperience = getWorkExperience();
         this.cv = application.getCv();
-        this.applicationDate=application.getApplicationDate();
 
     }
 
@@ -56,29 +47,18 @@ public class SubmitAppRequestDTO {
      */
     public Application toEntity() {
         Application application = new Application();
-        User user = new User();
-        application.setUserId(userId);
-        application.setJobId(jobId);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setDateOfBirth(dateOfBirth);
-        user.setPhoneNumber(phoneNumber);
-        user.setEmail(email);
-        user.setAddress(address);
-        user.setWorkExperience(workExperience);
+        this.setUserId(this.userId);
+        this.setJobId(this.jobId);
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setEmail(email);
+        this.setEducation(education);
+        this.setWorkExperience(workExperience);
         application.setCv(cv);
-        application.setApplicationDate(applicationDate);
 
         return application;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        id = id;
-    }
 
     public String getUserId() {
         return userId;
@@ -91,7 +71,6 @@ public class SubmitAppRequestDTO {
     public String getJobId() {
         return jobId;
     }
-
     public void setJobId(String jobId) {
         this.jobId = jobId;
     }
@@ -112,28 +91,20 @@ public class SubmitAppRequestDTO {
         this.lastName = lastName;
     }
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public int getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getAddress() {
@@ -168,13 +139,7 @@ public class SubmitAppRequestDTO {
         this.cv = cv;
     }
 
-    public String getApplicationDate() {
-        return applicationDate;
-    }
 
-    public void setApplicationDate(String applicationDate) {
-        this.applicationDate = applicationDate;
-    }
 }
 
 

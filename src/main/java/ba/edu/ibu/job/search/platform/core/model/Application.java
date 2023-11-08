@@ -5,17 +5,22 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.List;
+
 @Document
 public class Application {
+
     @Id
     private String id;
-    private String jobId; //za koji posao
-    private String companyId;
-    private String userId; //koji user je aplicirao
+    private Job job; //za koji posao //kad pravim firmu trebadmin da to approve-a
+
+   // da bi owner mogao vidjeti app - novi repo i novi servis  comp owner id -
+    private User user; //koji user je aplicirao
     private String cv;
     private String contactEmail;
     private StatusRequest statusRequest; // enum
     private String applicationDate;
+    public List<Application> getSubmittedApplications;
 
     public String getId() {
         return id;
@@ -25,20 +30,20 @@ public class Application {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public String getJobId() {
-        return jobId;
+    public Job getJob() {
+        return job;
     }
 
-    public void setJobId(String jobId) {
-        this.jobId = jobId;
+    public void setJob(Job job) {
+        this.job = job;
     }
 
 
@@ -71,12 +76,14 @@ public class Application {
     public void setApplicationDate(String applicationDate) {
         this.applicationDate= applicationDate;
     }
-
-    public String getCompanyId() {
-        return companyId;
+    public void setCompanyOwner(CompanyOwner newCompanyOwner) {
     }
 
-    public void setCompanyId(String companyId) {
-        this.companyId = companyId;
+    public List<Application> getGetSubmittedApplications() {
+        return getSubmittedApplications;
+    }
+
+    public void setGetSubmittedApplications(List<Application> getSubmittedApplications) {
+        this.getSubmittedApplications = getSubmittedApplications;
     }
 }

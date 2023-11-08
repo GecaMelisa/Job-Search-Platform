@@ -64,6 +64,28 @@ public class UserService {
         }
         return new UserDTO(user.get());
     }
+    /**Get a user by ID*/
+    public User getUserById2(String id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isEmpty()) {
+            throw new ResourceNotFoundException("The user with the given ID does not exist.");
+        }
+        return user.get();
+    }
+
+    public User getUserByEmail(String email) {
+        Optional<User> user = userRepository.findByEmailCustom(email); {
+            if(user.isEmpty()){
+                throw new ResourceNotFoundException("The user with the given ID does not exist.");
+            }
+            return user.get();
+
+            }
+        }
+
+
+
+
 
     /**Add a user - converting it to a User instance by using the toEntity() method
     If we provide a model without an ID, it will create it */
@@ -116,6 +138,7 @@ public class UserService {
         // Method 2: The appropriate implementation is decided based on configuration
         // return mailSender.send(users, message);
     }
+
 
 
 }
