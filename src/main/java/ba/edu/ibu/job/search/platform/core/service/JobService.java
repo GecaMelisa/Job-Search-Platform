@@ -30,7 +30,7 @@ public class JobService {
     }
 
     /**
-     * Get all jobs - svi
+     * Get all jobs - permitAll
      */
     public List<JobDTO> getJobs() {
         List<Job> jobs = jobRepository.findAll();
@@ -42,7 +42,7 @@ public class JobService {
     }
 
     /**
-     * Get a job by id
+     * Get a job by id - permitAll
      */
     public JobDTO getJobById(String id) {
         Optional<Job> job = jobRepository.findById(id);
@@ -76,7 +76,7 @@ public class JobService {
 
 
     /**
-     * Get a job by position
+     * Get a job by position - permitAll
      */
     public JobDTO getJobByPosition(String position) {
         Optional<Job> job = jobRepository.findByPosition(position);
@@ -116,7 +116,7 @@ public class JobService {
     }
 
     /**
-     * Delete a job - company owner onyl
+     * Delete a job - only companyOwner
      */
     public void deleteJob(String id) {
         Optional<Job> job = jobRepository.findById(id);

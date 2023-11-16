@@ -7,6 +7,7 @@ import ba.edu.ibu.job.search.platform.rest.dto.UserDTO;
 import ba.edu.ibu.job.search.platform.rest.dto.UserRequestDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +42,7 @@ public class CompanyController {
      * Add a company - only companyOwner
      */
     @RequestMapping(method = RequestMethod.POST, path = "/register")
+    @PreAuthorize("hasAuthority('COMPANY_OWNER')")
     public ResponseEntity<CompanyDTO> register(@RequestBody CompanyRequestDTO company) {
         return ResponseEntity.ok(companyService.addCompany(company));
     }
@@ -48,6 +50,7 @@ public class CompanyController {
     /** Get all unapporved companies - only admin */
 
     @RequestMapping(method = RequestMethod.GET, path = "/unapprovedCompanies")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<CompanyDTO>> getUnapprovedCompanies() {
         List<CompanyDTO> unapprovedCompanies = companyService.getUnapprovedCompanies();
         return ResponseEntity.ok(unapprovedCompanies);
@@ -58,6 +61,7 @@ public class CompanyController {
      * Approve a company by ADMIN
      */
     @RequestMapping(method = RequestMethod.PUT, path = "/approve/{companyId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> approveCompany(@PathVariable String companyId) {
         companyService.approveCompany(companyId);
         return ResponseEntity.ok("Company approved successfully");
@@ -66,6 +70,7 @@ public class CompanyController {
     /** Get all approved companies - only admin */
 
     @RequestMapping(method = RequestMethod.GET, path = "/approvedCompanies")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<CompanyDTO>> getApprovedCompanies() {
         List<CompanyDTO> approvedCompanies = companyService.getApprovedCompanies();
         return ResponseEntity.ok(approvedCompanies);
@@ -76,6 +81,7 @@ public class CompanyController {
      * Update a company by ID
      */
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
+    @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
     public ResponseEntity<CompanyDTO> updateCompany(@PathVariable String id, @RequestBody CompanyRequestDTO company) {
         return ResponseEntity.ok(companyService.updateCompany(id, company));
     }
@@ -84,6 +90,7 @@ public class CompanyController {
      * Delete a company by ID
      */
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
+    @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
     public ResponseEntity<String> deleteCompany(@PathVariable("id") String companyId) {
         companyService.deleteCompany(companyId);
         return ResponseEntity.ok("Company deleted successfully");

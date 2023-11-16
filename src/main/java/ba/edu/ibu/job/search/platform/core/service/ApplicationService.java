@@ -94,9 +94,52 @@ public class ApplicationService {
     }
 
 
+    public void submitApplicationToJob(String applicationId, String jobId){
+        Optional<Job> job = jobRepository.findById(jobId);
+        if(job.isEmpty()){
+            throw new ResourceNotFoundException("The job with the given ID does not exist.");
+        }
+        SubmitAppDTO application = getApplicationById(applicationId);
+        List<SubmitAppDTO> applications = job.get().getSubmittedApplications();
+        applications.add(application);
+        job.get().setSubmittedApplications(applications);
+        //ovdje je sejvano treba samo memerbdto popravit
+        jobRepository.save(job.get());
+        // return new TrainerDTO(trainer.get());
+    }
+
+    public SubmitAppDTO submitApplication(SubmitAppRequestDTO payload) {
+
+        String jobId=payload.getJobId();
+        Application application = payload.toEntity();
+        String applicationId= payload.getJobId();
+
+        //member.setUserType(UserType.MEMBER);
+
+        if (jobId != null) {
+
+            Job newJob=jobService.getJobById2(jobId);
+            application.setJob(newJob);
+
+            //memberRepository.save(member);
+        }
+
+        applicationRepository.save(application);
+
+        //userRepository.save(application);
+
+        Application application2=applicationRepository.save(application);
+        submitApplicationToJob(application2.getId(),jobId );
+
+        return new SubmitAppDTO(application);
+
+    }
+
+
+
     /**
      * Submit an application to job
-     */
+
 
     public void submitApplicationToJob(String applicationId, String jobId){
         Optional<Job> job = jobRepository.findById(jobId);
@@ -111,7 +154,9 @@ public class ApplicationService {
     }
 
 
-    public SubmitAppDTO submitApplication(SubmitAppRequestDTO payload) {
+
+
+    public SubmitAppDTO submitApplication(SubmitAppRequestDTO payload)
 
         String jobId = payload.getJobId();
         Application application = payload.toEntity();
@@ -128,11 +173,6 @@ public class ApplicationService {
         applicationRepository.save(application);
 
         return new SubmitAppDTO(application);
-    }
-
-
-
-        /*
 
 
         Application application = payload.toEntity(); //konvertuje podatke iz SubmitAppRequestDTO u objekat application

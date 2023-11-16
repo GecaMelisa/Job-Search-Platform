@@ -8,6 +8,9 @@ import ba.edu.ibu.job.search.platform.rest.dto.UserDTO;
 import ba.edu.ibu.job.search.platform.rest.dto.UserRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,7 +49,9 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    /**Get all users - using UserDTO object rather than the full User object*/
+    /**Get all users - using UserDTO object rather than the full User object
+     * only admin */
+
     public List<UserDTO> getUsers() {
         List<User> users = userRepository.findAll();
 
@@ -56,7 +61,7 @@ public class UserService {
                 .collect(toList());
     }
 
-    /**Get a user by ID*/
+    /**Get a user by ID - only admin */
     public UserDTO getUserById(String id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()) {
@@ -82,9 +87,6 @@ public class UserService {
 
             }
         }
-
-
-
 
 
     /**Add a user - converting it to a User instance by using the toEntity() method
@@ -138,7 +140,15 @@ public class UserService {
         // Method 2: The appropriate implementation is decided based on configuration
         // return mailSender.send(users, message);
     }
-
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsService() {
+            @Override
+            public UserDetails loadUserByUsername(String username) {
+                return userRepository.findByUsernameOrEmail(username)
+                        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            }
+        };
+    }
 
 
 }
