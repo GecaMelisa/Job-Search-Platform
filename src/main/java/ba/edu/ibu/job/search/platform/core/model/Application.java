@@ -12,10 +12,8 @@ public class Application {
 
     @Id
     private String id;
-    private Job job; //za koji posao //kad pravim firmu trebadmin da to approve-a
-
-   // da bi owner mogao vidjeti app - novi repo i novi servis  comp owner id -
-    private User user; //koji user je aplicirao
+    private Job job;
+    private User user;
     private String cv;
     private String contactEmail;
     private StatusRequest statusRequest; // enum

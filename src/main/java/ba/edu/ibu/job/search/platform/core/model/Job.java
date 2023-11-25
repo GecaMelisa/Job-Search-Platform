@@ -25,6 +25,25 @@ public class Job {
     private JobStatus jobStatus; //da znamo je li oglas jos uvijek aktivan ili nije
     private List<SubmitAppDTO> submittedApplications;
 
+    public Job() {}
+
+    // Konstruktor
+    public Job(String id, Company company, String position, String description, String location,
+               JobType jobType, int salary, List<String> requirements, String postedDate,
+               String deadline, JobStatus jobStatus) {
+        this.id = id;
+        this.company = company;
+        this.position = position;
+        this.description = description;
+        this.location = location;
+        this.jobType = jobType;
+        this.salary = salary;
+        this.requirements = requirements;
+        this.postedDate = postedDate;
+        this.deadline = deadline;
+        this.jobStatus = jobStatus;
+    }
+
     public String getId() {
         return id;
     }
@@ -107,6 +126,14 @@ public class Job {
         this.deadline = deadline;
     }
 
+    public JobStatus getJobStatus() {
+        return jobStatus;
+    }
+
+    public void setJobStatus(JobStatus jobStatus) {
+        this.jobStatus = jobStatus;
+    }
+
     public List<SubmitAppDTO> getSubmittedApplications() {
         return submittedApplications;
     }
@@ -114,5 +141,6 @@ public class Job {
     public void setSubmittedApplications(List<SubmitAppDTO> submittedApplications) {
         this.submittedApplications = submittedApplications;
     }
+
 }
 
