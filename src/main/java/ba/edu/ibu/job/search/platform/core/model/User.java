@@ -8,9 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 
@@ -31,6 +29,28 @@ public class User implements UserDetails {
     private String password;
     private String creationDate;
     private List<Application> applications;
+
+    public User() {
+    }
+
+    public User(String id, UserType userType, String firstName, String lastName, String dateOfBirth, String email, String phoneNumber,
+                String address, String education, String workExperience, String username, String password, String creationDate,List <Application> applications){
+        this.id=id;
+        this.userType=userType;
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.dateOfBirth=dateOfBirth;
+        this.email=email;
+        this.phoneNumber=phoneNumber;
+        this.address=address;
+        this.education=education;
+        this.workExperience=workExperience;
+        this.username=username;
+        this.password=password;
+        this.creationDate=creationDate;
+        this.applications=applications;
+
+    }
 
 
 

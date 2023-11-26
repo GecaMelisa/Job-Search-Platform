@@ -1,5 +1,6 @@
 package ba.edu.ibu.job.search.platform.core.model;
 
+import ba.edu.ibu.job.search.platform.core.model.enums.UserType;
 import ba.edu.ibu.job.search.platform.rest.dto.JobDTO;
 import ba.edu.ibu.job.search.platform.rest.dto.SubmitAppDTO;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,7 +13,13 @@ public class CompanyOwner extends User {
 
         private List<SubmitAppDTO> submittedApplications;
 
-        public List<JobDTO> getJobs() {
+        public CompanyOwner(){};
+
+        public CompanyOwner(String id, UserType userType, String firstName, String lastName, String dateOfBirth, String email, String phoneNumber, String address, String education, String workExperience, String username, String password, String creationDate, List<Application> applications) {
+            super(id, userType, firstName, lastName, dateOfBirth, email, phoneNumber, address, education, workExperience, username, password, creationDate, applications);
+        }
+
+    public List<JobDTO> getJobs() {
             return jobs;
         }
 

@@ -21,6 +21,24 @@ public class Company {
     private boolean approvedByAdmin;
     private StatusRequest statusRequest;
 
+    public Company(){};
+
+    public Company(String id, CompanyOwner companyOwner, String companyName, String address,
+                   String phone, String email, List<Job> jobs,
+                   boolean approvedByAdmin, StatusRequest statusRequest) {
+        this.id = id;
+        this.companyOwner = companyOwner;
+        this.companyName = companyName;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.jobs = jobs;
+        this.approvedByAdmin = approvedByAdmin;
+        this.statusRequest = statusRequest;
+    }
+
+
+
     public List<Job> getJobs() {
         return jobs;
     }
