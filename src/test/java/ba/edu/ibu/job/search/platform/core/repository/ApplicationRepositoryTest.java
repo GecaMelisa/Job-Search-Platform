@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 import java.util.Optional;
 
-/*
+
 @SpringBootTest
 public class ApplicationRepositoryTest {
 
@@ -24,6 +24,5 @@ public class ApplicationRepositoryTest {
     }
 
 
-}}
+}
 
- */

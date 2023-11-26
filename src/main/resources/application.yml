@@ -17,3 +17,7 @@ spring:
 security:
   jwt:
     secret: '8qcnHgAnPM8M2fYBFulJWAdtMjQ9K7gREiKwK0ZP4SJbG7lmmT'
+
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG

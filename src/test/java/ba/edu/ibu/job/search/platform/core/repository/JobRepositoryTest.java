@@ -9,7 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 import java.util.Optional;
 
-/*
+import static com.mongodb.assertions.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringBootTest
 public class JobRepositoryTest {
 
@@ -20,16 +22,15 @@ public class JobRepositoryTest {
     public void shouldReturnAllJobs() {
         List<Job> jobs = jobRepository.findAllCustom();
 
-        Assertions.assertEquals(1, jobs.size());
+        assertFalse(jobs.isEmpty());
+        assertEquals(2, jobs.size());
     }
 
     @Test
     public void shouldFindJobByPosition() {
-        Optional<Job> jobs = jobRepository.findByPosition("Full-stack developer");
-        Assertions.assertNotNull(jobs.orElse(null));
+        Optional<Job> job = jobRepository.findByPosition("Full-stack developer");
+
+        Assertions.assertTrue(job.isPresent());
+        Assertions.assertEquals("Full-stack developer", job.get().getPosition());
     }
-
 }
-
- */
-

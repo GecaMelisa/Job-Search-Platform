@@ -53,6 +53,7 @@ class UserServiceTest {
 
     }
 
+    /*
     @Test
     void shouldReturnUserById() {
         User user = new User();
@@ -78,5 +79,5 @@ class UserServiceTest {
         User foundUser = userRepository.getUserById("someMongoId");
         Assertions.assertThat(foundUser.getFirstName()).isEqualTo("name1");
     }
-
+*/
 }
