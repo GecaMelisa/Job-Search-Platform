@@ -16,13 +16,9 @@ public interface ApplicationRepository extends MongoRepository<Application, Stri
         { $match: { _id: { $exists: true } } }
     """)
     List<Application> findAllCustom();
-   /* @Query(value="{email:'?0'}", fields="{'id': 1, 'firstName': 1, 'lastName': 1,'address': 1, 'phoneNumber': 1, 'email': 1, 'dateOfBirth':1, 'education':1, workExperience':1, 'cv':1, 'applicationDate':1")
-    Optional<Application> findByEmailCustom(String email);
 
-    Optional<Application> findFirstByEmailLike(String emailPattern);
-    */
+    Optional<Application> findApplicationsByUserId(String userId);
 
-    Optional<Application> findApplicationByUserId(String userId);
-
+    List<Application> findApplicationsByJobId(String testJobId);
 }
 

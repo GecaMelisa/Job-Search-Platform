@@ -4,31 +4,70 @@ import ba.edu.ibu.job.search.platform.core.model.enums.StatusRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class ApplicationTest {
+    User user = new User();
+    Job job = new Job();
 
     @Test
     void shouldCreateNewApplication() {
-        User user = new User();
+        Application application = new Application(
+                user,
+                job,
+                "applicantCV",
+                "applicant@email.com",
+                StatusRequest.PENDING,
+                "applicationDate",
+                null);
 
-        Job job = new Job();
 
-        // Kreiranje objekta Application
-        Application application = new Application();
-        application.setUser(user);
-        application.setJob(job);  // Povezivanje prijave sa poslom
-        application.setCv("applicantCV");
-        application.setContactEmail("applicant@email.com");
-        application.setStatusRequest(StatusRequest.PENDING);
-        application.setApplicationDate("applicationDate");
-        application.setGetSubmittedApplications(null);
-
-        Assertions.assertNull(application.getId());  // Ako ne postavljamo id prilikom kreiranja
-        Assertions.assertEquals(user, application.getUser());
-        Assertions.assertEquals(job, application.getJob());
-        Assertions.assertEquals("applicantCV", application.getCv());
-        Assertions.assertEquals("applicant@email.com", application.getContactEmail());
-        Assertions.assertEquals(StatusRequest.PENDING, application.getStatusRequest());
-        Assertions.assertEquals("applicationDate", application.getApplicationDate());
-        Assertions.assertNull(application.getGetSubmittedApplications());  // Ako ne postavljate submitted applications prilikom kreiranja
+        Assertions.assertNull(application.getId());
+        assertEquals(user, application.getUser());
+        assertEquals(job, application.getJob());
+        assertEquals("applicantCV", application.getCv());
+        assertEquals("applicant@email.com", application.getContactEmail());
+        assertEquals(StatusRequest.PENDING, application.getStatusRequest());
+        assertEquals("applicationDate", application.getApplicationDate());
+        Assertions.assertNull(application.getSubmittedApplications());
     }
-}
+
+
+        @Test
+        void shouldReturnAllSubmittedApplications() {
+
+            Application application = new Application(
+                    user,
+                    job,
+                    "applicantCV",
+                    "applicant@email.com",
+                    StatusRequest.PENDING,
+                    "applicationDate",
+                    null);
+
+            Application application2 = new Application(
+                    user,
+                    job,
+                    "applicantCV2",
+                    "applicant2@email.com",
+                    StatusRequest.PENDING,
+                    "applicationDate",
+                    null);
+
+            // Kreiranje liste SubmittedApplication
+            List<Application> submittedApplications = new ArrayList<>();
+            submittedApplications.add(new Application(user, job, "cv1", "email@email.com", StatusRequest.PENDING, "date1", null));
+            submittedApplications.add(new Application(user, job, "cv2", "email2@email.com", StatusRequest.PENDING, "date2", null));
+
+            application.setSubmittedApplications(submittedApplications);
+
+            List<Application> returnedApplications = application.getSubmittedApplications();
+
+            assertEquals(submittedApplications, returnedApplications);
+        }
+    }
+
+

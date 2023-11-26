@@ -63,13 +63,6 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    /**Filter users by email*/
-    @RequestMapping(method = RequestMethod.GET, path = "/filter")
-    @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
-    public ResponseEntity<UserDTO> filterUser(@RequestParam String email) {
-        return ResponseEntity.ok(userService.filterByEmail(email));
-    }
-
     @GetMapping("/send-to-all")
     public String sendEmailToAllUsers(@RequestParam String message){
         return userService.sendEmailToAllUsers(message);

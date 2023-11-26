@@ -18,7 +18,20 @@ public class Application {
     private String contactEmail;
     private StatusRequest statusRequest; // enum
     private String applicationDate;
-    public List<Application> getSubmittedApplications;
+    public List<Application> submittedApplications;
+
+    public Application(){};
+
+    public Application(User user, Job job, String cv, String contactEmail, StatusRequest statusRequest, String applicationDate, List<Application> getSubmitetedApplications) {
+        this.user = user;
+        this.job = job;
+        this.cv = cv;
+        this.contactEmail = contactEmail;
+        this.statusRequest = statusRequest;
+        this.applicationDate = applicationDate;
+        this.submittedApplications = submittedApplications;
+    }
+
 
     public String getId() {
         return id;
@@ -77,11 +90,11 @@ public class Application {
     public void setCompanyOwner(CompanyOwner newCompanyOwner) {
     }
 
-    public List<Application> getGetSubmittedApplications() {
-        return getSubmittedApplications;
+    public List<Application> getSubmittedApplications() {
+        return submittedApplications;
     }
 
-    public void setGetSubmittedApplications(List<Application> getSubmittedApplications) {
-        this.getSubmittedApplications = getSubmittedApplications;
+    public void setSubmittedApplications(List<Application> submittedApplications) {
+        this.submittedApplications = submittedApplications;
     }
 }

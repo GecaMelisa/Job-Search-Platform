@@ -83,7 +83,7 @@ public class ApplicationService {
      * Get an application by userId
      */
     public SubmitAppDTO getApplicationByUserId(String userId) {
-        Optional<Application> applicationOptional = applicationRepository.findApplicationByUserId(userId);
+        Optional<Application> applicationOptional = applicationRepository.findApplicationsByUserId(userId);
         if (applicationOptional.isEmpty()) {
             throw new ResourceNotFoundException("The application with the given User_ID does not exist.");
         }

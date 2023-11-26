@@ -114,21 +114,6 @@ public class UserService {
         user.ifPresent(userRepository::delete);
     }
 
-    /**Filter users by email
-    @RequestMapping(method = RequestMethod.GET, path = "/filter")
-    public ResponseEntity<UserDTO> filterUser(@RequestParam String email){
-        return ResponseEntity.ok(userService.filterByEmail(email));
-    }
-    */
-
-
-
-    public UserDTO filterByEmail(String email) {
-        Optional<User> user = userRepository.findFirstByEmailLike(email);
-        // Optional<User> user = userRepository.findByEmailCustom(email);
-        return user.map(UserDTO::new).orElse(null);
-    }
-
 
     public String sendEmailToAllUsers(String message){
         List<User> users = userRepository.findAll();

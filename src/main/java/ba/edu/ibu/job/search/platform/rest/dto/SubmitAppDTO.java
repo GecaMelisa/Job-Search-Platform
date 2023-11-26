@@ -24,7 +24,7 @@ public class SubmitAppDTO {
             this.cv=application.getCv();
             this.applicationDate=application.getApplicationDate();
             this.statusRequest=application.getStatusRequest();
-            this.submittedApplications=application.getSubmittedApplications;
+            this.submittedApplications=application.getSubmittedApplications();
         }
 
 

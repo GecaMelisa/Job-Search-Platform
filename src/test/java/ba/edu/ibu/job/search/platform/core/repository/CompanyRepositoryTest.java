@@ -1,17 +1,16 @@
 package ba.edu.ibu.job.search.platform.core.repository;
 
+import ba.edu.ibu.job.search.platform.JobSearchPlatformApplication;
 import ba.edu.ibu.job.search.platform.core.model.Company;
-import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
+@SpringBootTest(classes = {JobSearchPlatformApplication.class, CompanyRepository.class})
 public class CompanyRepositoryTest {
 
     @Autowired
