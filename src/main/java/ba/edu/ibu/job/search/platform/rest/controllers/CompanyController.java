@@ -5,6 +5,7 @@ import ba.edu.ibu.job.search.platform.rest.dto.CompanyDTO;
 import ba.edu.ibu.job.search.platform.rest.dto.CompanyRequestDTO;
 import ba.edu.ibu.job.search.platform.rest.dto.UserDTO;
 import ba.edu.ibu.job.search.platform.rest.dto.UserRequestDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/companies")
+@SecurityRequirement(name = "JWT Security")
 public class CompanyController {
 
     private final CompanyService companyService;
