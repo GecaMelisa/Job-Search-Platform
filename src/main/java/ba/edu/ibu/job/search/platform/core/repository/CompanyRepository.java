@@ -1,26 +1,24 @@
 package ba.edu.ibu.job.search.platform.core.repository;
 import ba.edu.ibu.job.search.platform.core.model.Company;
+import org.springframework.data.mongodb.repository.Aggregation;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+
 
 @Repository
-public class CompanyRepository {
-    private List<Company> companies;
+public interface CompanyRepository extends MongoRepository<Company, String> {
+    @Aggregation(pipeline = """
+        { $match: { _id: { $exists: true } } }
+    """)
+    List<Company> findAllCustom();
+    @Query(value="{email:'?0'}", fields="{'id': 1, 'name': 1, 'address': 1, 'phone': 1, 'email': 1")
+    Optional<Company> findByEmailCustom(String email);
 
-    public CompanyRepository() {
-        this.companies = Arrays.asList(
-                new Company(1, "Company 1", "Address 1", 062),
-                new Company(2, "Company 2", "Address 2", 061),
-                new Company(3, "Company 3", "Address 3", 060)
-        );
-    }
+    Optional<Company> findFirstByEmailLike(String emailPattern);
 
-    public List<Company> findAll() {
-        return companies;
-    }
-
-    public Company findById(int id) {
-        return companies.stream().filter(company -> company.getId() == id).findFirst().orElse(null);
-    }
+    List<Company> findByApprovedByAdmin(boolean b);
 }
+

@@ -1,8 +1,27 @@
 configuration:
   swagger:
-    app: 'Job Search Platform'
+    app: 'Job Search Platform-User Service'
     description: 'A simple job search platform built with Spring Boot'
     developer: 'Melisa Geca'
     email: 'melisa.geca@stu.ibu.edu.ba'
+
   mailsender:
-    default: 'sendgrid'
+    default: 'mailgun'
+
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://melisageca:MelisaGeca55@job.oqxsoau.mongodb.net/?retryWrites=true&w=majority
+      database: user
+
+email:
+  mailgun:
+    domain: https://api.mailgun.net/v3/sandbox29278405945b4dc68ec56e4e841715a0.mailgun.org
+    from-email: Job Search Platform <mailgun@sandbox29278405945b4dc68ec56e4e841715a0.mailgun.org>
+    username: api
+    password: b6ab4017ca3ca6bf54832afa11bd554e-3750a53b-1f515ec8
+
+security:
+  jwt:
+    secret: '8qcnHgAnPM8M2fYBFulJWAdtMjQ9K7gREiKwK0ZP4SJbG7lmmT'
