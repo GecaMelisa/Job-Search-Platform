@@ -36,7 +36,6 @@ public class ApplicationController {
      * Get all Applications
      */
     @RequestMapping(method = RequestMethod.GET, path = "/")
-    @PreAuthorize("hasAuthority('COMPANY_OWNER', ADMIN')")
     public ResponseEntity<List<SubmitAppDTO>> getApplications() {
         return ResponseEntity.ok(applicationService.getApplications());
     }
@@ -45,7 +44,7 @@ public class ApplicationController {
      * Get an application by ID
      */
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    @PreAuthorize("hasAuthority('COMPANY_OWNER', ADMIN')")
+    @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
     public ResponseEntity<SubmitAppDTO> getApplicationById(@PathVariable String id) {
         return ResponseEntity.ok(applicationService.getApplicationById(id));
     }
@@ -54,10 +53,21 @@ public class ApplicationController {
      * Get an application by userId
      */
     @RequestMapping(method = RequestMethod.GET, path = "/{userId}")
-    @PreAuthorize("hasAuthority('COMPANY_OWNER', ADMIN')")
+    @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
     public ResponseEntity<SubmitAppDTO> getApplicationByUserId(@PathVariable String userId) {
         return ResponseEntity.ok(applicationService.getApplicationByUserId(userId));
     }
+
+    /**
+     * Create an application for job
+     */
+    @RequestMapping(method = RequestMethod.POST, path = "/createApp")
+    //@PreAuthorize("hasAuthority('COMPANY_OWNER')")
+    public ResponseEntity<SubmitAppDTO> createAppForJob(@RequestBody SubmitAppRequestDTO application) {
+        return ResponseEntity.ok(applicationService.createAppForJob(application));
+    }
+
+
 
     /**
      * Create an application - ekvivalentno kreiranju posla - nepotrebno ovdje
@@ -76,12 +86,12 @@ public class ApplicationController {
     }
     */
 
-    /** Submit Application*/
+    /** Submit Application OVO PROVJERITI POPRAVITI DA SUBMITANA APP IDE NA JOBS - DA BUDE POVEZANA SA TIM*/
 
     @RequestMapping(method = RequestMethod.POST, path = "/submitApp")
-    @PreAuthorize("hasAuthority('MEMBER')")
+   // @PreAuthorize("hasAuthority('MEMBER')")
     public ResponseEntity<SubmitAppDTO> submitApplication(@RequestBody SubmitAppRequestDTO application) {
-        return ResponseEntity.ok(applicationService.submitApplication(application));
+        return ResponseEntity.ok(applicationService.submitApplicationToJob(application));
     }
 
 
@@ -99,7 +109,7 @@ public class ApplicationController {
      * Delete an application
      */
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
-    @PreAuthorize("hasAuthority('COMPANY_OWNER', ADMIN')")
+    @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
     public ResponseEntity<Void> deleteApplication(@PathVariable String id) {
         applicationService.deleteApplication(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

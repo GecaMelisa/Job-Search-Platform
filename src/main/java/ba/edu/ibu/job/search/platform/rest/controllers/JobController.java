@@ -23,13 +23,14 @@ public class JobController {
     }
 
     /**
-     * Get all jobs
+     * Get all jobs --> svi objavljeni poslovi
      */
     @RequestMapping(method = RequestMethod.GET, path = "/")
     public ResponseEntity<List<JobDTO>>getJobs() {
         return ResponseEntity.ok(jobService.getJobs());
     }
 
+  //Get all submitted applications - u application
     /**
      * Get a job by ID
      */
@@ -46,14 +47,14 @@ public class JobController {
         return ResponseEntity.ok(jobService.getJobById(position));
     }
 
-    /**
-     * Add a job
-     */
-    @RequestMapping(method = RequestMethod.POST, path = "/register")
-    @PreAuthorize("hasAuthority('COMPANY_OWNER')")
-    public ResponseEntity<JobDTO> register(@RequestBody JobRequestDTO job) {
+
+    /** Add a job*/
+    @RequestMapping(method = RequestMethod.POST,path = "/addJob")
+    //@PreAuthorize("hasAuthority('COMPANY_OWNER')")
+    public ResponseEntity<JobDTO> addJob(@RequestBody JobRequestDTO job){
         return ResponseEntity.ok(jobService.addJob(job));
     }
+
 
     /**
      * Update a job by ID

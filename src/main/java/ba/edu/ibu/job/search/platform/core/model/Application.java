@@ -13,24 +13,24 @@ public class Application {
     private String id;
     private Job job;
     private User user;
+    private String job_title;
     private String cv;
     private String contactEmail;
     private StatusRequest statusRequest; // enum
     private String applicationDate;
     public List<Application> submittedApplications;
 
-    public Application(){};
-
-    public Application(User user, Job job, String cv, String contactEmail, StatusRequest statusRequest, String applicationDate, List<Application> getSubmitetedApplications) {
+    public Application(User user, Job job, String cv, String contactEmail, StatusRequest statusRequest, String applicationDate, List<Application> getSubmitetedApplications, String job_title) {
         this.user = user;
         this.job = job;
+        this.job_title=job_title;
         this.cv = cv;
         this.contactEmail = contactEmail;
         this.statusRequest = statusRequest;
         this.applicationDate = applicationDate;
         this.submittedApplications = submittedApplications;
     }
-
+    public Application(){};
 
     public String getId() {
         return id;
@@ -95,5 +95,13 @@ public class Application {
 
     public void setSubmittedApplications(List<Application> submittedApplications) {
         this.submittedApplications = submittedApplications;
+    }
+
+    public String getJob_title() {
+        return job_title;
+    }
+
+    public void setJob_title(String job_title) {
+        this.job_title = job_title;
     }
 }

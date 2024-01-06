@@ -33,10 +33,8 @@ public class ApplicationService {
     @Autowired
     public ApplicationService(ApplicationRepository applicationRepository,
                               UserRepository userRepository,
-                              CompanyOwnerRepository companyOwnerRepository,
                               JobRepository jobRepository,
                               UserService userService,
-                              CompanyOwnerService companyOwnerService,
                               JobService jobService) {
         this.applicationRepository = applicationRepository;
         this.userRepository = userRepository;
@@ -47,20 +45,28 @@ public class ApplicationService {
 
 
     /**
-     * Get all SubmittedApplications
+     * Get all Applications
      */
+
     public List<SubmitAppDTO> getApplications() {
         List<Application> applications = applicationRepository.findAll();
 
+
         return applications
+                .stream()
+                .map(SubmitAppDTO::new)
+                .collect(toList());
+    }
+
+       /* return applications
                 .stream()
                 .map(application -> {
                     User user = userRepository.findById(application.getUser().getId()).orElse(null);
                     return new SubmitAppDTO(application);
                 })
                 .collect(toList());
-    }
 
+        */
 
     /**
      * Get an application by id
@@ -83,7 +89,7 @@ public class ApplicationService {
      * Get an application by userId
      */
     public SubmitAppDTO getApplicationByUserId(String userId) {
-        Optional<Application> applicationOptional = applicationRepository.findApplicationsByUserId(userId);
+        Optional<Application> applicationOptional = applicationRepository.findById(userId);
         if (applicationOptional.isEmpty()) {
             throw new ResourceNotFoundException("The application with the given User_ID does not exist.");
         }
@@ -93,20 +99,73 @@ public class ApplicationService {
         return new SubmitAppDTO(application);
     }
 
+    /**
+     * Get an application by userId2
+     */
 
+    public Application getApplicationById2(String id){
+        Optional<Application> application = applicationRepository.findById(id);
+        if(application.isEmpty()){
+            throw new ResourceNotFoundException("The user with the given ID does not exist.");
+        }
+        return application.get();
+    }
+
+
+    /**
+     * Create an app for job
+     */
+    public SubmitAppDTO createAppForJob(SubmitAppRequestDTO payload) {
+        String jobId = payload.getJobId();
+
+        Job job = jobService.getJobById2(jobId);
+        Application application = payload.toEntity();
+        application.setJob(job);
+        //jobRepository.save(payload.toEntity());
+        applicationRepository.save(application);
+
+        return new SubmitAppDTO(application);
+    }
+
+    public SubmitAppDTO addAppToJob(String applicationId, String jobId){
+
+        Optional<Job> job = jobRepository.findById(jobId);
+        if(job.isEmpty()){
+            throw new ResourceNotFoundException("The job with the given ID does not exist.");
+        }
+        Application application=getApplicationById2(applicationId);
+        List<Application> applications = job.get().getSubmittedApplications();
+        applications.add(application);
+        job.get().setSubmittedApplications(applications);
+        jobRepository.save(job.get());
+
+        Job newJob= jobService.getJobById2(jobId);
+        application.setJob(newJob);
+
+        applicationRepository.save(application);
+        return new SubmitAppDTO(application);
+    }
+
+
+
+
+/***
     public void submitApplicationToJob(String applicationId, String jobId){
         Optional<Job> job = jobRepository.findById(jobId);
         if(job.isEmpty()){
             throw new ResourceNotFoundException("The job with the given ID does not exist.");
         }
+
         SubmitAppDTO application = getApplicationById(applicationId);
         List<SubmitAppDTO> applications = job.get().getSubmittedApplications();
         applications.add(application);
         job.get().setSubmittedApplications(applications);
-        //ovdje je sejvano treba samo memerbdto popravit
+
+        //ovdje je sejvano treba samo jobdto popravit
         jobRepository.save(job.get());
-        // return new TrainerDTO(trainer.get());
     }
+
+    /*
 
     public SubmitAppDTO submitApplication(SubmitAppRequestDTO payload) {
 
@@ -134,6 +193,8 @@ public class ApplicationService {
         return new SubmitAppDTO(application);
 
     }
+
+     */
 
 
 

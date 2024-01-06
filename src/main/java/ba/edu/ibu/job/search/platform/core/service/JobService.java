@@ -3,11 +3,9 @@ package ba.edu.ibu.job.search.platform.core.service;
 import ba.edu.ibu.job.search.platform.core.exceptions.repository.ResourceNotFoundException;
 import ba.edu.ibu.job.search.platform.core.model.Company;
 import ba.edu.ibu.job.search.platform.core.model.Job;
+import ba.edu.ibu.job.search.platform.core.repository.CompanyRepository;
 import ba.edu.ibu.job.search.platform.core.repository.JobRepository;
-import ba.edu.ibu.job.search.platform.rest.dto.CompanyDTO;
-import ba.edu.ibu.job.search.platform.rest.dto.CompanyRequestDTO;
-import ba.edu.ibu.job.search.platform.rest.dto.JobDTO;
-import ba.edu.ibu.job.search.platform.rest.dto.JobRequestDTO;
+import ba.edu.ibu.job.search.platform.rest.dto.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,13 +18,15 @@ public class JobService {
 
     private JobRepository jobRepository;
     private CompanyService companyService;
+    private CompanyRepository companyRepository;
 
     /**
      * Dependency injection.
      */
-    public JobService(JobRepository jobRepository, CompanyService companyService) {
+    public JobService(JobRepository jobRepository, CompanyService companyService, CompanyRepository companyRepository) {
         this.jobRepository = jobRepository;
         this.companyService = companyService;
+        this.companyRepository = companyRepository;
     }
 
     /**
@@ -88,7 +88,7 @@ public class JobService {
 
     /**
      * Add a job - only companyOwner
-     */
+*/
     public JobDTO addJob(JobRequestDTO payload) {
         String companyId = payload.getCompanyId();
 
@@ -100,6 +100,25 @@ public class JobService {
 
         return new JobDTO(job);
     }
+
+
+
+/* //Pokušaj povezivanja job-a sa company
+    public void addJob(String jobId, String companyId){
+        Optional<Company> company = companyRepository.findById(companyId);
+        if(company.isEmpty()){
+            throw new ResourceNotFoundException("The company with the given ID does not exist.");
+        }
+
+        Job job = getJobById2(jobId);
+        List<Job> jobs = company.get().getJobs();
+        jobs.add(job);
+        company.get().setJobs(jobs);
+
+        companyRepository.save(company.get());
+    }
+*/
+
 
     /**
      * Update a job by id - companyOwner only
@@ -122,5 +141,6 @@ public class JobService {
         Optional<Job> job = jobRepository.findById(id);
         job.ifPresent(jobRepository::delete);
     }
+
 
 }

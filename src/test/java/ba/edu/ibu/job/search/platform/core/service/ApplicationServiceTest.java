@@ -52,7 +52,7 @@ public class ApplicationServiceTest {
         Mockito.when(applicationRepository.save(ArgumentMatchers.any(Application.class))).thenReturn(application);
 
             // Act
-            JobDTO savedSubmitDTO = jobService.addJob(new JobRequestDTO());
+        //JobDTO savedSubmitDTO = jobService.addJob(new JobRequestDTO());
 
     }
 

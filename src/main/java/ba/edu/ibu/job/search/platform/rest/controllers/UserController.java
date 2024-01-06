@@ -29,7 +29,7 @@ public class UserController {
 
     /** Get all users */
     @RequestMapping(method = RequestMethod.GET, path = "/")
-    @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<List<UserDTO>> getUsers() {
         return ResponseEntity.ok(userService.getUsers());
     }

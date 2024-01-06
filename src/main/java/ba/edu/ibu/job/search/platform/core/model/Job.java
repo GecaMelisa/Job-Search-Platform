@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import ba.edu.ibu.job.search.platform.core.model.enums.JobType;
 
+
 import java.util.List;
 
 @Document
@@ -13,6 +14,7 @@ public class Job {
 
     @Id
     private String id;
+
     private Company company;
     private String position;
     private String description;
