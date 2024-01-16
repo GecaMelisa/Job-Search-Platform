@@ -62,7 +62,6 @@ public class ApplicationController {
     /** Submit Application OVO PROVJERITI POPRAVITI DA SUBMITANA APP IDE NA JOBS - DA BUDE POVEZANA SA TIM*/
 
     @RequestMapping(method = RequestMethod.POST, path = "/submitApp")
-   // @PreAuthorize("hasAuthority('MEMBER')")
     public ResponseEntity<SubmitAppDTO> submitApplication(@RequestBody SubmitAppRequestDTO application) {
         return ResponseEntity.ok(applicationService.addAppToJob(application));
     }
