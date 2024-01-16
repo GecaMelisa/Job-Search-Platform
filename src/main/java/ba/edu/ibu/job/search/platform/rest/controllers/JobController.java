@@ -1,5 +1,6 @@
 package ba.edu.ibu.job.search.platform.rest.controllers;
 
+import ba.edu.ibu.job.search.platform.core.model.Job;
 import ba.edu.ibu.job.search.platform.core.service.JobService;
 import ba.edu.ibu.job.search.platform.rest.dto.*;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -49,10 +50,17 @@ public class JobController {
 
 
     /** Add a job*/
-    @RequestMapping(method = RequestMethod.POST,path = "/addJob")
-    //@PreAuthorize("hasAuthority('COMPANY_OWNER')")
-    public ResponseEntity<JobDTO> addJob(@RequestBody JobRequestDTO job){
-        return ResponseEntity.ok(jobService.addJob(job));
+     @RequestMapping(method = RequestMethod.POST,path = "/createJob")
+     //@PreAuthorize("hasAuthority('COMPANY_OWNER')")
+     public ResponseEntity<JobDTO> createJob(@RequestBody JobRequestDTO job){
+     return ResponseEntity.ok(jobService.createJob(job));
+     }
+
+
+    @GetMapping("/byCompany/{companyId}")
+    public ResponseEntity<List<Job>> getJobsByCompany(@PathVariable String companyId) {
+        List<Job> jobs = jobService.getJobsByCompany(companyId);
+        return new ResponseEntity<>(jobs, HttpStatus.OK);
     }
 
 

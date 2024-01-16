@@ -58,40 +58,13 @@ public class ApplicationController {
         return ResponseEntity.ok(applicationService.getApplicationByUserId(userId));
     }
 
-    /**
-     * Create an application for job
-     */
-    @RequestMapping(method = RequestMethod.POST, path = "/createApp")
-    //@PreAuthorize("hasAuthority('COMPANY_OWNER')")
-    public ResponseEntity<SubmitAppDTO> createAppForJob(@RequestBody SubmitAppRequestDTO application) {
-        return ResponseEntity.ok(applicationService.createAppForJob(application));
-    }
-
-
-
-    /**
-     * Create an application - ekvivalentno kreiranju posla - nepotrebno ovdje
-     *
-
-    @RequestMapping(method = RequestMethod.POST, path = "/postApp")
-    public ResponseEntity<PostApplicationDTO> register(@RequestBody PostApplicationRequestDTO application) {
-        try {
-            return ResponseEntity.ok(applicationService.postApplication(application, new User()));
-        }
-        catch (AccessDeniedException e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-
-    }
-    */
 
     /** Submit Application OVO PROVJERITI POPRAVITI DA SUBMITANA APP IDE NA JOBS - DA BUDE POVEZANA SA TIM*/
 
     @RequestMapping(method = RequestMethod.POST, path = "/submitApp")
    // @PreAuthorize("hasAuthority('MEMBER')")
     public ResponseEntity<SubmitAppDTO> submitApplication(@RequestBody SubmitAppRequestDTO application) {
-        return ResponseEntity.ok(applicationService.submitApplicationToJob(application));
+        return ResponseEntity.ok(applicationService.addAppToJob(application));
     }
 
 

@@ -11,8 +11,12 @@ public class Application {
 
     @Id
     private String id;
+
+    //Provjeriti da li povezujemo preko modela ili preko id
     private Job job;
     private User user;
+    private String userId;
+    private String jobId;
     private String job_title;
     private String cv;
     private String contactEmail;
@@ -103,5 +107,21 @@ public class Application {
 
     public void setJob_title(String job_title) {
         this.job_title = job_title;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
     }
 }

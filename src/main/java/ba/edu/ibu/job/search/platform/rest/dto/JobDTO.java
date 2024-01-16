@@ -10,10 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 public class JobDTO {
-
-    private String jobId;
-    private List<SubmitAppDTO> submittedApplications;
-    private Company company;
+    private String companyName;
     private String position;
     private String description;
     private String location;
@@ -27,9 +24,9 @@ public class JobDTO {
     public JobDTO(Job job){
 
        // this.company=new CompanyDTO(job.getCompany());
-        this.company=job.getCompany();
-
-        this.jobId=job.getId();
+        this.companyName=job.getCompany().getCompanyName();
+        //this.jobId=job.getId();
+        //this.companyId=company.getId();
         this.position = job.getPosition();
         this.description = job.getDescription();
         this.location = job.getLocation();
@@ -40,22 +37,6 @@ public class JobDTO {
         this.deadline=job.getDeadline();
     }
 
-
-    public Company getCompany () {
-        return  company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public List<SubmitAppDTO> getSubmittedApplications() {
-        return submittedApplications;
-    }
-
-    public void setSubmittedApplications(List<SubmitAppDTO> submittedApplications) {
-        this.submittedApplications = submittedApplications;
-    }
 
     public String getPosition() {
         return position;
@@ -121,15 +102,6 @@ public class JobDTO {
     public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
-
-    public String getJobId() {
-        return jobId;
-    }
-
-    public void setJobId(String jobId) {
-        this.jobId = jobId;
-    }
-
     public StatusRequest getStatusRequest() {
         return statusRequest;
     }
@@ -137,4 +109,14 @@ public class JobDTO {
     public void setStatusRequest(StatusRequest statusRequest) {
         this.statusRequest = statusRequest;
     }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
 }
+

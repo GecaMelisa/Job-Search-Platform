@@ -12,6 +12,7 @@ public class Company {
     @Id
     private String id;
     private  CompanyOwner companyOwner;
+    private String companyOwnerId;
     private String companyName;
     private String address;
     private String phone;
@@ -28,6 +29,7 @@ public class Company {
                    boolean approvedByAdmin, StatusRequest statusRequest) {
         this.id = id;
         this.companyOwner = companyOwner;
+        this.companyOwnerId=companyOwner.getId();
         this.companyName = companyName;
         this.address = address;
         this.phone = phone;
@@ -116,5 +118,13 @@ public class Company {
 
     public void setStatusRequest(StatusRequest statusRequest) {
         this.statusRequest = statusRequest;
+    }
+
+    public String getCompanyOwnerId() {
+        return companyOwnerId;
+    }
+
+    public void setCompanyOwnerId(String companyOwnerId) {
+        this.companyOwnerId = companyOwnerId;
     }
 }

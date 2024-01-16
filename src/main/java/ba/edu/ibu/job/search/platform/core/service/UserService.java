@@ -1,9 +1,11 @@
 package ba.edu.ibu.job.search.platform.core.service;
 
 import ba.edu.ibu.job.search.platform.core.api.mailsender.MailSender;
+import ba.edu.ibu.job.search.platform.core.model.Job;
 import ba.edu.ibu.job.search.platform.core.model.User;
 import ba.edu.ibu.job.search.platform.core.exceptions.repository.ResourceNotFoundException;
 import ba.edu.ibu.job.search.platform.core.repository.UserRepository;
+import ba.edu.ibu.job.search.platform.rest.dto.JobDTO;
 import ba.edu.ibu.job.search.platform.rest.dto.UserDTO;
 import ba.edu.ibu.job.search.platform.rest.dto.UserRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 import static java.util.stream.Collectors.toList;
 import java.io.NotActiveException;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -51,17 +54,16 @@ public class UserService {
 
     /**Get all users - using UserDTO object rather than the full User object
      * only admin */
-
     public List<UserDTO> getUsers() {
         List<User> users = userRepository.findAll();
 
         return users
                 .stream()
                 .map(UserDTO::new)
-                .collect(toList());
+                .collect(Collectors.toList());
     }
 
-    /**Get a user by ID - only admin */
+    /**Get a user by ID */
     public UserDTO getUserById(String id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()) {
@@ -77,6 +79,7 @@ public class UserService {
         }
         return user.get();
     }
+
 
     public User getUserByEmail(String email) {
         Optional<User> user = userRepository.findByEmailCustom(email); {

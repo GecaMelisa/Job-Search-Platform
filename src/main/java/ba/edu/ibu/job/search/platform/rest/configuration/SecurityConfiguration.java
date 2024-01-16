@@ -36,11 +36,12 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(HttpMethod.GET, "/api/jobs/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/companies/**").permitAll()
+                        .requestMatchers("/api/users/**").permitAll()
                         .requestMatchers("/api/applications/**").authenticated()
                         .requestMatchers("/api/companyOwners/**").authenticated()
                         .requestMatchers("/api/companies/**").authenticated()
                         .requestMatchers("/api/jobs/**").authenticated()
-                        .requestMatchers("/api/users/**").authenticated()
+                        //.requestMatchers("/api/users/**").authenticated()
                         .anyRequest().permitAll())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())

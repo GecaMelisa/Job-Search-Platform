@@ -72,23 +72,29 @@ public class CompanyService {
      */
     public CompanyDTO addCompany(CompanyRequestDTO payload) {
         Company company = payload.toEntity();
-        company.setApprovedByAdmin(false); // dok admin ne odobri
+        company.setApprovedByAdmin(false);
+
+        // Spremi kompaniju prvi put (bez postavljanja vlasnika)
+        company = companyRepository.save(company);
 
         // Dohvati vlasnika kompanije iz baze koristeći ID
         Optional<CompanyOwner> optionalCompanyOwner = companyOwnerRepository.findById(payload.getCompanyOwnerId());
         if (optionalCompanyOwner.isPresent()) {
             CompanyOwner companyOwner = optionalCompanyOwner.get();
-            company.setCompanyOwner(companyOwner); // postaviti vlasnika kompanije
+
+            // Postavi vlasnika kompanije
+            company.setCompanyOwner(companyOwner);
+
+            // Ponovno spremi kompaniju s postavljenim vlasnikom
+            company = companyRepository.save(company);
+
+            return new CompanyDTO(company);
         } else {
             throw new ResourceNotFoundException("The company owner with the given ID does not exist.");
         }
-
-        company = companyRepository.save(company);
-        return new CompanyDTO(company);
     }
 
-
-        /*Get all unapproved companies*/
+    /*Get all unapproved companies*/
     public List<CompanyDTO> getUnapprovedCompanies() {
         List<Company> unapprovedCompanies = companyRepository.findByApprovedByAdmin(false);
         return unapprovedCompanies

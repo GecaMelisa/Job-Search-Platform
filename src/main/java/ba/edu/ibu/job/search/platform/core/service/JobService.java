@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -38,8 +39,9 @@ public class JobService {
         return jobs
                 .stream()
                 .map(JobDTO::new)
-                .collect(toList());
+                .collect(Collectors.toList());
     }
+
 
     /**
      * Get a job by id - permitAll
@@ -53,7 +55,7 @@ public class JobService {
     }
 
     /**
-     * Get a job by id
+     * Get a job by id - ne ide preko DTO
      */
     public Job getJobById2(String id) {
         Optional<Job> job = jobRepository.findById(id);
@@ -64,7 +66,7 @@ public class JobService {
     }
 
     /**
-     * need this for assigning application to job
+     * need this for assigning application to job - PROVJERITI
      */
     public Job getSubmittedApplications(String id) {
         Optional<Job> job = jobRepository.findById(id);
@@ -87,9 +89,9 @@ public class JobService {
     }
 
     /**
-     * Add a job - only companyOwner
-*/
-    public JobDTO addJob(JobRequestDTO payload) {
+     * Add a job - only companyOwner - ovo radi - ok je*/
+
+    public JobDTO createJob(JobRequestDTO payload) {
         String companyId = payload.getCompanyId();
 
         Company company = companyService.getCompanyById2(companyId);
@@ -99,6 +101,11 @@ public class JobService {
         jobRepository.save(job);
 
         return new JobDTO(job);
+    }
+
+
+    public List<Job> getJobsByCompany(String companyId) {
+        return jobRepository.findByCompanyId(companyId);
     }
 
 

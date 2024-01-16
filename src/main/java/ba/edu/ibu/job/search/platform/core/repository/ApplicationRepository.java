@@ -19,6 +19,6 @@ public interface ApplicationRepository extends MongoRepository<Application, Stri
 
     Optional<Application> findApplicationsByUserId(String userId);
 
-    List<Application> findApplicationsByJobId(String testJobId);
+    List<Application> findApplicationsByJobId(String jobId);
 }
 

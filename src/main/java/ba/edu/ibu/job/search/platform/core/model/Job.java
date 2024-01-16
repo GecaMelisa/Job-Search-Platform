@@ -14,8 +14,8 @@ public class Job {
 
     @Id
     private String id;
-
     private Company company;
+    private String companyId;
     private String position;
     private String description;
     private String location;
@@ -35,6 +35,7 @@ public class Job {
                String deadline, JobStatus jobStatus) {
         this.id = id;
         this.company = company;
+        this.companyId = company.getId();
         this.position = position;
         this.description = description;
         this.location = location;
@@ -144,5 +145,12 @@ public class Job {
         this.submittedApplications = submittedApplications;
     }
 
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
 }
 

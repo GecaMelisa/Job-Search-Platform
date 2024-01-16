@@ -2,16 +2,13 @@ package ba.edu.ibu.job.search.platform.core.service;
 
 import ba.edu.ibu.job.search.platform.core.exceptions.repository.ResourceNotFoundException;
 import ba.edu.ibu.job.search.platform.core.model.*;
-import ba.edu.ibu.job.search.platform.core.model.enums.UserType;
 import ba.edu.ibu.job.search.platform.core.repository.*;
 
 import ba.edu.ibu.job.search.platform.rest.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ba.edu.ibu.job.search.platform.core.exceptions.auth.AccessDeniedException;
 import java.util.List;
 import java.util.Optional;
-import ba.edu.ibu.job.search.platform.core.exceptions.auth.EntityNotFoundException;
 import static java.util.stream.Collectors.toList;
 @Service
 public class ApplicationService {
@@ -43,11 +40,9 @@ public class ApplicationService {
         this.jobService = jobService;
     }
 
-
     /**
      * Get all Applications
      */
-
     public List<SubmitAppDTO> getApplications() {
         List<Application> applications = applicationRepository.findAll();
 
@@ -57,7 +52,6 @@ public class ApplicationService {
                 .map(SubmitAppDTO::new)
                 .collect(toList());
     }
-
        /* return applications
                 .stream()
                 .map(application -> {
@@ -65,9 +59,7 @@ public class ApplicationService {
                     return new SubmitAppDTO(application);
                 })
                 .collect(toList());
-
         */
-
     /**
      * Get an application by id
      */
@@ -84,14 +76,13 @@ public class ApplicationService {
     }
 
 
-
     /**
      * Get an application by userId
      */
     public SubmitAppDTO getApplicationByUserId(String userId) {
         Optional<Application> applicationOptional = applicationRepository.findById(userId);
         if (applicationOptional.isEmpty()) {
-            throw new ResourceNotFoundException("The application with the given User_ID does not exist.");
+            throw new ResourceNotFoundException("The application with the given UserID does not exist.");
         }
         Application application = applicationOptional.get();
         User user = userRepository.findById(userId).orElse(null);
@@ -100,13 +91,13 @@ public class ApplicationService {
     }
 
     /**
-     * Get an application by userId2
+     * Get an application by userId2 - ne ide preko DTO
      */
 
     public Application getApplicationById2(String id){
         Optional<Application> application = applicationRepository.findById(id);
         if(application.isEmpty()){
-            throw new ResourceNotFoundException("The user with the given ID does not exist.");
+            throw new ResourceNotFoundException("The app with the given ID does not exist.");
         }
         return application.get();
     }
@@ -114,7 +105,7 @@ public class ApplicationService {
 
     /**
      * Create an app for job
-     */
+
     public SubmitAppDTO createAppForJob(SubmitAppRequestDTO payload) {
         String jobId = payload.getJobId();
 
@@ -126,24 +117,25 @@ public class ApplicationService {
 
         return new SubmitAppDTO(application);
     }
+     */
 
-    public SubmitAppDTO addAppToJob(String applicationId, String jobId){
+    public SubmitAppDTO addAppToJob(SubmitAppRequestDTO application) {
 
-        Optional<Job> job = jobRepository.findById(jobId);
+        Optional<Job> job = jobRepository.findById(application.getJobId());
         if(job.isEmpty()){
             throw new ResourceNotFoundException("The job with the given ID does not exist.");
         }
-        Application application=getApplicationById2(applicationId);
-        List<Application> applications = job.get().getSubmittedApplications();
+        Application application2 = application.toEntity();
+/*        List<Application> applications = job.get().getSubmittedApplications();
         applications.add(application);
         job.get().setSubmittedApplications(applications);
         jobRepository.save(job.get());
 
         Job newJob= jobService.getJobById2(jobId);
-        application.setJob(newJob);
+        application.setJob(newJob);*/
 
-        applicationRepository.save(application);
-        return new SubmitAppDTO(application);
+        applicationRepository.save(application2);
+        return new SubmitAppDTO(application2);
     }
 
 

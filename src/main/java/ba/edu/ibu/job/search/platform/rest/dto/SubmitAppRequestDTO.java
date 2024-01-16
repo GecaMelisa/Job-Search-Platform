@@ -47,13 +47,13 @@ public class SubmitAppRequestDTO {
      */
     public Application toEntity() {
         Application application = new Application();
-        this.setUserId(this.userId);
-        this.setJobId(this.jobId);
-        this.setFirstName(firstName);
+        application.setUserId(this.userId);
+        application.setJobId(this.jobId);
+   /*     this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setEmail(email);
         this.setEducation(education);
-        this.setWorkExperience(workExperience);
+        this.setWorkExperience(workExperience); */
         application.setCv(cv);
 
         return application;
