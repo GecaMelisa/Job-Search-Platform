@@ -43,21 +43,17 @@ public class ApplicationController {
     /**
      * Get an application by ID
      */
-    @RequestMapping(method = RequestMethod.GET, path = "/{id}")
+    @RequestMapping(method = RequestMethod.GET, path = "/byId/{id}")
     @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
     public ResponseEntity<SubmitAppDTO> getApplicationById(@PathVariable String id) {
         return ResponseEntity.ok(applicationService.getApplicationById(id));
     }
 
-    /**
-     * Get an application by userId
-     */
-    @RequestMapping(method = RequestMethod.GET, path = "/{userId}")
+    @RequestMapping(method = RequestMethod.GET, path = "/byUserId/{userId}")
     @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
     public ResponseEntity<SubmitAppDTO> getApplicationByUserId(@PathVariable String userId) {
         return ResponseEntity.ok(applicationService.getApplicationByUserId(userId));
     }
-
 
     /** Submit Application OVO PROVJERITI POPRAVITI DA SUBMITANA APP IDE NA JOBS - DA BUDE POVEZANA SA TIM*/
 

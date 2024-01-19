@@ -2,6 +2,7 @@ package ba.edu.ibu.job.search.platform.core.repository;
 
 import ba.edu.ibu.job.search.platform.core.model.Application;
 import ba.edu.ibu.job.search.platform.core.model.Company;
+import ba.edu.ibu.job.search.platform.core.model.Job;
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -20,5 +21,7 @@ public interface ApplicationRepository extends MongoRepository<Application, Stri
     Optional<Application> findApplicationsByUserId(String userId);
 
     List<Application> findApplicationsByJobId(String jobId);
+
+    List<Application> findByJob(Job job);
 }
 

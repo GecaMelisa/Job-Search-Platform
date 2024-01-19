@@ -5,6 +5,7 @@ import ba.edu.ibu.job.search.platform.core.model.User;
 import ba.edu.ibu.job.search.platform.core.model.enums.StatusRequest;
 import org.springframework.data.annotation.Id;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SubmitAppDTO {
@@ -17,16 +18,14 @@ public class SubmitAppDTO {
         private List<Application> submittedApplications;
 
 
-        public SubmitAppDTO(Application application) {
-            this.user=new UserDTO(application.getUser());
-            this.job=new JobDTO(application.getJob());
-
-            this.cv=application.getCv();
-            this.applicationDate=application.getApplicationDate();
-            this.statusRequest=application.getStatusRequest();
-            this.submittedApplications=application.getSubmittedApplications();
-        }
-
+    public SubmitAppDTO(Application application) {
+        this.user = new UserDTO(application.getUser());
+        this.job = new JobDTO(application.getJob());
+        this.cv = application.getCv();
+        this.applicationDate = application.getApplicationDate();
+        this.statusRequest = application.getStatusRequest();
+        this.submittedApplications = application.getSubmittedApplications() != null ? new ArrayList<>(application.getSubmittedApplications()) : new ArrayList<>();
+    }
 
         public UserDTO getUser() {
             return user;

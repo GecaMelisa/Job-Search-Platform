@@ -8,6 +8,9 @@ import ba.edu.ibu.job.search.platform.core.model.enums.JobType;
 
 
 import java.util.List;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.FieldType;
+
 
 @Document
 public class Job {

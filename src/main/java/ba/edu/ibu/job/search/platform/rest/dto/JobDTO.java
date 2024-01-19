@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 public class JobDTO {
+
+    private String jobId;
     private String companyName;
     private String position;
     private String description;
@@ -25,7 +27,7 @@ public class JobDTO {
 
        // this.company=new CompanyDTO(job.getCompany());
         this.companyName=job.getCompany().getCompanyName();
-        //this.jobId=job.getId();
+        this.jobId=job.getId();
         //this.companyId=company.getId();
         this.position = job.getPosition();
         this.description = job.getDescription();
@@ -118,5 +120,12 @@ public class JobDTO {
         this.companyName = companyName;
     }
 
+    public String getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
+    }
 }
 

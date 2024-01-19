@@ -99,6 +99,8 @@ public class ApplicationService {
 
 
     public SubmitAppDTO addAppToJob(SubmitAppRequestDTO application) {
+        System.out.println(application.getJobId());
+        System.out.println("melisa");
         // Provjeri postoji li posao s danim ID-om
         Optional<Job> optionalJob = jobRepository.findById(application.getJobId());
         if (optionalJob.isEmpty()) {

@@ -1,8 +1,10 @@
 package ba.edu.ibu.job.search.platform.core.service;
 
 import ba.edu.ibu.job.search.platform.core.exceptions.repository.ResourceNotFoundException;
+import ba.edu.ibu.job.search.platform.core.model.Application;
 import ba.edu.ibu.job.search.platform.core.model.Company;
 import ba.edu.ibu.job.search.platform.core.model.Job;
+import ba.edu.ibu.job.search.platform.core.repository.ApplicationRepository;
 import ba.edu.ibu.job.search.platform.core.repository.CompanyRepository;
 import ba.edu.ibu.job.search.platform.core.repository.JobRepository;
 import ba.edu.ibu.job.search.platform.rest.dto.*;
@@ -20,15 +22,18 @@ public class JobService {
     private JobRepository jobRepository;
     private CompanyService companyService;
     private CompanyRepository companyRepository;
+    private ApplicationRepository applicationRepository;
 
     /**
      * Dependency injection.
      */
-    public JobService(JobRepository jobRepository, CompanyService companyService, CompanyRepository companyRepository) {
+    public JobService(JobRepository jobRepository, CompanyService companyService, ApplicationRepository applicationRepository, CompanyRepository companyRepository) {
         this.jobRepository = jobRepository;
         this.companyService = companyService;
         this.companyRepository = companyRepository;
+        this.applicationRepository=applicationRepository;
     }
+
 
     /**
      * Get all jobs - permitAll
@@ -40,6 +45,16 @@ public class JobService {
                 .stream()
                 .map(JobDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    public List<Application> getAllApplicationsForJob(String jobId) {
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new ResourceNotFoundException("Job not found with ID: " + jobId));
+
+        // Dohvati sve aplikacije povezane s tim poslom
+        List<Application> applications = applicationRepository.findByJob(job);
+
+        return applications;
     }
 
 
@@ -65,16 +80,7 @@ public class JobService {
         return job.get();
     }
 
-    /**
-     * need this for assigning application to job - PROVJERITI
-     */
-    public Job getSubmittedApplications(String id) {
-        Optional<Job> job = jobRepository.findById(id);
-        if (job.isEmpty()) {
-            throw new ResourceNotFoundException("The job owner with the given ID does not exist.");
-        }
-        return job.get();
-    }
+
 
 
     /**
@@ -108,23 +114,6 @@ public class JobService {
         return jobRepository.findByCompanyId(companyId);
     }
 
-
-
-/* //Pokušaj povezivanja job-a sa company
-    public void addJob(String jobId, String companyId){
-        Optional<Company> company = companyRepository.findById(companyId);
-        if(company.isEmpty()){
-            throw new ResourceNotFoundException("The company with the given ID does not exist.");
-        }
-
-        Job job = getJobById2(jobId);
-        List<Job> jobs = company.get().getJobs();
-        jobs.add(job);
-        company.get().setJobs(jobs);
-
-        companyRepository.save(company.get());
-    }
-*/
 
 
     /**

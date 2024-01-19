@@ -20,17 +20,18 @@ public class UserDTO {
     private List<SubmitAppDTO> applications;
 
 
-    public UserDTO(User user){
+    public UserDTO(User user) {
         this.id = user.getId();
         this.name = user.getFirstName() + " " + user.getLastName();
-        this.userType=user.getUserType();
-        this.dateOfBirth=user.getDateOfBirth();
-        this.phoneNumber=user.getPhoneNumber();
+        this.userType = user.getUserType();
+        this.dateOfBirth = user.getDateOfBirth();
+        this.phoneNumber = user.getPhoneNumber();
         this.email = user.getEmail();
         this.education = user.getEducation();
         this.workExperience = user.getWorkExperience();
-        this.address=user.getAddress();
+        this.address = user.getAddress();
         this.creationDate = user.getCreationDate();
+        this.applications = new ArrayList<>();  // Dodajte ovo
     }
 
     public UserDTO() {

@@ -8,11 +8,11 @@ public class SubmitAppRequestDTO {
 
     private String userId;
     private String jobId;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phoneNumber;
-    private String address;
+    //private String firstName;
+    //private String lastName;
+   // private String email;
+    //private String phoneNumber;
+    //private String address;
     private String education;
     private String workExperience;
     private String cv;
@@ -31,11 +31,11 @@ public class SubmitAppRequestDTO {
     public SubmitAppRequestDTO(Application application, String userId, String jobId, String companyOwnerId) {
         this.userId=userId;
         this.jobId=jobId;
-        this.firstName=getFirstName();
-        this.lastName = getLastName();
-        this.email = getEmail();
-        this.phoneNumber = getPhoneNumber();
-        this.address = getAddress();
+        //this.firstName=getFirstName();
+        //this.lastName = getLastName();
+        //this.email = getEmail();
+        //this.phoneNumber = getPhoneNumber();
+        //this.address = getAddress();
         this.education = getEducation();
         this.workExperience = getWorkExperience();
         this.cv = application.getCv();
@@ -75,6 +75,7 @@ public class SubmitAppRequestDTO {
         this.jobId = jobId;
     }
 
+    /*
     public String getFirstName() {
         return firstName;
     }
@@ -114,7 +115,7 @@ public class SubmitAppRequestDTO {
     public void setAddress(String address) {
         this.address = address;
     }
-
+*/
     public String getEducation() {
         return education;
     }

@@ -1,6 +1,8 @@
 package ba.edu.ibu.job.search.platform.rest.controllers;
 
 import ba.edu.ibu.job.search.platform.core.model.Job;
+import ba.edu.ibu.job.search.platform.core.model.Application;
+
 import ba.edu.ibu.job.search.platform.core.service.JobService;
 import ba.edu.ibu.job.search.platform.rest.dto.*;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -31,7 +33,15 @@ public class JobController {
         return ResponseEntity.ok(jobService.getJobs());
     }
 
-  //Get all submitted applications - u application
+    /** Get all submited applications for job*/
+    @GetMapping("/{jobId}/applications")
+    public ResponseEntity<List<Application>> getAllApplicationsForJob(@PathVariable String jobId) {
+        List<Application> applications = jobService.getAllApplicationsForJob(jobId);
+        return ResponseEntity.ok(applications);
+    }
+
+
+    //Get all submitted applications - u application
     /**
      * Get a job by ID
      */
