@@ -1,13 +1,19 @@
 package ba.edu.ibu.job.search.platform.rest.controllers;
 import ba.edu.ibu.job.search.platform.core.model.User;
+import ba.edu.ibu.job.search.platform.core.service.JwtService;
 import ba.edu.ibu.job.search.platform.core.service.UserService;
-import ba.edu.ibu.job.search.platform.rest.dto.JobDTO;
 import ba.edu.ibu.job.search.platform.rest.dto.UserDTO;
 import ba.edu.ibu.job.search.platform.rest.dto.UserRequestDTO;
+import io.micrometer.common.util.StringUtils;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +27,9 @@ import java.util.List;
 @SecurityRequirement(name = "JWT Security")
 
 public class UserController {
+
+    @Autowired
+    private JwtService jwtService;
 
     private final UserService userService;
 
@@ -68,4 +77,15 @@ public class UserController {
     public String sendEmailToAllUsers(@RequestParam String message){
         return userService.sendEmailToAllUsers(message);
     }
+
+    @GetMapping("/userInfo")
+    public ResponseEntity<User> getUserInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        user.setPassword(null);
+        return ResponseEntity.ok(user);
+    }
+
+
 }
+

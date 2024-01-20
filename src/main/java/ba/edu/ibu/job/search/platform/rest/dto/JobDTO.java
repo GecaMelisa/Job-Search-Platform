@@ -28,7 +28,6 @@ public class JobDTO {
        // this.company=new CompanyDTO(job.getCompany());
         this.companyName=job.getCompany().getCompanyName();
         this.jobId=job.getId();
-        //this.companyId=company.getId();
         this.position = job.getPosition();
         this.description = job.getDescription();
         this.location = job.getLocation();

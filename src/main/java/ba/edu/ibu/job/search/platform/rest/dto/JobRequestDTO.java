@@ -44,7 +44,6 @@ public class JobRequestDTO {
         /**Converting from a DTO to a model with method toEntity which creates an empty Model object and assigns the data from the DTO to the model*/
         public Job toEntity() {
             Job job = new Job();
-            //job.setId(jobId.getId()); //da dobijemo id istog posla - veza izmedju app i posla ??
             this.setCompanyId(companyId);
             job.setPosition(position);
             job.setDescription(description);
