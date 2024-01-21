@@ -12,6 +12,8 @@ import ba.edu.ibu.job.search.platform.core.exceptions.auth.AccessDeniedException
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,7 +52,7 @@ public class ApplicationController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/byUserId/{userId}")
-    @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
+    //@PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
     public ResponseEntity<SubmitAppDTO> getApplicationByUserId(@PathVariable String userId) {
         return ResponseEntity.ok(applicationService.getApplicationByUserId(userId));
     }
@@ -82,6 +84,8 @@ public class ApplicationController {
         applicationService.deleteApplication(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
 
 }
 

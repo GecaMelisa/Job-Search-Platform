@@ -23,6 +23,7 @@ public class UserDTO {
     public UserDTO(User user) {
         this.id = user.getId();
         this.name = user.getFirstName() + " " + user.getLastName();
+        this.email = user.getEmail();
         this.userType = user.getUserType();
         this.dateOfBirth = user.getDateOfBirth();
         this.phoneNumber = user.getPhoneNumber();
@@ -74,13 +75,6 @@ public class UserDTO {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
 
     public String getAddress() {
         return address;

@@ -1,5 +1,7 @@
 package ba.edu.ibu.job.search.platform.rest.controllers;
+import ba.edu.ibu.job.search.platform.core.model.Application;
 import ba.edu.ibu.job.search.platform.core.model.User;
+import ba.edu.ibu.job.search.platform.core.repository.UserRepository;
 import ba.edu.ibu.job.search.platform.core.service.JwtService;
 import ba.edu.ibu.job.search.platform.core.service.UserService;
 import ba.edu.ibu.job.search.platform.rest.dto.UserDTO;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -30,8 +33,11 @@ public class UserController {
 
     @Autowired
     private JwtService jwtService;
+    @Autowired
+    UserRepository userRepository;
 
     private final UserService userService;
+
 
     public UserController(UserService userService){
         this.userService=userService;
@@ -85,6 +91,27 @@ public class UserController {
         user.setPassword(null);
         return ResponseEntity.ok(user);
     }
+
+    @GetMapping("/myApplications")
+    public ResponseEntity<List<Application>> getUserApplications(Authentication authentication) {
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            User user = userRepository.findByUsername(userDetails.getUsername());
+            if (user != null) {
+                List<Application> userApplications = user.getApplications();
+                if (userApplications != null) {
+                    System.out.println("Broj aplikacija korisnika: " + userApplications.size());
+                    return ResponseEntity.ok(userApplications);
+                } else {
+                    System.out.println("Korisnik nema aplikacija.");
+                    return ResponseEntity.ok(Collections.emptyList()); // Vraćamo praznu listu ako nema aplikacija
+                }
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
 
 
 }

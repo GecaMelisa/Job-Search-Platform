@@ -8,6 +8,8 @@ import org.springframework.data.mongodb.core.mapping.FieldType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
 import java.util.Collections;
 
 
@@ -52,8 +54,7 @@ public class User implements UserDetails {
         this.username=username;
         this.password=password;
         this.creationDate=creationDate;
-        this.applications=applications;
-
+        this.applications = new ArrayList<>();
     }
 
 

@@ -1,6 +1,7 @@
 package ba.edu.ibu.job.search.platform.core.service;
 
 import ba.edu.ibu.job.search.platform.core.api.mailsender.MailSender;
+import ba.edu.ibu.job.search.platform.core.model.Application;
 import ba.edu.ibu.job.search.platform.core.model.Job;
 import ba.edu.ibu.job.search.platform.core.model.User;
 import ba.edu.ibu.job.search.platform.core.exceptions.repository.ResourceNotFoundException;
@@ -154,6 +155,11 @@ public class UserService {
         }
         return null;
     }
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+
 
 
 }

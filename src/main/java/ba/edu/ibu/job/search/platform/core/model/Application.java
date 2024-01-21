@@ -18,22 +18,18 @@ public class Application {
     private User user;
     private String userId;
     private String jobId;
-    private String job_title;
+    private String education;
+    private String workExperience;
     private String cv;
-    private String contactEmail;
-    private StatusRequest statusRequest; // enum
     private String applicationDate;
-    public List<Application> submittedApplications;
 
-    public Application(User user, Job job, String cv, String contactEmail, StatusRequest statusRequest, String applicationDate, List<Application> getSubmitetedApplications, String job_title) {
+    public Application(User user, Job job, String cv, String education, String workExperience, String applicationDate ) {
         this.user = user;
         this.job = job;
-        this.job_title=job_title;
+        this.workExperience=workExperience;
+        this.education=education;
         this.cv = cv;
-        this.contactEmail = contactEmail;
-        this.statusRequest = statusRequest;
         this.applicationDate = applicationDate;
-        this.submittedApplications = submittedApplications;
     }
     public Application(){};
 
@@ -70,21 +66,6 @@ public class Application {
         this.cv = cv;
     }
 
-    public String getContactEmail() {
-        return contactEmail;
-    }
-
-    public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail;
-    }
-
-    public StatusRequest getStatusRequest() {
-        return statusRequest;
-    }
-
-    public void setStatusRequest(StatusRequest statusRequest) {
-        this.statusRequest = statusRequest;
-    }
     public String getApplicationDate() {
         return applicationDate;
     }
@@ -92,22 +73,6 @@ public class Application {
         this.applicationDate= applicationDate;
     }
     public void setCompanyOwner(CompanyOwner newCompanyOwner) {
-    }
-
-    public List<Application> getSubmittedApplications() {
-        return submittedApplications;
-    }
-
-    public void setSubmittedApplications(List<Application> submittedApplications) {
-        this.submittedApplications = submittedApplications;
-    }
-
-    public String getJob_title() {
-        return job_title;
-    }
-
-    public void setJob_title(String job_title) {
-        this.job_title = job_title;
     }
 
     public String getUserId() {
@@ -124,5 +89,21 @@ public class Application {
 
     public void setJobId(String jobId) {
         this.jobId = jobId;
+    }
+
+    public String getEducation() {
+        return education;
+    }
+
+    public void setEducation(String education) {
+        this.education = education;
+    }
+
+    public String getWorkExperience() {
+        return workExperience;
+    }
+
+    public void setWorkExperience(String workExperience) {
+        this.workExperience = workExperience;
     }
 }
