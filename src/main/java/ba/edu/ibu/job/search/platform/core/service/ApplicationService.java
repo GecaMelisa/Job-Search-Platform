@@ -96,8 +96,6 @@ public class ApplicationService {
     }
 
 
-
-
     public SubmitAppDTO addAppToJob(SubmitAppRequestDTO application) {
         System.out.println(application.getJobId());
         System.out.println("melisa");
@@ -120,8 +118,6 @@ public class ApplicationService {
 
         return new SubmitAppDTO(applicationEntity);
     }
-
-
 
     /**
      * Delete an application form
