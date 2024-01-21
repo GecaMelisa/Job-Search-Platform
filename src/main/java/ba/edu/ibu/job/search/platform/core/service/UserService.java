@@ -83,6 +83,9 @@ public class UserService {
         return user.get();
     }
 
+    /**
+     * Get user by email
+     */
 
     public User getUserByEmail(String email) {
         Optional<User> user = userRepository.findByEmailCustom(email); {
@@ -95,14 +98,18 @@ public class UserService {
         }
 
 
-    /**Add a user - converting it to a User instance by using the toEntity() method
-    If we provide a model without an ID, it will create it */
+    /**
+     * Add a user - converting it to a User instance by using the toEntity() method
+        If we provide a model without an ID, it will create it
+     */
     public UserDTO addUser(UserRequestDTO payload) {
         User user = userRepository.save(payload.toEntity());
         return new UserDTO(user);
     }
 
-    /**Update a user - if we provide an ID to a model, the save method will update model*/
+    /**
+     * Update a user - if we provide an ID to a model, the save method will update model
+     */
     public UserDTO updateUser(String id, UserRequestDTO payload) {
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()) {
@@ -119,7 +126,9 @@ public class UserService {
         Optional<User> user = userRepository.findById(id);
         user.ifPresent(userRepository::delete);
     }
-
+    /**
+     * Mailgun / Sendgrid
+     */
 
     public String sendEmailToAllUsers(String message){
         List<User> users = userRepository.findAll();
@@ -131,6 +140,10 @@ public class UserService {
         // Method 2: The appropriate implementation is decided based on configuration
         // return mailSender.send(users, message);
     }
+
+    /**
+     * Get user by username
+     */
     public UserDetailsService userDetailsService() {
         return new UserDetailsService() {
             @Override
@@ -140,6 +153,10 @@ public class UserService {
             }
         };
     }
+
+    /**
+     * Get current user by token
+     */
 
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

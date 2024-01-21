@@ -47,6 +47,10 @@ public class JobService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Get all submitted applications for job
+     */
+
     public List<Application> getAllApplicationsForJob(String jobId) {
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new ResourceNotFoundException("Job not found with ID: " + jobId));
@@ -81,8 +85,6 @@ public class JobService {
     }
 
 
-
-
     /**
      * Get a job by position - permitAll
      */
@@ -95,7 +97,8 @@ public class JobService {
     }
 
     /**
-     * Add a job - only companyOwner - ovo radi - ok je*/
+     * Add a job
+     * */
 
     public JobDTO createJob(JobRequestDTO payload) {
         String companyId = payload.getCompanyId();
@@ -103,18 +106,17 @@ public class JobService {
         Company company = companyService.getCompanyById2(companyId);
         Job job = payload.toEntity();
         job.setCompany(company);
-        //jobRepository.save(payload.toEntity());
         jobRepository.save(job);
 
         return new JobDTO(job);
     }
 
-
+    /**
+     * Get job by company
+     */
     public List<Job> getJobsByCompany(String companyId) {
         return jobRepository.findByCompanyId(companyId);
     }
-
-
 
     /**
      * Update a job by id - companyOwner only

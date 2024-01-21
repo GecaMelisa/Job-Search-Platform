@@ -94,7 +94,9 @@ public class CompanyService {
         }
     }
 
-    /*Get all unapproved companies*/
+    /**
+     * Get all unapproved companies
+     */
     public List<CompanyDTO> getUnapprovedCompanies() {
         List<Company> unapprovedCompanies = companyRepository.findByApprovedByAdmin(false);
         return unapprovedCompanies
@@ -104,7 +106,9 @@ public class CompanyService {
     }
 
 
-    /* Approve Company */
+    /**
+     *  Approve Company
+     */
     public void approveCompany(String companyId) {
         Optional<Company> optionalCompany = companyRepository.findById(companyId);
         if (optionalCompany.isPresent()) {
@@ -116,7 +120,9 @@ public class CompanyService {
         }
     }
 
-    /*Get all approved companies*/
+    /**
+     * Get all approved companies
+     */
     public List<CompanyDTO> getApprovedCompanies() {
         List<Company> unapprovedCompanies = companyRepository.findByApprovedByAdmin(true);
         return unapprovedCompanies

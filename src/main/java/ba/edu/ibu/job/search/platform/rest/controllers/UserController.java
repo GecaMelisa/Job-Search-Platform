@@ -52,28 +52,28 @@ public class UserController {
 
     /** Get a user by ID */
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-   // @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
+    @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
     public ResponseEntity<UserDTO> getUserById(@PathVariable String id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
     /** Add a user */
     @RequestMapping(method = RequestMethod.POST, path = "/register")
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<UserDTO> register(@RequestBody UserRequestDTO user) {
         return ResponseEntity.ok(userService.addUser(user));
     }
 
     /**Update a user by ID*/
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
-   // @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<UserDTO> updateUser(@PathVariable String id, @RequestBody UserRequestDTO user) {
         return ResponseEntity.ok(userService.updateUser(id, user));
     }
 
     /**Delete a user*/
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

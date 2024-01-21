@@ -24,6 +24,10 @@ public class CompanyOwnerService {
         this.userRepository=userRepository;
     }
 
+    /**
+     * Get all Company Owners
+     */
+
     public List<CompanyOwnerDTO> getCompanyOwners(){
         List<CompanyOwner> companyOwners= companyOwnerRepository.findAll();
         return companyOwners
@@ -31,6 +35,10 @@ public class CompanyOwnerService {
                 .map(CompanyOwnerDTO::new)
                 .collect(toList());
     }
+
+    /**
+     * Get Company Owner by id
+     */
 
     public CompanyOwnerDTO getCompanyOwnerById(String id){
         Optional<CompanyOwner> companyOwner = companyOwnerRepository.findById(id);
@@ -40,16 +48,9 @@ public class CompanyOwnerService {
         return new CompanyOwnerDTO(companyOwner.get());
     }
 
-    /**need this for assigning companyOwner to company
-    public CompanyOwner getCompanyOwnerById2(String id){
-        Optional<CompanyOwner> companyOwner = companyOwnerRepository.findById(id);
-        if(companyOwner.isEmpty()){
-            throw new ResourceNotFoundException("The Company owner with the given ID does not exist.");
-        }
-        return companyOwner.get();
-    }
+    /**
+     * Add Company Owner
      */
-
 
     public CompanyOwnerDTO addCompanyOwner(CompanyOwnerRequestDTO payload) {
 
@@ -60,6 +61,10 @@ public class CompanyOwnerService {
         userRepository.save(companyOwner);
         return new CompanyOwnerDTO(companyOwner);
     }
+
+    /**
+     * Update Company Owner by id
+     */
 
     public  CompanyOwnerDTO updateCompanyOwner(String id, CompanyOwnerRequestDTO payload){
         Optional<CompanyOwner> companyOwner = companyOwnerRepository.findById(id);
@@ -72,6 +77,10 @@ public class CompanyOwnerService {
         userRepository.save(updatedCompanyOwner);
         return new CompanyOwnerDTO(updatedCompanyOwner);
     }
+
+    /**
+     * Delete Company Owner by id
+     */
 
     public void deleteCompanyOwner(String id){
 

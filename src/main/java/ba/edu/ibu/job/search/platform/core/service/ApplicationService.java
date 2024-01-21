@@ -110,7 +110,6 @@ public class ApplicationService {
         // Dohvati posao
         Job job = optionalJob.get();
 
-        // SubmitAppRequestDTO u Application entitet
         Application applicationEntity = application.toEntity();
 
         // Connection with user and Job

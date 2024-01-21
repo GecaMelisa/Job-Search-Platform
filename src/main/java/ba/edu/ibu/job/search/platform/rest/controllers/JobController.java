@@ -40,8 +40,6 @@ public class JobController {
         return ResponseEntity.ok(applications);
     }
 
-
-    //Get all submitted applications - u application
     /**
      * Get a job by ID
      */
@@ -66,7 +64,7 @@ public class JobController {
      return ResponseEntity.ok(jobService.createJob(job));
      }
 
-
+    /** Get Jobs by CompanyId */
     @GetMapping("/byCompany/{companyId}")
     public ResponseEntity<List<Job>> getJobsByCompany(@PathVariable String companyId) {
         List<Job> jobs = jobService.getJobsByCompany(companyId);

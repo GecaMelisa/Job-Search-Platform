@@ -52,28 +52,18 @@ public class ApplicationController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/byUserId/{userId}")
-    //@PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
+    @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN', 'MEMBER')")
     public ResponseEntity<SubmitAppDTO> getApplicationByUserId(@PathVariable String userId) {
         return ResponseEntity.ok(applicationService.getApplicationByUserId(userId));
     }
 
-    /** Submit Application OVO PROVJERITI POPRAVITI DA SUBMITANA APP IDE NA JOBS - DA BUDE POVEZANA SA TIM*/
+    /** Submit Application */
 
     @RequestMapping(method = RequestMethod.POST, path = "/submitApp")
     public ResponseEntity<SubmitAppDTO> submitApplication(@RequestBody SubmitAppRequestDTO application) {
         return ResponseEntity.ok(applicationService.addAppToJob(application));
     }
 
-
-
-    /**
-     * Update an application by ID
-
-    @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
-    public ResponseEntity<PostApplicationDTO> updateApplication(@PathVariable String id, @RequestBody PostApplicationRequestDTO application) {
-        return ResponseEntity.ok(applicationService.updateApplication(id, application));
-    }
-    */
 
     /**
      * Delete an application
