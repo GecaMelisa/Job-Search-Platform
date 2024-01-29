@@ -22,14 +22,14 @@ public class CompanyOwnerController {
     }
     /**Get all company owners */
     @RequestMapping(method = RequestMethod.GET, path = "/")
-    @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<CompanyOwnerDTO>> getCompanyOwners() {
         return ResponseEntity.ok(companyOwnerService.getCompanyOwners());
     }
 
     /**Get acompany owner by id */
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<CompanyOwnerDTO> getCompanyOwnerById(@PathVariable String id) {
         return ResponseEntity.ok(companyOwnerService.getCompanyOwnerById(id));
     }

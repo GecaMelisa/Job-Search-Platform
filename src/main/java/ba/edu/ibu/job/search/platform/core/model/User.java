@@ -3,9 +3,15 @@ package ba.edu.ibu.job.search.platform.core.model;
 import org.springframework.data.annotation.Id;
 import ba.edu.ibu.job.search.platform.core.model.enums.UserType;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.FieldType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
 
 
 import java.util.Collection;
@@ -48,8 +54,7 @@ public class User implements UserDetails {
         this.username=username;
         this.password=password;
         this.creationDate=creationDate;
-        this.applications=applications;
-
+        this.applications = new ArrayList<>();
     }
 
 
@@ -185,10 +190,16 @@ public class User implements UserDetails {
         return true;
     }
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(userType.name()));
+        if (userType != null) {
+            return List.of(new SimpleGrantedAuthority(userType.name()));
+        } else {
+            return Collections.emptyList();
+        }
     }
+
 
 
 

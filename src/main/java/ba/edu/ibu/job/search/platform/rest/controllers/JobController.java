@@ -1,5 +1,8 @@
 package ba.edu.ibu.job.search.platform.rest.controllers;
 
+import ba.edu.ibu.job.search.platform.core.model.Job;
+import ba.edu.ibu.job.search.platform.core.model.Application;
+
 import ba.edu.ibu.job.search.platform.core.service.JobService;
 import ba.edu.ibu.job.search.platform.rest.dto.*;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -23,11 +26,18 @@ public class JobController {
     }
 
     /**
-     * Get all jobs
+     * Get all jobs --> svi objavljeni poslovi
      */
     @RequestMapping(method = RequestMethod.GET, path = "/")
     public ResponseEntity<List<JobDTO>>getJobs() {
         return ResponseEntity.ok(jobService.getJobs());
+    }
+
+    /** Get all submited applications for job*/
+    @GetMapping("/{jobId}/applications")
+    public ResponseEntity<List<Application>> getAllApplicationsForJob(@PathVariable String jobId) {
+        List<Application> applications = jobService.getAllApplicationsForJob(jobId);
+        return ResponseEntity.ok(applications);
     }
 
     /**
@@ -46,14 +56,21 @@ public class JobController {
         return ResponseEntity.ok(jobService.getJobById(position));
     }
 
-    /**
-     * Add a job
-     */
-    @RequestMapping(method = RequestMethod.POST, path = "/register")
-    @PreAuthorize("hasAuthority('COMPANY_OWNER')")
-    public ResponseEntity<JobDTO> register(@RequestBody JobRequestDTO job) {
-        return ResponseEntity.ok(jobService.addJob(job));
+
+    /** Add a job*/
+     @RequestMapping(method = RequestMethod.POST,path = "/createJob")
+     //@PreAuthorize("hasAuthority('COMPANY_OWNER')")
+     public ResponseEntity<JobDTO> createJob(@RequestBody JobRequestDTO job){
+     return ResponseEntity.ok(jobService.createJob(job));
+     }
+
+    /** Get Jobs by CompanyId */
+    @GetMapping("/byCompany/{companyId}")
+    public ResponseEntity<List<Job>> getJobsByCompany(@PathVariable String companyId) {
+        List<Job> jobs = jobService.getJobsByCompany(companyId);
+        return new ResponseEntity<>(jobs, HttpStatus.OK);
     }
+
 
     /**
      * Update a job by ID

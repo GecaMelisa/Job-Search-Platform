@@ -33,12 +33,13 @@ public class CompanyRequestDTO {
     public Company toEntity() {
         Company company = new Company();
         company.setCompanyName(companyName);
-        this.setCompanyOwnerId(this.companyOwnerId);
+        company.setCompanyOwnerId(companyOwnerId);  // Ova linija je dovoljna za postavljanje companyOwnerId
         company.setAddress(address);
         company.setPhone(phone);
         company.setEmail(email);
         return company;
     }
+
 
     public String getCompanyName() {
         return companyName;

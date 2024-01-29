@@ -6,7 +6,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import ba.edu.ibu.job.search.platform.core.model.enums.JobType;
 
+
 import java.util.List;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.FieldType;
+
 
 @Document
 public class Job {
@@ -14,6 +18,7 @@ public class Job {
     @Id
     private String id;
     private Company company;
+    private String companyId;
     private String position;
     private String description;
     private String location;
@@ -33,6 +38,7 @@ public class Job {
                String deadline, JobStatus jobStatus) {
         this.id = id;
         this.company = company;
+        this.companyId = company.getId();
         this.position = position;
         this.description = description;
         this.location = location;
@@ -142,5 +148,12 @@ public class Job {
         this.submittedApplications = submittedApplications;
     }
 
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
 }
 

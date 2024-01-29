@@ -20,17 +20,15 @@ public class UserDTO {
     private List<SubmitAppDTO> applications;
 
 
-    public UserDTO(User user){
+    public UserDTO(User user) {
         this.id = user.getId();
         this.name = user.getFirstName() + " " + user.getLastName();
-        this.userType=user.getUserType();
-        this.dateOfBirth=user.getDateOfBirth();
-        this.phoneNumber=user.getPhoneNumber();
         this.email = user.getEmail();
-        this.education = user.getEducation();
-        this.workExperience = user.getWorkExperience();
-        this.address=user.getAddress();
-        this.creationDate = user.getCreationDate();
+        this.userType = user.getUserType();
+        this.dateOfBirth = user.getDateOfBirth();
+        this.phoneNumber = user.getPhoneNumber();
+        this.address = user.getAddress();
+        this.applications = new ArrayList<>();
     }
 
     public UserDTO() {
@@ -77,13 +75,6 @@ public class UserDTO {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
 
     public String getAddress() {
         return address;
@@ -91,29 +82,6 @@ public class UserDTO {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-    public String getEducation() {
-        return education;
-    }
-
-    public void setEducation(String education) {
-        this.education = education;
-    }
-
-    public String getWorkExperience() {
-        return workExperience;
-    }
-
-    public void setWorkExperience(String workExperience) {
-        this.workExperience = workExperience;
-    }
-
-    public String getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
     }
 
 }

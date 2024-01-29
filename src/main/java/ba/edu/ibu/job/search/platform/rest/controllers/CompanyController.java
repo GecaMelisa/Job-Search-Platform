@@ -44,7 +44,7 @@ public class CompanyController {
      * Add a company - only companyOwner
      */
     @RequestMapping(method = RequestMethod.POST, path = "/register")
-    @PreAuthorize("hasAuthority('COMPANY_OWNER')")
+    @PreAuthorize("hasAnyAuthority('COMPANY_OWNER', 'ADMIN')")
     public ResponseEntity<CompanyDTO> register(@RequestBody CompanyRequestDTO company) {
         return ResponseEntity.ok(companyService.addCompany(company));
     }
@@ -83,7 +83,7 @@ public class CompanyController {
      * Update a company by ID
      */
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
-    @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('COMPANY_OWNER', 'ADMIN')")
     public ResponseEntity<CompanyDTO> updateCompany(@PathVariable String id, @RequestBody CompanyRequestDTO company) {
         return ResponseEntity.ok(companyService.updateCompany(id, company));
     }
@@ -92,7 +92,7 @@ public class CompanyController {
      * Delete a company by ID
      */
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
-    @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('COMPANY_OWNER', 'ADMIN')")
     public ResponseEntity<String> deleteCompany(@PathVariable("id") String companyId) {
         companyService.deleteCompany(companyId);
         return ResponseEntity.ok("Company deleted successfully");

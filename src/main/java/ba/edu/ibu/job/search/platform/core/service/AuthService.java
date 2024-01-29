@@ -47,5 +47,6 @@ public class AuthService {
 
         return new LoginDTO(jwt);
     }
+
 }
 

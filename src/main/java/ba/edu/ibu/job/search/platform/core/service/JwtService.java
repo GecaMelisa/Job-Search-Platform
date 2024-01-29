@@ -4,6 +4,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -63,5 +65,13 @@ public class JwtService {
             byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKey);
             return Keys.hmacShaKeyFor(keyBytes);
         }
+
+    public String extractToken(HttpServletRequest request) {
+        final String authHeader = request.getHeader("Authorization");
+        if (StringUtils.isNotEmpty(authHeader) && StringUtils.startsWith(authHeader, "Bearer ")) {
+            return authHeader.substring(7);
+        }
+        return null;
+    }
 }
 
