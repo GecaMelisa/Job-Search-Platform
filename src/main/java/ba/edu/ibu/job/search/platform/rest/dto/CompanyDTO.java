@@ -2,6 +2,7 @@ package ba.edu.ibu.job.search.platform.rest.dto;
 
 import ba.edu.ibu.job.search.platform.core.model.Company;
 import ba.edu.ibu.job.search.platform.core.model.enums.StatusRequest;
+import org.springframework.data.annotation.Id;
 
 import java.util.List;
 
@@ -14,7 +15,6 @@ public class CompanyDTO {
         private String address;
         private String phone;
         private String email;
-        private StatusRequest statusRequest;
 
         public CompanyDTO(Company company){
             this.id=company.getId();
@@ -22,7 +22,6 @@ public class CompanyDTO {
             this.address=company.getAddress();
             this.phone=company.getPhone();
             this.email = company.getEmail();
-            this.statusRequest=company.getStatusRequest();
         }
 
         public String getId() {
@@ -73,12 +72,6 @@ public class CompanyDTO {
             this.email = email;
         }
 
-        public StatusRequest getStatusRequest() {
-            return statusRequest;
-        }
-        public void setStatusRequest(StatusRequest statusRequest) {
-            this.statusRequest = statusRequest;
-        }
 
 
 }

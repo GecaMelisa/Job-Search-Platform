@@ -18,8 +18,8 @@ The `Company` model represents companies that can post job listings on the platf
 ### Job
 The `Job` model represents job listings posted by companies. It includes attributes such as job ID, position, requirements and other details.
 
-### Application Form
-The `ApplicationForm` model represents the form that users submit when applying for a job. It includes attributes such as application ID, education, work experience, cv and other relevant information.
+### Application 
+The `Application` model represents the form that users submit when applying for a job. It includes attributes such as application ID, education, work experience, cv and other relevant information.
 
 ## Key Annotations
 

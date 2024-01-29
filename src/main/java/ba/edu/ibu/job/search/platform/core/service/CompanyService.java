@@ -38,12 +38,14 @@ public class CompanyService {
      */
     public List<CompanyDTO> getCompanies() {
         List<Company> companies = companyRepository.findAll();
+        System.out.println("Dohvaćene company: " + companies.size());
 
         return companies
                 .stream()
                 .map(CompanyDTO::new)
                 .collect(toList());
     }
+
 
     /**
      * Get a company by id
@@ -72,7 +74,7 @@ public class CompanyService {
      */
     public CompanyDTO addCompany(CompanyRequestDTO payload) {
         Company company = payload.toEntity();
-        company.setApprovedByAdmin(false);
+        //company.setApprovedByAdmin(false);
 
         // Spremi kompaniju prvi put (bez postavljanja vlasnika)
         company = companyRepository.save(company);
@@ -92,43 +94,6 @@ public class CompanyService {
         } else {
             throw new ResourceNotFoundException("The company owner with the given ID does not exist.");
         }
-    }
-
-    /**
-     * Get all unapproved companies
-     */
-    public List<CompanyDTO> getUnapprovedCompanies() {
-        List<Company> unapprovedCompanies = companyRepository.findByApprovedByAdmin(false);
-        return unapprovedCompanies
-                .stream()
-                .map(CompanyDTO::new)
-                .collect(toList());
-    }
-
-
-    /**
-     *  Approve Company
-     */
-    public void approveCompany(String companyId) {
-        Optional<Company> optionalCompany = companyRepository.findById(companyId);
-        if (optionalCompany.isPresent()) {
-            Company company = optionalCompany.get();
-            company.setApprovedByAdmin(true); //odobrio
-            companyRepository.save(company);
-        } else {
-            throw new ResourceNotFoundException("Company with id " + companyId + " not found");
-        }
-    }
-
-    /**
-     * Get all approved companies
-     */
-    public List<CompanyDTO> getApprovedCompanies() {
-        List<Company> unapprovedCompanies = companyRepository.findByApprovedByAdmin(true);
-        return unapprovedCompanies
-                .stream()
-                .map(CompanyDTO::new)
-                .collect(toList());
     }
 
 

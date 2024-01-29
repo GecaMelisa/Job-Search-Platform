@@ -21,14 +21,13 @@ public class Company {
     private String email;
     private List<Job> jobs;
     private List<User> Employees;
-    private boolean approvedByAdmin;
     private StatusRequest statusRequest;
 
     public Company(){};
 
     public Company(String id, CompanyOwner companyOwner, String companyName, String address,
                    String phone, String email, List<Job> jobs,
-                   boolean approvedByAdmin, StatusRequest statusRequest) {
+                   StatusRequest statusRequest) {
         this.id = id;
         this.companyOwner = companyOwner;
         this.companyOwnerId=companyOwner.getId();
@@ -37,7 +36,6 @@ public class Company {
         this.phone = phone;
         this.email = email;
         this.jobs = jobs;
-        this.approvedByAdmin = approvedByAdmin;
         this.statusRequest = statusRequest;
     }
 
@@ -104,14 +102,6 @@ public class Company {
 
     public void setEmployees(List<User> employees) {
         Employees = employees;
-    }
-
-    public boolean isApprovedByAdmin() {
-        return approvedByAdmin;
-    }
-
-    public void setApprovedByAdmin(boolean approvedByAdmin) {
-        this.approvedByAdmin = approvedByAdmin;
     }
 
     public StatusRequest getStatusRequest() {

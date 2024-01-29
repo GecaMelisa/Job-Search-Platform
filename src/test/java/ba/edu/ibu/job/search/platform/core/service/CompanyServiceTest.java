@@ -48,7 +48,6 @@ public class CompanyServiceTest {
         company.setEmail("Test Email");
         company.setJobs(jobs);
         company.setEmployees(employees);
-        company.setApprovedByAdmin(true);
         company.setStatusRequest(StatusRequest.APPROVED);
 
         Mockito.when(companyRepository.save(ArgumentMatchers.any(Company.class))).thenReturn(company);

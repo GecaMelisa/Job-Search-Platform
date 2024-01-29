@@ -69,7 +69,6 @@ public class CompanyControllerTest {
         company.setEmail("Test Email");
         company.setJobs(jobs);
         company.setEmployees(employees);
-        company.setApprovedByAdmin(true);
         company.setStatusRequest(StatusRequest.APPROVED);
 
 

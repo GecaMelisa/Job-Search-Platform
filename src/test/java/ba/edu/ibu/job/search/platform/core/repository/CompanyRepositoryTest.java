@@ -23,11 +23,6 @@ public class CompanyRepositoryTest {
         assertEquals(2, companies.size());
     }
 
-    @Test
-    void shouldReturnAllCompaniesApprovedByAdmin() {
-        List<Company> approvedCompanies = companyRepository.findByApprovedByAdmin(true);
 
-        assertEquals(1, approvedCompanies.size());
-    }
 
 }
