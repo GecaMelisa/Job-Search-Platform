@@ -27,7 +27,6 @@ public class Job {
     private List <String> requirements;
     private String postedDate;
     private String deadline;
-    private JobStatus jobStatus; //da znamo je li oglas jos uvijek aktivan ili nije
     private List<SubmitAppDTO> submittedApplications;
 
     public Job() {}
@@ -47,7 +46,6 @@ public class Job {
         this.requirements = requirements;
         this.postedDate = postedDate;
         this.deadline = deadline;
-        this.jobStatus = jobStatus;
     }
 
     public String getId() {
@@ -71,7 +69,7 @@ public class Job {
         return position;
     }
 
-    public void setPosition(String title) {
+    public void setPosition(String position) {
         this.position = position;
     }
 
@@ -130,14 +128,6 @@ public class Job {
 
     public void setDeadline(String deadline) {
         this.deadline = deadline;
-    }
-
-    public JobStatus getJobStatus() {
-        return jobStatus;
-    }
-
-    public void setJobStatus(JobStatus jobStatus) {
-        this.jobStatus = jobStatus;
     }
 
     public List<SubmitAppDTO> getSubmittedApplications() {

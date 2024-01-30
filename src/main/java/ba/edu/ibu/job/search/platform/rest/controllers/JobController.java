@@ -76,7 +76,7 @@ public class JobController {
      * Update a job by ID
      */
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
-    @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
+    //@PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
     public ResponseEntity<JobDTO> updateJob(@PathVariable String id, @RequestBody JobRequestDTO job) {
         return ResponseEntity.ok(jobService.updateJob(id, job));
     }
@@ -85,7 +85,7 @@ public class JobController {
      * Delete a job
      */
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('COMPANY_OWNER', 'ADMIN')")
     public ResponseEntity<String> deleteJob(@PathVariable("id") String jobId) {
         jobService.deleteJob(jobId);
         return ResponseEntity.ok("Job deleted successfully");

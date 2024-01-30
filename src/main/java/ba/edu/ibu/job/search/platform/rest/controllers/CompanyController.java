@@ -44,39 +44,11 @@ public class CompanyController {
      * Add a company - only companyOwner
      */
     @RequestMapping(method = RequestMethod.POST, path = "/register")
-    @PreAuthorize("hasAnyAuthority('COMPANY_OWNER', 'ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('COMPANY_OWNER', 'ADMIN')")
     public ResponseEntity<CompanyDTO> register(@RequestBody CompanyRequestDTO company) {
         return ResponseEntity.ok(companyService.addCompany(company));
     }
 
-    /** Get all unapporved companies - only admin */
-
-    @RequestMapping(method = RequestMethod.GET, path = "/unapprovedCompanies")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<List<CompanyDTO>> getUnapprovedCompanies() {
-        List<CompanyDTO> unapprovedCompanies = companyService.getUnapprovedCompanies();
-        return ResponseEntity.ok(unapprovedCompanies);
-    }
-
-
-    /**
-     * Approve a company by ADMIN
-     */
-    @RequestMapping(method = RequestMethod.PUT, path = "/approve/{companyId}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<String> approveCompany(@PathVariable String companyId) {
-        companyService.approveCompany(companyId);
-        return ResponseEntity.ok("Company approved successfully");
-    }
-
-    /** Get all approved companies - only admin */
-
-    @RequestMapping(method = RequestMethod.GET, path = "/approvedCompanies")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<List<CompanyDTO>> getApprovedCompanies() {
-        List<CompanyDTO> approvedCompanies = companyService.getApprovedCompanies();
-        return ResponseEntity.ok(approvedCompanies);
-    }
 
 
     /**
@@ -107,4 +79,3 @@ public class CompanyController {
         return ResponseEntity.ok(companyService.filterByEmail(email));
     }
 }
-

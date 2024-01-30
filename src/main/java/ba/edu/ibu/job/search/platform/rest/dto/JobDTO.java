@@ -1,12 +1,9 @@
 package ba.edu.ibu.job.search.platform.rest.dto;
-import ba.edu.ibu.job.search.platform.core.model.Company;
 import ba.edu.ibu.job.search.platform.core.model.Job;
 import ba.edu.ibu.job.search.platform.core.model.enums.JobType;
 import ba.edu.ibu.job.search.platform.core.model.enums.StatusRequest;
-import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class JobDTO {
@@ -26,7 +23,11 @@ public class JobDTO {
     public JobDTO(Job job){
 
        // this.company=new CompanyDTO(job.getCompany());
-        this.companyName=job.getCompany().getCompanyName();
+        if (job.getCompany() != null) {
+            this.companyName = job.getCompany().getCompanyName();
+        } else {
+            this.companyName = "N/A";
+        }
         this.jobId=job.getId();
         this.position = job.getPosition();
         this.description = job.getDescription();
@@ -36,6 +37,7 @@ public class JobDTO {
         this.requirements = new ArrayList<>(job.getRequirements());
         this.postedDate=job.getPostedDate();
         this.deadline=job.getDeadline();
+        this.statusRequest=getStatusRequest();
     }
 
 
@@ -115,7 +117,7 @@ public class JobDTO {
         return companyName;
     }
 
-    public void setCompanyName(String companyName) {
+    public void setCompanyName(String  companyName) {
         this.companyName = companyName;
     }
 

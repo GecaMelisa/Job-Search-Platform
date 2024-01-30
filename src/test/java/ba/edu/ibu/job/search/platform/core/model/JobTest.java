@@ -40,6 +40,5 @@ public class JobTest {
         Assertions.assertEquals(Arrays.asList("requirement1", "requirement2"), job.getRequirements());
         Assertions.assertEquals("25.01.2024.", job.getPostedDate());
         Assertions.assertEquals("deadlineDate", job.getDeadline());
-        Assertions.assertEquals(JobStatus.ACTIVE, job.getJobStatus());
     }
 }

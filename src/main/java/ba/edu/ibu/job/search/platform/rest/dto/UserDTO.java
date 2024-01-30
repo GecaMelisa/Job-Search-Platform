@@ -1,6 +1,7 @@
 package ba.edu.ibu.job.search.platform.rest.dto;
 import ba.edu.ibu.job.search.platform.core.model.User;
 import ba.edu.ibu.job.search.platform.core.model.enums.UserType;
+import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
 import java.util.Date;

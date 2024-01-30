@@ -3,6 +3,7 @@ package ba.edu.ibu.job.search.platform.core.model;
 import ba.edu.ibu.job.search.platform.core.model.enums.UserType;
 import ba.edu.ibu.job.search.platform.rest.dto.JobDTO;
 import ba.edu.ibu.job.search.platform.rest.dto.SubmitAppDTO;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.bson.types.ObjectId;
 import org.springframework.core.convert.converter.Converter;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Document
 public class CompanyOwner extends User {
+
         private List<JobDTO> jobs;
 
         private List<SubmitAppDTO> submittedApplications;
@@ -38,16 +40,6 @@ public class CompanyOwner extends User {
             this.submittedApplications = submittedApplications;
         }
 
-    @ReadingConverter // Dodajte ovu anotaciju ako je konverter za čitanje (čitanje iz baze podataka)
-    public class ObjectIdToCompanyOwnerConverter implements Converter<ObjectId, CompanyOwner> {
-
-        @Override
-        public CompanyOwner convert(ObjectId source) {
-            // Implementacija konverzije iz ObjectId u CompanyOwner
-            // Ovdje možete uključiti logiku za dohvaćanje CompanyOwner iz baze podataka
-            return new CompanyOwner(); // Ovo je samo primjer
-        }
-    }
 
 }
 

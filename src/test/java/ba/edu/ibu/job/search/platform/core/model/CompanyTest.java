@@ -24,7 +24,6 @@ public class CompanyTest {
                 "Test Phone",
                 "Test Email",
                 jobs,
-                true,
                 StatusRequest.APPROVED
         );
 
@@ -35,7 +34,6 @@ public class CompanyTest {
         assertEquals("Test Phone", company.getPhone());
         assertEquals("Test Email", company.getEmail());
         assertEquals(jobs, company.getJobs());
-        assertEquals(true, company.isApprovedByAdmin());
         assertEquals(StatusRequest.APPROVED, company.getStatusRequest());
     }
 }
