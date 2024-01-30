@@ -37,6 +37,7 @@ public class CompanyService {
      * Get all companies
      */
     public List<CompanyDTO> getCompanies() {
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         List<Company> companies = companyRepository.findAll();
         System.out.println("Dohvaćene company: " + companies.size());
 

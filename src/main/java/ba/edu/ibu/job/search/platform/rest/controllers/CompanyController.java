@@ -44,7 +44,7 @@ public class CompanyController {
      * Add a company - only companyOwner
      */
     @RequestMapping(method = RequestMethod.POST, path = "/register")
-    @PreAuthorize("hasAnyAuthority('COMPANY_OWNER', 'ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('COMPANY_OWNER', 'ADMIN')")
     public ResponseEntity<CompanyDTO> register(@RequestBody CompanyRequestDTO company) {
         return ResponseEntity.ok(companyService.addCompany(company));
     }

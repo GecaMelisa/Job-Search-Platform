@@ -13,7 +13,7 @@ import java.util.List;
 public class Company {
     @Id
     private String id;
-    private  CompanyOwner companyOwner;
+    private CompanyOwner companyOwner;
     private String companyOwnerId;
     private String companyName;
     private String address;
