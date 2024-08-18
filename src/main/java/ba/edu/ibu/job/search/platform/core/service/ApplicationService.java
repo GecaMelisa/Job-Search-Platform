@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import static java.util.stream.Collectors.toList;
 @Service
 public class ApplicationService {
@@ -87,9 +89,9 @@ public class ApplicationService {
      * Get an application by userId2 - ne ide preko DTO
      */
 
-    public Application getApplicationById2(String id){
+    public Application getApplicationById2(String id) {
         Optional<Application> application = applicationRepository.findById(id);
-        if(application.isEmpty()){
+        if (application.isEmpty()) {
             throw new ResourceNotFoundException("The app with the given ID does not exist.");
         }
         return application.get();
@@ -127,6 +129,36 @@ public class ApplicationService {
         application.ifPresent(applicationRepository::delete);
     }
 
+
+    public List<SubmitAppDTO> getAppByUserId(String userId) {
+        List<Application> applications = applicationRepository.findByUserId(userId);
+        return applications
+                .stream()
+                .map(SubmitAppDTO::new)
+                .collect(toList());
     }
 
+    /*
+    public SubmitAppDTO getAppPoUserId(String userId) {
+        List <Application> applicationOptional = applicationRepository.findByUserId(userId);
+        if (applicationOptional.isEmpty()) {
+            throw new ResourceNotFoundException("The application with the given ID does not exist.");
+        }
+
+        Application application = applicationOptional.get();
+        User user = userRepository.findById(application.getId()).orElse(null);
+
+        return new SubmitAppDTO(application);
+    }*/
+
+
+/*
+
+    private SubmitAppDTO convertToDTO(Application application) {
+        SubmitAppDTO dto = new SubmitAppDTO(application);
+        dto.setEducation(application.getEducation());
+        dto.setWorkExperience(application.getWorkExperience());
+        return dto;
+    }*/
+}
 

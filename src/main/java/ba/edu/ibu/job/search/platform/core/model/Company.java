@@ -18,6 +18,7 @@ public class Company {
     private String companyName;
     private String address;
     private String phone;
+    private String description;
     private String email;
     private List<Job> jobs;
     private List<User> Employees;
@@ -118,5 +119,13 @@ public class Company {
 
     public void setCompanyOwnerId(String companyOwnerId) {
         this.companyOwnerId = companyOwnerId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
