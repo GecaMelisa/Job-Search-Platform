@@ -8,6 +8,9 @@ import ba.edu.ibu.job.search.platform.core.model.enums.JobType;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 
@@ -29,12 +32,14 @@ public class Job {
     private String deadline;
     private List<SubmitAppDTO> submittedApplications;
 
+    private String seniority;
+
     public Job() {}
 
     // Konstruktor
     public Job(String id, Company company, String position, String description, String location,
                JobType jobType, int salary, List<String> requirements, String postedDate,
-               String deadline, JobStatus jobStatus) {
+               String deadline, JobStatus jobStatus, String seniority) {
         this.id = id;
         this.company = company;
         this.companyId = company.getId();
@@ -46,6 +51,7 @@ public class Job {
         this.requirements = requirements;
         this.postedDate = postedDate;
         this.deadline = deadline;
+        this.seniority = seniority;
     }
 
     public String getId() {
@@ -144,6 +150,14 @@ public class Job {
 
     public void setCompanyId(String companyId) {
         this.companyId = companyId;
+    }
+
+    public String getSeniority() {
+        return seniority;
+    }
+
+    public void setSeniority(String seniority) {
+        this.seniority = seniority;
     }
 }
 

@@ -5,11 +5,17 @@ import ba.edu.ibu.job.search.platform.core.repository.CompanyOwnerRepository;
 import ba.edu.ibu.job.search.platform.core.model.CompanyOwner;
 import ba.edu.ibu.job.search.platform.core.repository.CompanyRepository;
 import ba.edu.ibu.job.search.platform.rest.dto.CompanyDTO;
+import ba.edu.ibu.job.search.platform.rest.dto.CompanyPageDTO;
 import ba.edu.ibu.job.search.platform.rest.dto.CompanyRequestDTO;
 import ba.edu.ibu.job.search.platform.core.exceptions.repository.ResourceNotFoundException;
 import ba.edu.ibu.job.search.platform.rest.dto.SubmitAppDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,6 +28,7 @@ public class CompanyService {
     @Autowired
     private CompanyOwnerRepository companyOwnerRepository;
     private CompanyOwnerService companyOwnerService;
+
 
 
     /**
@@ -37,9 +44,7 @@ public class CompanyService {
      * Get all companies
      */
     public List<CompanyDTO> getCompanies() {
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         List<Company> companies = companyRepository.findAll();
-        System.out.println("Dohvaćene company: " + companies.size());
 
         return companies
                 .stream()
@@ -47,6 +52,32 @@ public class CompanyService {
                 .collect(toList());
     }
 
+    public List<Company> sortBasedUponSomeField(String field){
+        return companyRepository.findAll(Sort.by(Sort.Direction.ASC, field));
+
+    }
+
+    public Page<Company> getCompanyWithPagination(int offset, int pageSize){
+        return companyRepository.findAll(PageRequest.of(offset, pageSize));
+
+    }
+
+    public Page<Company> companyWithPaginationAndSorting(int offset, int pageSize, String field){
+        return companyRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(Sort.Direction.ASC, field)));
+
+    }
+
+    public CompanyPageDTO getCompaniesWithPagination(Integer offset, Integer limit, String search) {
+        List<Company> companies = companyRepository.findAllWithPaginationAndSearch(offset, limit, search);
+        Long count = companyRepository.countSearchedCompanies(search);
+
+        List<CompanyDTO> data = companies
+                .stream()
+                .map(CompanyDTO::new)
+                .collect(toList());
+
+        return new CompanyPageDTO(count, data);
+    }
 
     /**
      * Get a company by id

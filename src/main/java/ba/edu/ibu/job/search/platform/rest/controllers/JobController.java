@@ -3,6 +3,7 @@ package ba.edu.ibu.job.search.platform.rest.controllers;
 import ba.edu.ibu.job.search.platform.core.model.Job;
 import ba.edu.ibu.job.search.platform.core.model.Application;
 
+import ba.edu.ibu.job.search.platform.core.model.enums.JobType;
 import ba.edu.ibu.job.search.platform.core.service.JobService;
 import ba.edu.ibu.job.search.platform.rest.dto.*;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -71,6 +72,35 @@ public class JobController {
         return new ResponseEntity<>(jobs, HttpStatus.OK);
     }
 
+    /**PAGINATION*/
+
+    @RequestMapping(method = RequestMethod.GET, path = "/jobsWithPagination")
+    public JobPageDTO getJobsWithPagination(@RequestParam int offset, @RequestParam int pageSize, @RequestParam String field ){
+        return jobService.getJobsWithPagination(offset, pageSize, field);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/jobsWithPaginationAndFiltering/{jobType}")
+    public JobPageDTO getJobsWithPaginationAndFiltering(@RequestParam int offset, @RequestParam int pageSize, @RequestParam JobType jobType ){
+        return jobService.getJobsWithPaginationAndFilteringg(offset, pageSize, jobType);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/jobsWithPaginationAndSearchAndFiltering/{jobType}")
+    public JobPageDTO getJobsWithPaginationAndFiltering(@RequestParam int offset, @RequestParam int pageSize, @RequestParam String search, @RequestParam JobType jobType ){
+        return jobService.getJobsWithPaginationAndSearchAndFilteringg(offset, pageSize, search, jobType);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/getTypes")
+    public ResponseEntity<List<String>>getTypes() {
+        return ResponseEntity.ok(jobService.getTypes());
+    }
+
+
+    /**FILTERING*/
+
+    @RequestMapping(method = RequestMethod.GET, path = "/type/{jobType}")
+    public List<JobDTO> getJobsByType(@PathVariable JobType jobType) {
+        return jobService.getJobsByType(jobType);
+    }
 
     /**
      * Update a job by ID

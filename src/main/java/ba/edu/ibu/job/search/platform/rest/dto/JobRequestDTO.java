@@ -21,6 +21,8 @@ public class JobRequestDTO {
     private List<String> requirements;
     private String deadline;
 
+    private String seniority;
+
 
         /**Converting from a model to a DTO
 
@@ -39,6 +41,7 @@ public class JobRequestDTO {
             this.salary=job.getSalary();
             this.requirements = new ArrayList<>(getRequirements());
             this.deadline=job.getDeadline();
+            this.seniority = job.getSeniority();
         }
 
         /**Converting from a DTO to a model with method toEntity which creates an empty Model object and assigns the data from the DTO to the model*/
@@ -52,7 +55,7 @@ public class JobRequestDTO {
             job.setJobType(jobType);
             job.setRequirements(requirements);
             job.setDeadline(deadline);
-
+            job.setSeniority(seniority);
             return job;
         }
 
@@ -115,6 +118,14 @@ public class JobRequestDTO {
             public void setDeadline(String deadline) {
                 this.deadline = deadline;
             }
+
+    public String getSeniority() {
+        return seniority;
+    }
+
+    public void setSeniority(String seniority) {
+        this.seniority = seniority;
+    }
 }
 
 

@@ -1,17 +1,16 @@
 package ba.edu.ibu.job.search.platform.rest.controllers;
 import ba.edu.ibu.job.search.platform.core.model.Company;
 import ba.edu.ibu.job.search.platform.core.service.CompanyService;
-import ba.edu.ibu.job.search.platform.rest.dto.CompanyDTO;
-import ba.edu.ibu.job.search.platform.rest.dto.CompanyRequestDTO;
-import ba.edu.ibu.job.search.platform.rest.dto.UserDTO;
-import ba.edu.ibu.job.search.platform.rest.dto.UserRequestDTO;
+import ba.edu.ibu.job.search.platform.rest.dto.*;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping("api/companies")
@@ -30,6 +29,26 @@ public class CompanyController {
     @RequestMapping(method = RequestMethod.GET, path = "/")
     public ResponseEntity<List<CompanyDTO>> getCompanies() {
         return ResponseEntity.ok(companyService.getCompanies());
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/sort/{field}")
+    public List<Company> paginationCompanies(@PathVariable String field){
+        return companyService.sortBasedUponSomeField(field);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path =  "/pagination/{offset}/{pageSize}")
+    public Page<Company> sortCompanies(@PathVariable int offset, @PathVariable int pageSize){
+        return companyService.getCompanyWithPagination(offset, pageSize);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/paginationandsorting/{offset}/{pageSize}/{field}")
+    public Page<Company> sortCompanies(@PathVariable int offset, @PathVariable int pageSize, @PathVariable String field ){
+        return companyService.companyWithPaginationAndSorting(offset, pageSize, field);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/withPagination")
+    public CompanyPageDTO getCompaniesWithPagination(@RequestParam int offset, @RequestParam int pageSize, @RequestParam String field ){
+        return companyService.getCompaniesWithPagination(offset, pageSize, field);
     }
 
     /**

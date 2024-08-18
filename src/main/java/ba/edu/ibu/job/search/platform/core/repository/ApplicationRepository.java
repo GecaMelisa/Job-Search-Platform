@@ -18,10 +18,13 @@ public interface ApplicationRepository extends MongoRepository<Application, Stri
     """)
     List<Application> findAllCustom();
 
-    Optional<Application> findApplicationsByUserId(String userId);
+    //Optional<Application> findApplicationsByUserId(String userId);
 
     List<Application> findApplicationsByJobId(String jobId);
 
     List<Application> findByJob(Job job);
+
+    List<Application> findByUserId(String userId);
+
 }
 

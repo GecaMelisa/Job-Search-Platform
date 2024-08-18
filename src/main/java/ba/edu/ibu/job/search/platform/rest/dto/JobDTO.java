@@ -19,6 +19,7 @@ public class JobDTO {
     private String postedDate;
     private String deadline;
     private StatusRequest statusRequest;
+    private String seniority;
 
     public JobDTO(Job job){
 
@@ -38,6 +39,7 @@ public class JobDTO {
         this.postedDate=job.getPostedDate();
         this.deadline=job.getDeadline();
         this.statusRequest=getStatusRequest();
+        this.seniority=job.getSeniority();
     }
 
 
@@ -127,6 +129,14 @@ public class JobDTO {
 
     public void setJobId(String jobId) {
         this.jobId = jobId;
+    }
+
+    public String getSeniority() {
+        return seniority;
+    }
+
+    public void setSeniority(String seniority) {
+        this.seniority = seniority;
     }
 }
 

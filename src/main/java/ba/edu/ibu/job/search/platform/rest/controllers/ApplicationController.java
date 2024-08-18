@@ -46,15 +46,20 @@ public class ApplicationController {
      * Get an application by ID
      */
     @RequestMapping(method = RequestMethod.GET, path = "/byId/{id}")
-    @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
+    //@PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
     public ResponseEntity<SubmitAppDTO> getApplicationById(@PathVariable String id) {
         return ResponseEntity.ok(applicationService.getApplicationById(id));
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/byUserId/{userId}")
-    @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN', 'MEMBER')")
+    @RequestMapping(method = RequestMethod.GET, path = "/{userId}")
+   // @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN', 'MEMBER')")
     public ResponseEntity<SubmitAppDTO> getApplicationByUserId(@PathVariable String userId) {
         return ResponseEntity.ok(applicationService.getApplicationByUserId(userId));
+    }
+
+    @GetMapping("/users/{userId}/applications")
+    public List<SubmitAppDTO> getApplicationsByUserId(@PathVariable String userId) {
+        return applicationService.getAppByUserId(userId);
     }
 
     /** Submit Application */
