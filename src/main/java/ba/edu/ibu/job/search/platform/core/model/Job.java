@@ -54,6 +54,9 @@ public class Job {
         this.seniority = seniority;
     }
 
+    public <T> Job(String someId, Company company, String somePosition, String someDescription, String someLocation, JobType fullTime, int i, List<T> asList, String s, String deadlineDate, JobStatus active) {
+    }
+
     public String getId() {
         return id;
     }

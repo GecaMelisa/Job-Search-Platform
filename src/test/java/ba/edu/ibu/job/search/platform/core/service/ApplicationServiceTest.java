@@ -15,6 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -22,38 +23,44 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureMockMvc
 @SpringBootTest
 public class ApplicationServiceTest {
-        @MockBean
-        ApplicationRepository applicationRepository;
+    @MockBean
+    ApplicationRepository applicationRepository;
 
-        @Autowired
-        ApplicationService applicationService;
-        JobService jobService;
+    @Autowired
+    ApplicationService applicationService;
+    JobService jobService;
 
 
 
     @Test
-        public void shouldReturnApplicationWhenCreated() {
+    public void shouldReturnApplicationWhenCreated() {
 
-            Application application = new Application();
-            User user = new User();
-            List<Job> jobs = Arrays.asList(new Job());
-
-
-            application.setId("applicationId");
-            application.setUser(user);
-            application.setCv("TestCV");
-            application.setApplicationDate("applicationDate");
-            application.setStatusRequest(StatusRequest.PENDING);
-            application.setJob(new Job());
-            application.setContactEmail("test@gmail.com");
+        Application application = new Application();
+        User user = new User();
+        List<Job> jobs = Arrays.asList(new Job());
 
 
+        application.setId("applicationId");
+        application.setUser(user);
+        application.setCv("TestCV");
+        application.setApplicationDate("applicationDate");
+        application.setJob(new Job());
 
         Mockito.when(applicationRepository.save(ArgumentMatchers.any(Application.class))).thenReturn(application);
 
-            // Act
-        //JobDTO savedSubmitDTO = jobService.addJob(new JobRequestDTO());
-
     }
+    @Test
+    public void shouldDeleteApplication() {
+        Application application = new Application();
+        application.setId("applicationId");
+
+        Mockito.when(applicationRepository.findById("applicationId")).thenReturn(Optional.of(application));
+        Mockito.doNothing().when(applicationRepository).delete(application);
+
+        applicationService.deleteApplication("applicationId");
+
+        Mockito.verify(applicationRepository, Mockito.times(1)).delete(application);
+    }
+
 
 }

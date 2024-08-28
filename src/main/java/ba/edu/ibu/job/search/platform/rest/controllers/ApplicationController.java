@@ -74,7 +74,7 @@ public class ApplicationController {
      * Delete an application
      */
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
-    @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
+   // @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
     public ResponseEntity<Void> deleteApplication(@PathVariable String id) {
         applicationService.deleteApplication(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
