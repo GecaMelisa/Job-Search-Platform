@@ -28,7 +28,7 @@ public class Company {
 
     public Company(String id, CompanyOwner companyOwner, String companyName, String address,
                    String phone, String email, List<Job> jobs,
-                   StatusRequest statusRequest) {
+                   StatusRequest statusRequest, String description) {
         this.id = id;
         this.companyOwner = companyOwner;
         this.companyOwnerId=companyOwner.getId();
@@ -38,6 +38,7 @@ public class Company {
         this.email = email;
         this.jobs = jobs;
         this.statusRequest = statusRequest;
+        this.description = description;
     }
 
 

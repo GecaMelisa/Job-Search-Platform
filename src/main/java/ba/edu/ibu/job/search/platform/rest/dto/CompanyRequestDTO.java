@@ -11,6 +11,8 @@ public class CompanyRequestDTO {
     private String address;
     private String phone;
     private String email;
+    private String description;
+
 
 
     /**Converting from a model to a DTO
@@ -26,6 +28,7 @@ public class CompanyRequestDTO {
         this.address = company.getAddress();
         this.phone = company.getPhone();
         this.email = company.getEmail();
+        this.description = company.getDescription();
 
     }
 
@@ -37,6 +40,7 @@ public class CompanyRequestDTO {
         company.setAddress(address);
         company.setPhone(phone);
         company.setEmail(email);
+        company.setDescription(description);
         return company;
     }
 
@@ -79,5 +83,13 @@ public class CompanyRequestDTO {
 
     public void setCompanyOwnerId(String companyOwnerId) {
         this.companyOwnerId = companyOwnerId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
 
 public class JobTest {
 
@@ -15,22 +15,23 @@ public class JobTest {
     void shouldCreateNewJob() {
         Company company = new Company();
 
-        // Kreiranje objekta Job sa tačnim konstruktorskim pozivom
+        // Create a Job object with the correct constructor call
         Job job = new Job(
-                "someId",
-                company,
-                "Some Position",
-                "Some Description",
-                "Some Location",
-                JobType.FULL_TIME,
-                2000,
-                Arrays.asList("requirement1", "requirement2"),
-                "25.01.2024.",
-                "deadlineDate",
-                JobStatus.ACTIVE,
-                "Senior"
+                "someId",                               // id
+                company,                                // company
+                "Some Position",                        // position
+                "Some Description",                     // description
+                "Some Location",                        // location
+                JobType.FULL_TIME,                      // jobType
+                2000,                                   // salary
+                Arrays.asList("requirement1", "requirement2"),  // requirements
+                "25.01.2024.",                          // postedDate
+                "deadlineDate",                         // deadline
+                JobStatus.ACTIVE,                       // jobStatus
+                "Senior"                                // seniority
         );
 
+        // Assertions to verify the Job object was created correctly
         Assertions.assertEquals("someId", job.getId());
         Assertions.assertEquals(company, job.getCompany());
         Assertions.assertEquals("Some Position", job.getPosition());
@@ -61,6 +62,7 @@ public class JobTest {
         job.setDeadline("newDeadlineDate");
         job.setSeniority("Junior");
 
+        // Assertions to verify the Job object was updated correctly
         Assertions.assertEquals("newJobId", job.getId());
         Assertions.assertEquals(company, job.getCompany());
         Assertions.assertEquals("Updated Position", job.getPosition());
@@ -78,6 +80,7 @@ public class JobTest {
     void shouldHandleEmptyJobFields() {
         Job job = new Job();
 
+        // Assertions to verify the Job object handles empty fields correctly
         Assertions.assertNull(job.getId());
         Assertions.assertNull(job.getCompany());
         Assertions.assertNull(job.getPosition());

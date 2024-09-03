@@ -19,6 +19,7 @@ public class UserDTO {
     private String address;
     private String creationDate;
     private List<SubmitAppDTO> applications;
+    private String password;
 
 
     public UserDTO(User user) {
@@ -30,6 +31,7 @@ public class UserDTO {
         this.phoneNumber = user.getPhoneNumber();
         this.address = user.getAddress();
         this.applications = new ArrayList<>();
+        this.password = user.getPassword();
     }
 
     public UserDTO() {
@@ -85,4 +87,11 @@ public class UserDTO {
         this.address = address;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

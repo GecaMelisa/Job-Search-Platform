@@ -33,12 +33,13 @@ public class CompanyRepositoryTest {
         companyRepository.deleteAll();
 
         // Create and save test data
-        CompanyOwner owner1 = new CompanyOwner(); // You should replace this with actual initialization
+        CompanyOwner owner1 = new CompanyOwner(); // Initialize owner1
         owner1.setId("owner1");
 
-        CompanyOwner owner2 = new CompanyOwner(); // You should replace this with actual initialization
+        CompanyOwner owner2 = new CompanyOwner(); // Initialize owner2
         owner2.setId("owner2");
 
+        // Initialize test companies with all required fields
         testCompany1 = new Company(
                 "1",
                 owner1,
@@ -46,8 +47,9 @@ public class CompanyRepositoryTest {
                 "Address One",
                 "123456789",
                 "email1@example.com",
-                Arrays.asList(new Job()), // You should replace this with actual initialization
-                StatusRequest.APPROVED
+                Arrays.asList(new Job()), // Assuming Job constructor or mocks
+                StatusRequest.APPROVED,
+                "Description One"
         );
 
         testCompany2 = new Company(
@@ -57,10 +59,12 @@ public class CompanyRepositoryTest {
                 "Address Two",
                 "987654321",
                 "email2@example.com",
-                Arrays.asList(new Job()), // You should replace this with actual initialization
-                StatusRequest.REJECTED
+                Arrays.asList(new Job()), // Assuming Job constructor or mocks
+                StatusRequest.REJECTED,
+                "Description Two"
         );
 
+        // Save test companies in repository
         companyRepository.save(testCompany1);
         companyRepository.save(testCompany2);
     }
@@ -68,18 +72,19 @@ public class CompanyRepositoryTest {
     @Test
     public void shouldReturnAllCompanies() {
         List<Company> companies = companyRepository.findAllCustom();
-        companies.forEach(System.out::println);
         assertEquals(2, companies.size());
     }
 
     @Test
-    public void shouldFindCompanyByEmailCustom() {
-        Optional<Company> company = companyRepository.findByEmailCustom("email1@example.com");
-        assertTrue(company.isPresent());
-        assertEquals("Company One", company.get().getCompanyName());
+    public void shouldReturnCompaniesWithPaginationAndSearch() {
+        List<Company> companies = companyRepository.findAllWithPaginationAndSearch(0, 1, "Address");
+        assertEquals(1, companies.size());
+        assertEquals("Company One", companies.get(0).getCompanyName());
     }
 
-
-
-
+    @Test
+    public void shouldCountSearchedCompanies() {
+        Long count = companyRepository.countSearchedCompanies("Address");
+        assertEquals(2, count);
+    }
 }

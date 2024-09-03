@@ -2,6 +2,7 @@ package ba.edu.ibu.job.search.platform.core.service;
 
 import ba.edu.ibu.job.search.platform.core.exceptions.repository.ResourceNotFoundException;
 import ba.edu.ibu.job.search.platform.core.model.*;
+import ba.edu.ibu.job.search.platform.core.model.enums.ApplicationResponse;
 import ba.edu.ibu.job.search.platform.core.repository.*;
 
 import ba.edu.ibu.job.search.platform.rest.dto.*;
@@ -23,6 +24,7 @@ public class ApplicationService {
 
     private UserService userService;
     private JobService jobService;
+    private EmailService emailService;
 
 
     /**
@@ -34,12 +36,14 @@ public class ApplicationService {
                               UserRepository userRepository,
                               JobRepository jobRepository,
                               UserService userService,
-                              JobService jobService) {
+                              JobService jobService,
+                              EmailService emailService) {
         this.applicationRepository = applicationRepository;
         this.userRepository = userRepository;
         this.jobRepository = jobRepository;
         this.userService = userService;
         this.jobService = jobService;
+        this.emailService = emailService;
     }
 
     /**
@@ -86,7 +90,7 @@ public class ApplicationService {
     }
 
     /**
-     * Get an application by userId2 - ne ide preko DTO
+     * Get an application by userId2 - (ne)ide preko DTO
      */
 
     public Application getApplicationById2(String id) {
@@ -138,6 +142,20 @@ public class ApplicationService {
                 .collect(toList());
     }
 
+    public Application updateResponse(String id, UpdateApplicationResponseDTO data) {
+        Optional<Application> applicationObject = applicationRepository.findById(id);
+        Application application = applicationObject.get();
+        application.setResponse(data.getResponse());
+        applicationRepository.save(application);
+        String body = "";
+        if(data.getResponse() == ApplicationResponse.ACCEPTED)
+            body = "Your job application has been accepted. Congratulations!";
+        else if(data.getResponse() == ApplicationResponse.DECLINED)
+            body = "Your job application has been declined. We are sorry :(";
+        emailService.sendEmail(data.getToEmail(), "Application response", body);
+        return application;
+    }
+
     /*
     public SubmitAppDTO getAppPoUserId(String userId) {
         List <Application> applicationOptional = applicationRepository.findByUserId(userId);
@@ -152,13 +170,6 @@ public class ApplicationService {
     }*/
 
 
-/*
 
-    private SubmitAppDTO convertToDTO(Application application) {
-        SubmitAppDTO dto = new SubmitAppDTO(application);
-        dto.setEducation(application.getEducation());
-        dto.setWorkExperience(application.getWorkExperience());
-        return dto;
-    }*/
 }
 

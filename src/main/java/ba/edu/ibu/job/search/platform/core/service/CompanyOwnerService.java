@@ -2,6 +2,7 @@ package ba.edu.ibu.job.search.platform.core.service;
 
 import ba.edu.ibu.job.search.platform.core.exceptions.repository.ResourceNotFoundException;
 import ba.edu.ibu.job.search.platform.core.model.CompanyOwner;
+import ba.edu.ibu.job.search.platform.core.model.User;
 import ba.edu.ibu.job.search.platform.core.model.enums.UserType;
 import ba.edu.ibu.job.search.platform.core.repository.CompanyOwnerRepository;
 import ba.edu.ibu.job.search.platform.core.repository.UserRepository;
@@ -56,9 +57,10 @@ public class CompanyOwnerService {
 
         CompanyOwner companyOwner = payload.toEntity();
         companyOwner.setUserType(UserType.COMPANY_OWNER);
+        User user = userRepository.save(companyOwner);
+        companyOwner.setUserId(user.getId());
         companyOwnerRepository.save(companyOwner);
 
-        userRepository.save(companyOwner);
         return new CompanyOwnerDTO(companyOwner);
     }
 

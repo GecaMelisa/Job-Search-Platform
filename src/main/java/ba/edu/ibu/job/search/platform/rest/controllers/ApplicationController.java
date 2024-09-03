@@ -80,7 +80,11 @@ public class ApplicationController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
+    @RequestMapping(method = RequestMethod.PATCH, path = "/{id}")
+    public ResponseEntity<Application> updateApplicationResponse(@PathVariable String id, @RequestBody UpdateApplicationResponseDTO data) {
+        Application updatedApplication = applicationService.updateResponse(id, data);
+        return ResponseEntity.ok(updatedApplication);
+    }
 
 }
 

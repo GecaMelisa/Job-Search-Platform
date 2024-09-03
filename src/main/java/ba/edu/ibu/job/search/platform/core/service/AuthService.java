@@ -2,11 +2,9 @@ package ba.edu.ibu.job.search.platform.core.service;
 
 import ba.edu.ibu.job.search.platform.core.exceptions.repository.ResourceNotFoundException;
 import ba.edu.ibu.job.search.platform.core.model.User;
+import ba.edu.ibu.job.search.platform.core.model.enums.UserType;
 import ba.edu.ibu.job.search.platform.core.repository.UserRepository;
-import ba.edu.ibu.job.search.platform.rest.dto.LoginDTO;
-import ba.edu.ibu.job.search.platform.rest.dto.LoginRequestDTO;
-import ba.edu.ibu.job.search.platform.rest.dto.UserDTO;
-import ba.edu.ibu.job.search.platform.rest.dto.UserRequestDTO;
+import ba.edu.ibu.job.search.platform.rest.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthService {
     private final UserRepository userRepository;
+    private CompanyOwnerService companyOwnerService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -24,15 +23,22 @@ public class AuthService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public AuthService(UserRepository userRepository) {
+    public AuthService(UserRepository userRepository, CompanyOwnerService companyOwnerService) {
         this.userRepository = userRepository;
+        this.companyOwnerService = companyOwnerService;
     }
 
     public UserDTO signUp(UserRequestDTO userRequestDTO) {
         userRequestDTO.setPassword(
                 passwordEncoder.encode(userRequestDTO.getPassword())
         );
-        User user = userRepository.save(userRequestDTO.toEntity());
+        User user = new User();
+        if (userRequestDTO.getUserType() == UserType.COMPANY_OWNER) {
+            return this.companyOwnerService.addCompanyOwner(new CompanyOwnerRequestDTO(userRequestDTO.toEntity()));
+        }
+        else {
+            user = userRepository.save(userRequestDTO.toEntity());
+        }
 
         return new UserDTO(user);
     }

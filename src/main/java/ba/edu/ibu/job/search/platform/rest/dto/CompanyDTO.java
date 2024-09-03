@@ -17,14 +17,16 @@ public class CompanyDTO {
         private String address;
         private String phone;
         private String email;
+        private String description;
 
-        public CompanyDTO(Company company){
+    public CompanyDTO(Company company){
             this.id=company.getId();
             this.companyName=company.getCompanyName();
             this.address=company.getAddress();
             this.phone=company.getPhone();
             this.email = company.getEmail();
             this.companyOwner=company.getCompanyOwner();
+            this.description=company.getDescription();
         }
 
         public String getId() {
@@ -81,5 +83,13 @@ public class CompanyDTO {
 
     public void setCompanyOwner(CompanyOwner companyOwner) {
         this.companyOwner = companyOwner;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

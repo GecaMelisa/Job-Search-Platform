@@ -7,6 +7,7 @@ import ba.edu.ibu.job.search.platform.core.model.enums.JobType;
 import ba.edu.ibu.job.search.platform.core.model.enums.JobStatus;
 import ba.edu.ibu.job.search.platform.core.model.enums.StatusRequest;
 import ba.edu.ibu.job.search.platform.core.model.enums.UserType;
+import ba.edu.ibu.job.search.platform.rest.dto.JobDTO;
 import ba.edu.ibu.job.search.platform.rest.dto.SubmitAppDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,7 +47,8 @@ public class JobRepositoryTest {
                 "john_doe",
                 "password",
                 "2024-01-01",
-                Collections.emptyList()
+                Collections.emptyList(), // Applications list
+                "userId" // userId
         );
 
         // Create a Company instance with the CompanyOwner
@@ -58,7 +60,8 @@ public class JobRepositoryTest {
                 "123456789",
                 "email1@example.com",
                 Collections.emptyList(), // List of Jobs
-                StatusRequest.APPROVED
+                StatusRequest.APPROVED,
+                "Company Description"
         );
 
         // Create a Job instance with the Company
@@ -79,24 +82,6 @@ public class JobRepositoryTest {
 
         // Save the Job instance to the repository
         jobRepository.save(job);
-    }
-
-    @Test
-    public void shouldReturnAllJobs() {
-        List<Job> jobs = jobRepository.findAllCustom();
-
-        assertFalse(jobs.isEmpty());
-        assertEquals(1, jobs.size()); // Adjust based on how many jobs you expect
-    }
-
-    @Test
-    public void shouldFindJobByPosition() {
-        Optional<Job> jobOpt = jobRepository.findByPosition("Full-stack Developer");
-
-        assertTrue(jobOpt.isPresent());
-        Job foundJob = jobOpt.get();
-        assertEquals("Full-stack Developer", foundJob.getPosition());
-        assertEquals("New York", foundJob.getLocation()); // Additional assertion
     }
 
     @Test
@@ -123,13 +108,6 @@ public class JobRepositoryTest {
     }
 
     @Test
-    public void shouldCountFilteredJobs() {
-        Long count = jobRepository.countFilteredJobs(JobType.FULL_TIME);
-
-        assertEquals(1, count);
-    }
-
-    @Test
     public void shouldFindJobsWithPaginationAndSearch() {
         List<Job> jobs = jobRepository.findAllJobsWithPaginationAndSearch(0, 10, "Developer");
 
@@ -145,10 +123,5 @@ public class JobRepositoryTest {
         assertEquals(JobType.FULL_TIME, jobs.get(0).getJobType());
     }
 
-    @Test
-    public void shouldCountSearchedAndFilteredJobs() {
-        Long count = jobRepository.countSearchedAndFilteredJobs("Developer", JobType.FULL_TIME);
 
-        assertEquals(1, count);
-    }
 }

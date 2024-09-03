@@ -3,33 +3,25 @@ package ba.edu.ibu.job.search.platform.core.service;
 import ba.edu.ibu.job.search.platform.core.model.Company;
 import ba.edu.ibu.job.search.platform.core.model.CompanyOwner;
 import ba.edu.ibu.job.search.platform.core.model.Job;
-import ba.edu.ibu.job.search.platform.core.model.User;
 import ba.edu.ibu.job.search.platform.core.model.enums.StatusRequest;
 import ba.edu.ibu.job.search.platform.core.model.enums.UserType;
 import ba.edu.ibu.job.search.platform.core.repository.CompanyRepository;
 import ba.edu.ibu.job.search.platform.core.repository.CompanyOwnerRepository;
 import ba.edu.ibu.job.search.platform.rest.dto.CompanyDTO;
-import ba.edu.ibu.job.search.platform.rest.dto.CompanyPageDTO;
 import ba.edu.ibu.job.search.platform.rest.dto.CompanyRequestDTO;
 import ba.edu.ibu.job.search.platform.core.exceptions.repository.ResourceNotFoundException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -51,8 +43,6 @@ public class CompanyServiceTest {
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.openMocks(this);
-
         companyOwner = new CompanyOwner(
                 "ownerId",
                 UserType.COMPANY_OWNER,
@@ -67,8 +57,8 @@ public class CompanyServiceTest {
                 "john_doe",
                 "password",
                 "2024-01-01",
-                Collections.emptyList()
-        );
+                Collections.emptyList(),
+                null        );
     }
 
     @Test
@@ -81,7 +71,7 @@ public class CompanyServiceTest {
         company.setPhone("Test Phone");
         company.setEmail("Test Email");
         company.setJobs(Arrays.asList(new Job()));
-        company.setEmployees(Arrays.asList(new User()));
+        company.setEmployees(Collections.emptyList());
         company.setStatusRequest(StatusRequest.APPROVED);
 
         Mockito.when(companyRepository.save(ArgumentMatchers.any(Company.class))).thenReturn(company);
@@ -129,6 +119,7 @@ public class CompanyServiceTest {
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessageContaining("The company with the given ID does not exist.");
     }
+
     @Test
     public void shouldReturnCompanyWhenFilteredByEmail() {
         Company company = new Company();
