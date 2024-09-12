@@ -62,5 +62,4 @@ public class ApplicationServiceTest {
         Mockito.verify(applicationRepository, Mockito.times(1)).delete(application);
     }
 
-
 }

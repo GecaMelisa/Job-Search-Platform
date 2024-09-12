@@ -15,6 +15,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 @RestController
@@ -52,7 +53,7 @@ public class ApplicationController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{userId}")
-   // @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN', 'MEMBER')")
+    // @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN', 'MEMBER')")
     public ResponseEntity<SubmitAppDTO> getApplicationByUserId(@PathVariable String userId) {
         return ResponseEntity.ok(applicationService.getApplicationByUserId(userId));
     }
@@ -65,7 +66,7 @@ public class ApplicationController {
     /** Submit Application */
 
     @RequestMapping(method = RequestMethod.POST, path = "/submitApp")
-    public ResponseEntity<SubmitAppDTO> submitApplication(@RequestBody SubmitAppRequestDTO application) {
+    public ResponseEntity<SubmitAppDTO> submitApplication(@ModelAttribute SubmitAppRequestDTO application) {
         return ResponseEntity.ok(applicationService.addAppToJob(application));
     }
 
@@ -74,7 +75,7 @@ public class ApplicationController {
      * Delete an application
      */
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
-   // @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
+    // @PreAuthorize("hasAuthority('COMPANY_OWNER', 'ADMIN')")
     public ResponseEntity<Void> deleteApplication(@PathVariable String id) {
         applicationService.deleteApplication(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

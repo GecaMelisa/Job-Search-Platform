@@ -21,6 +21,7 @@ public class JobDTO {
     private StatusRequest statusRequest;
     private String seniority;
     private CompanyDTO company;
+    private String companyId;
 
     public JobDTO(Job job){
 
@@ -28,6 +29,7 @@ public class JobDTO {
         if (job.getCompany() != null) {
             this.companyName = job.getCompany().getCompanyName();
             this.company = new CompanyDTO(job.getCompany());
+            this.companyId = job.getCompany().getId();
         } else {
             this.companyName = "N/A";
         }
@@ -153,6 +155,14 @@ public class JobDTO {
 
     public void setCompany(CompanyDTO company) {
         this.company = company;
+    }
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
     }
 }
 

@@ -20,16 +20,17 @@ public class Application {
     private String jobId;
     private String education;
     private String workExperience;
-    private String cv;
+    private String coverLetter;
     private String applicationDate;
     private ApplicationResponse response;
+    private String cv;
 
-    public Application(User user, Job job, String cv, String education, String workExperience, String applicationDate ) {
+    public Application(User user, Job job, String coverLetter, String education, String workExperience, String applicationDate ) {
         this.user = user;
         this.job = job;
         this.workExperience=workExperience;
         this.education=education;
-        this.cv = cv;
+        this.coverLetter = coverLetter;
         this.applicationDate = applicationDate;
         this.response = null;
     }
@@ -60,12 +61,12 @@ public class Application {
     }
 
 
-    public String getCv() {
-        return cv;
+    public String getCoverLetter() {
+        return coverLetter;
     }
 
-    public void setCv(String cv) {
-        this.cv = cv;
+    public void setCoverLetter(String coverLetter) {
+        this.coverLetter = coverLetter;
     }
 
     public String getApplicationDate() {
@@ -115,5 +116,13 @@ public class Application {
 
     public void setResponse(ApplicationResponse response) {
         this.response = response;
+    }
+
+    public String getCv() {
+        return cv;
+    }
+
+    public void setCv(String cv) {
+        this.cv = cv;
     }
 }

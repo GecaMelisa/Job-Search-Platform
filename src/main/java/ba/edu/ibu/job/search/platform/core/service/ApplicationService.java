@@ -1,13 +1,18 @@
 package ba.edu.ibu.job.search.platform.core.service;
 
+import ba.edu.ibu.job.search.platform.core.api.file.FileService;
+import ba.edu.ibu.job.search.platform.core.exceptions.GeneralException;
 import ba.edu.ibu.job.search.platform.core.exceptions.repository.ResourceNotFoundException;
 import ba.edu.ibu.job.search.platform.core.model.*;
 import ba.edu.ibu.job.search.platform.core.model.enums.ApplicationResponse;
 import ba.edu.ibu.job.search.platform.core.repository.*;
 
 import ba.edu.ibu.job.search.platform.rest.dto.*;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,6 +31,8 @@ public class ApplicationService {
     private JobService jobService;
     private EmailService emailService;
 
+    private final FileService awsFileService;
+
 
     /**
      * Dependency injection.
@@ -37,13 +44,15 @@ public class ApplicationService {
                               JobRepository jobRepository,
                               UserService userService,
                               JobService jobService,
-                              EmailService emailService) {
+                              EmailService emailService,
+                              FileService awsFileService) {
         this.applicationRepository = applicationRepository;
         this.userRepository = userRepository;
         this.jobRepository = jobRepository;
         this.userService = userService;
         this.jobService = jobService;
         this.emailService = emailService;
+        this.awsFileService = awsFileService;
     }
 
     /**
@@ -52,10 +61,10 @@ public class ApplicationService {
     public List<SubmitAppDTO> getApplications() {
         List<Application> applications = applicationRepository.findAll();
 
-
         return applications
                 .stream()
                 .map(SubmitAppDTO::new)
+                .peek(o -> o.setCv(awsFileService.getFileUrl(o.getCv())))
                 .collect(toList());
     }
 
@@ -111,6 +120,14 @@ public class ApplicationService {
             throw new ResourceNotFoundException("The job with the given ID does not exist.");
         }
 
+        // Pokušaj upload-ovati CV.
+        FileUploadResponseDTO uploadedCv;
+        try {
+            uploadedCv = awsFileService.uploadFile(application.getCv());
+        } catch (FileUploadException e) {
+            throw new GeneralException("The CV file could not be uploaded. Please try again.");
+        }
+
         // Dohvati posao
         Job job = optionalJob.get();
 
@@ -119,6 +136,7 @@ public class ApplicationService {
         // Connection with user and Job
         applicationEntity.setUser(userService.getCurrentUser());
         applicationEntity.setJob(job);
+        applicationEntity.setCv(uploadedCv.getFilePath());
 
         applicationRepository.save(applicationEntity);
 

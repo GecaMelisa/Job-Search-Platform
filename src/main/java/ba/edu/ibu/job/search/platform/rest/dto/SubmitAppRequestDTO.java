@@ -3,13 +3,15 @@ package ba.edu.ibu.job.search.platform.rest.dto;
 import ba.edu.ibu.job.search.platform.core.model.Application;
 import ba.edu.ibu.job.search.platform.core.model.Job;
 import ba.edu.ibu.job.search.platform.core.model.User;
+import org.springframework.web.multipart.MultipartFile;
 
 public class SubmitAppRequestDTO {
 
     private String jobId;
     private String education;
     private String workExperience;
-    private String cv;
+    private String coverLetter;
+    private MultipartFile cv;
 
 
     /**
@@ -26,7 +28,7 @@ public class SubmitAppRequestDTO {
         this.jobId=jobId;
         this.education = getEducation();
         this.workExperience = getWorkExperience();
-        this.cv = application.getCv();
+        this.coverLetter = application.getCoverLetter();
 
     }
 
@@ -36,7 +38,7 @@ public class SubmitAppRequestDTO {
     public Application toEntity() {
         Application application = new Application();
         application.setJobId(this.jobId);
-        application.setCv(cv);
+        application.setCoverLetter(this.coverLetter);
 
         return application;
     }
@@ -64,15 +66,21 @@ public class SubmitAppRequestDTO {
         this.workExperience = workExperience;
     }
 
-    public String getCv() {
+    public String getCoverLetter() {
+        return coverLetter;
+    }
+
+    public void setCoverLetter(String cv) {
+        this.coverLetter = cv;
+    }
+
+    public MultipartFile getCv() {
         return cv;
     }
 
-    public void setCv(String cv) {
+    public void setCv(MultipartFile cv) {
         this.cv = cv;
     }
-
-
 }
 
 
