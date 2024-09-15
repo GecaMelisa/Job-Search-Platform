@@ -32,14 +32,12 @@ public class CompanyRepositoryTest {
         // Clear the repository before each test
         companyRepository.deleteAll();
 
-        // Create and save test data
-        CompanyOwner owner1 = new CompanyOwner(); // Initialize owner1
+        CompanyOwner owner1 = new CompanyOwner();
         owner1.setId("owner1");
 
-        CompanyOwner owner2 = new CompanyOwner(); // Initialize owner2
+        CompanyOwner owner2 = new CompanyOwner();
         owner2.setId("owner2");
 
-        // Initialize test companies with all required fields
         testCompany1 = new Company(
                 "1",
                 owner1,

@@ -24,7 +24,7 @@ import java.util.Optional;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-class UserServiceTest {
+class sUserServiceTest {
 
     @MockBean
     private UserRepository userRepository;

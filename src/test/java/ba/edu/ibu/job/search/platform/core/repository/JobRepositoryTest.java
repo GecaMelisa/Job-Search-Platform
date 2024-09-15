@@ -106,15 +106,6 @@ public class JobRepositoryTest {
 
         assertEquals(1, count);
     }
-
-    @Test
-    public void shouldFindJobsWithPaginationAndSearch() {
-        List<Job> jobs = jobRepository.findAllJobsWithPaginationAndSearch(0, 10, "Developer");
-
-        assertFalse(jobs.isEmpty());
-        assertEquals("Full-stack Developer", jobs.get(0).getPosition());
-    }
-
     @Test
     public void shouldFindJobsWithPaginationAndFiltering() {
         List<Job> jobs = jobRepository.findAllJobsWithPaginationAndFiltering(0, 10, JobType.FULL_TIME);

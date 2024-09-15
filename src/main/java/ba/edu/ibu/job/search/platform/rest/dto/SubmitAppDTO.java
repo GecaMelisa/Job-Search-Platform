@@ -26,6 +26,7 @@ public class SubmitAppDTO {
         this.user = new UserDTO(application.getUser());
         this.job = new JobDTO(application.getJob());
         this.education=application.getEducation();
+        this.workExperience=application.getWorkExperience();
         this.cv = application.getCv();
         this.applicationDate = application.getApplicationDate();
         this.response = application.getResponse();

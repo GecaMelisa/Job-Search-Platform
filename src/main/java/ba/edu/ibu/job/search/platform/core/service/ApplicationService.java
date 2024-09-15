@@ -137,6 +137,8 @@ public class ApplicationService {
         applicationEntity.setUser(userService.getCurrentUser());
         applicationEntity.setJob(job);
         applicationEntity.setCv(uploadedCv.getFilePath());
+        applicationEntity.setEducation(application.getEducation());
+        applicationEntity.setWorkExperience(application.getWorkExperience());
 
         applicationRepository.save(applicationEntity);
 

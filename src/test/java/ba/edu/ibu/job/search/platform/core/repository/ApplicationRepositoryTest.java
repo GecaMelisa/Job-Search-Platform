@@ -44,7 +44,7 @@ public class ApplicationRepositoryTest {
 
     @AfterEach
     public void tearDown() {
-        applicationRepository.deleteAll(); // Očisti sve aplikacije nakon svakog testa
+        applicationRepository.deleteAll();
     }
 
     @Test

@@ -25,7 +25,7 @@ public class Application {
     private ApplicationResponse response;
     private String cv;
 
-    public Application(User user, Job job, String coverLetter, String education, String workExperience, String applicationDate ) {
+    public Application(User user, Job job, String coverLetter, String education, String workExperience, String applicationDate) {
         this.user = user;
         this.job = job;
         this.workExperience=workExperience;

@@ -17,18 +17,18 @@ public class JobTest {
 
         // Create a Job object with the correct constructor call
         Job job = new Job(
-                "someId",                               // id
-                company,                                // company
-                "Some Position",                        // position
-                "Some Description",                     // description
-                "Some Location",                        // location
-                JobType.FULL_TIME,                      // jobType
-                2000,                                   // salary
-                Arrays.asList("requirement1", "requirement2"),  // requirements
-                "25.01.2024.",                          // postedDate
-                "deadlineDate",                         // deadline
-                JobStatus.ACTIVE,                       // jobStatus
-                "Senior"                                // seniority
+                "someId",
+                company,
+                "Some Position",
+                "Some Description",
+                "Some Location",
+                JobType.FULL_TIME,
+                2000,
+                Arrays.asList("requirement1", "requirement2"),
+                "25.01.2024.",
+                "deadlineDate",
+                JobStatus.ACTIVE,
+                "Senior"
         );
 
         // Assertions to verify the Job object was created correctly
