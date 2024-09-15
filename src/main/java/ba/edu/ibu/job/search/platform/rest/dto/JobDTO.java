@@ -20,12 +20,16 @@ public class JobDTO {
     private String deadline;
     private StatusRequest statusRequest;
     private String seniority;
+    private CompanyDTO company;
+    private String companyId;
 
     public JobDTO(Job job){
 
        // this.company=new CompanyDTO(job.getCompany());
         if (job.getCompany() != null) {
             this.companyName = job.getCompany().getCompanyName();
+            this.company = new CompanyDTO(job.getCompany());
+            this.companyId = job.getCompany().getId();
         } else {
             this.companyName = "N/A";
         }
@@ -35,7 +39,13 @@ public class JobDTO {
         this.location = job.getLocation();
         this.jobType = job.getJobType();
         this.salary=job.getSalary();
-        this.requirements = new ArrayList<>(job.getRequirements());
+//        this.requirements = new ArrayList<>(job.getRequirements());
+        List<String> requirements = job.getRequirements();
+        if (requirements != null) {
+            this.requirements = new ArrayList<>(requirements);
+        } else {
+            this.requirements = new ArrayList<>(); // Initialize as an empty list
+        }
         this.postedDate=job.getPostedDate();
         this.deadline=job.getDeadline();
         this.statusRequest=getStatusRequest();
@@ -137,6 +147,22 @@ public class JobDTO {
 
     public void setSeniority(String seniority) {
         this.seniority = seniority;
+    }
+
+    public CompanyDTO getCompany() {
+        return company;
+    }
+
+    public void setCompany(CompanyDTO company) {
+        this.company = company;
+    }
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
     }
 }
 

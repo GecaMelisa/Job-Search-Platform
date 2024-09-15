@@ -175,10 +175,15 @@ public class JobService {
     }
 
     /**
-     * Get job by company
+     * Get jobs by company ID
      */
-    public List<Job> getJobsByCompany(String companyId) {
-        return jobRepository.findByCompanyId(companyId);
+    public List<JobDTO> getJobsByCompanyId(String companyId) {
+        // Fetch jobs from repository using companyId
+        List<Job> jobs = jobRepository.findAll();
+
+        return jobs.stream()
+                .map(JobDTO::new).filter(job -> job.getCompanyId() != null && job.getCompanyId().equals(companyId))
+                .collect(Collectors.toList());
     }
 
     /**

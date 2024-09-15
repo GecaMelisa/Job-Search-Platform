@@ -4,13 +4,19 @@ import ba.edu.ibu.job.search.platform.core.model.Application;
 import ba.edu.ibu.job.search.platform.core.model.User;
 import ba.edu.ibu.job.search.platform.core.model.enums.UserType;
 import ba.edu.ibu.job.search.platform.core.repository.UserRepository;
+import ba.edu.ibu.job.search.platform.core.exceptions.repository.ResourceNotFoundException;
+import ba.edu.ibu.job.search.platform.rest.dto.UserDTO;
+import ba.edu.ibu.job.search.platform.rest.dto.UserRequestDTO;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +24,33 @@ import java.util.Optional;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-
-class UserServiceTest {
+class sUserServiceTest {
 
     @MockBean
     private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
+
+    private User user;
+
+    @BeforeEach
+    void setUp() {
+        user = new User();
+        user.setId("someMongoId");
+        user.setFirstName("name1");
+        user.setLastName("lastname");
+        user.setEmail("test@gmail.com");
+        user.setDateOfBirth("22.11.2002");
+        user.setAddress("Sarajevo");
+        user.setUserType(UserType.ADMIN);
+        user.setEducation("IBU");
+        user.setWorkExperience("YES");
+        user.setPhoneNumber("061-555-111");
+        user.setUsername("testUsername");
+        user.setPassword("pass22");
+        user.setApplications(new ArrayList<>());
+    }
 
     @Test
     void ShouldReturnAllUsers() {
@@ -53,31 +78,64 @@ class UserServiceTest {
 
     }
 
-    /*
+
     @Test
-    void shouldReturnUserById() {
-        User user = new User();
-        List<Application> applications = new ArrayList<>();
+    void shouldThrowExceptionWhenUserNotFoundById() {
+        Mockito.when(userRepository.findById("someMongoId")).thenReturn(Optional.empty());
 
-        user.setId("someMongoId");
-        user.setFirstName("name1");
-        user.setLastName("lastname");
-        user.setEmail("tes-/gmail.com");
-        user.setDateOfBirth("22.11.2002");
-        user.setAddress("Sarajevo");
-        user.setUserType(UserType.ADMIN);
-        user.setEducation("IBU");
-        user.setWorkExperience("YES");
-        user.setPhoneNumber("061-555-111");
-        user.setUsername("testUsername");
-        user.setPassword("pass22");
-        user.setApplications(applications);
+        Assertions.assertThatThrownBy(() -> userService.getUserById("someMongoId"))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessageContaining("The user with the given ID does not exist.");
+    }
 
+    @Test
+    void shouldReturnUserByEmail() {
+        Mockito.when(userRepository.findByEmailCustom("test@gmail.com")).thenReturn(Optional.of(user));
+
+        User foundUser = userService.getUserByEmail("test@gmail.com");
+
+        Assertions.assertThat(foundUser.getEmail()).isEqualTo("test@gmail.com");
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUserNotFoundByEmail() {
+        Mockito.when(userRepository.findByEmailCustom("test@gmail.com")).thenReturn(Optional.empty());
+
+        Assertions.assertThatThrownBy(() -> userService.getUserByEmail("test@gmail.com"))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessageContaining("The user with the given ID does not exist.");
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUpdatingNonExistentUser() {
+        UserRequestDTO userRequestDTO = new UserRequestDTO();
+        userRequestDTO.setFirstName("updatedName");
+
+        Mockito.when(userRepository.findById("someMongoId")).thenReturn(Optional.empty());
+
+        Assertions.assertThatThrownBy(() -> userService.updateUser("someMongoId", userRequestDTO))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessageContaining("The user with the given ID does not exist.");
+    }
+
+    @Test
+    void shouldDeleteUser() {
         Mockito.when(userRepository.findById("someMongoId")).thenReturn(Optional.of(user));
 
+        userService.deleteUser("someMongoId");
 
-        User foundUser = userRepository.getUserById("someMongoId");
-        Assertions.assertThat(foundUser.getFirstName()).isEqualTo("name1");
+        Mockito.verify(userRepository).delete(user);
     }
-*/
+
+    @Test
+    void shouldReturnUserByUsername() {
+        Mockito.when(userRepository.findByUsername("testUsername")).thenReturn(user);
+
+        User foundUser = userService.getUserByUsername("testUsername");
+
+        Assertions.assertThat(foundUser.getUsername()).isEqualTo("testUsername");
+    }
+
+
+
 }

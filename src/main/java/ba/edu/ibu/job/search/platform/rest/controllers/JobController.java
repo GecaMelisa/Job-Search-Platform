@@ -66,10 +66,10 @@ public class JobController {
      }
 
     /** Get Jobs by CompanyId */
-    @GetMapping("/byCompany/{companyId}")
-    public ResponseEntity<List<Job>> getJobsByCompany(@PathVariable String companyId) {
-        List<Job> jobs = jobService.getJobsByCompany(companyId);
-        return new ResponseEntity<>(jobs, HttpStatus.OK);
+    @GetMapping("/company/{companyId}")
+    public ResponseEntity<List<JobDTO>> getJobsByCompanyId(@PathVariable String companyId) {
+        List<JobDTO> jobs = jobService.getJobsByCompanyId(companyId);
+        return ResponseEntity.ok(jobs);
     }
 
     /**PAGINATION*/

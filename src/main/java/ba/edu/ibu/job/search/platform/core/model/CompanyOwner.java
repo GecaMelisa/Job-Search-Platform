@@ -13,6 +13,7 @@ import java.util.List;
 
 @Document
 public class CompanyOwner extends User {
+        private String userId;
 
         private List<JobDTO> jobs;
 
@@ -20,8 +21,9 @@ public class CompanyOwner extends User {
 
         public CompanyOwner(){};
 
-        public CompanyOwner(String id, UserType userType, String firstName, String lastName, String dateOfBirth, String email, String phoneNumber, String address, String education, String workExperience, String username, String password, String creationDate, List<Application> applications) {
+        public CompanyOwner(String id, UserType userType, String firstName, String lastName, String dateOfBirth, String email, String phoneNumber, String address, String education, String workExperience, String username, String password, String creationDate, List<Application> applications, String userId) {
             super(id, userType, firstName, lastName, dateOfBirth, email, phoneNumber, address, education, workExperience, username, password, creationDate, applications);
+            this.userId = userId;
         }
 
     public List<JobDTO> getJobs() {
@@ -40,7 +42,13 @@ public class CompanyOwner extends User {
             this.submittedApplications = submittedApplications;
         }
 
+    public String getUserId() {
+        return userId;
+    }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }
 
 

@@ -1,5 +1,6 @@
 package ba.edu.ibu.job.search.platform.core.model;
 
+import ba.edu.ibu.job.search.platform.core.model.enums.ApplicationResponse;
 import ba.edu.ibu.job.search.platform.core.model.enums.StatusRequest;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -19,16 +20,19 @@ public class Application {
     private String jobId;
     private String education;
     private String workExperience;
-    private String cv;
+    private String coverLetter;
     private String applicationDate;
+    private ApplicationResponse response;
+    private String cv;
 
-    public Application(User user, Job job, String cv, String education, String workExperience, String applicationDate ) {
+    public Application(User user, Job job, String coverLetter, String education, String workExperience, String applicationDate) {
         this.user = user;
         this.job = job;
         this.workExperience=workExperience;
         this.education=education;
-        this.cv = cv;
+        this.coverLetter = coverLetter;
         this.applicationDate = applicationDate;
+        this.response = null;
     }
     public Application(){};
 
@@ -57,12 +61,12 @@ public class Application {
     }
 
 
-    public String getCv() {
-        return cv;
+    public String getCoverLetter() {
+        return coverLetter;
     }
 
-    public void setCv(String cv) {
-        this.cv = cv;
+    public void setCoverLetter(String coverLetter) {
+        this.coverLetter = coverLetter;
     }
 
     public String getApplicationDate() {
@@ -104,5 +108,21 @@ public class Application {
 
     public void setWorkExperience(String workExperience) {
         this.workExperience = workExperience;
+    }
+
+    public ApplicationResponse getResponse() {
+        return response;
+    }
+
+    public void setResponse(ApplicationResponse response) {
+        this.response = response;
+    }
+
+    public String getCv() {
+        return cv;
+    }
+
+    public void setCv(String cv) {
+        this.cv = cv;
     }
 }
